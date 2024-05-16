@@ -7,4 +7,4 @@
 @tailwind components;
 @tailwind utilities;
 
-@laeyr reset, primeng
+@layer reset, primeng;
