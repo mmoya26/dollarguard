@@ -4,7 +4,7 @@
 
 ::ng-deep .expense-input input {
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius-input);
 }
 
 ::ng-deep .expense-form .inputgroup-input {

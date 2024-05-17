@@ -11,7 +11,7 @@
 
 :root {
     --border-color: #e5e7eb;
-    --border-radius: 8px;
+    --border-radius-input: 8px;
 }
 
 * {
