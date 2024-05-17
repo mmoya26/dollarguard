@@ -1,0 +1,28 @@
+/* ::ng-deep .expense-input {
+    display: inline-block;
+} */
+
+::ng-deep .expense-input input {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+::ng-deep .expense-form .inputgroup-input {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+}
+
+::ng-deep .expense-form .p-inputtext.normal-input, ::ng-deep .expense-form .normal-input >  span > input.p-inputtext {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+}
+
+
+::ng-deep .expense-form .inputgroup-container > div {
+    display: flex;
+    flex-direction: column;
+}

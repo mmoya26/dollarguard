@@ -1,0 +1,54 @@
+<div class="expense-form flex flex-col gap-4">
+
+    <h2 class="text-xl text-slate-900 my-0 font-normal">Add a new expense</h2>
+
+    <div class="flex flex-col gap-3">
+        <p-inputGroup class="inputgroup-container">
+            <label for="category" class="mb-2 text-slate-900">Category</label>
+            <div class="flex">
+                <p-inputGroupAddon class="border-gray-200">
+                    <i class="pi pi-list"></i>
+                </p-inputGroupAddon>
+                <p-dropdown id="category" [options]="categories" placeholder="Select a category" styleClass="inputgroup-input"/>
+            </div>
+        </p-inputGroup>
+    
+        <div class="flex gap-3">
+            <div>
+                <p-inputGroup class="inputgroup-container">
+                    <label for="amount" class="mb-2 text-slate-900">Amount</label>
+                    <div class="flex">
+                        <p-inputGroupAddon class="border-gray-200">
+                            <i class="pi pi-dollar"></i>
+                        </p-inputGroupAddon>
+                        <input pInputText id="amount" placeholder="Amount" class="normal-input" />
+                    </div>
+                </p-inputGroup>
+            </div>
+            <div>
+                <p-inputGroup class="inputgroup-container">
+                    <label for="date" class="mb-2 text-slate-900">Date</label>
+                    <div class="flex">
+                        <p-inputGroupAddon class="border-gray-200">
+                            <i class="pi pi-calendar"></i>
+                        </p-inputGroupAddon>
+                        <p-calendar class="normal-input" id="date" placeholder="Date" />
+                    </div>
+                </p-inputGroup>
+            </div>
+        </div>
+
+        <p-inputGroup class="inputgroup-container">
+            <label for="notes" class="mb-2 text-slate-900">Notes</label>
+            <div class="flex">
+                <p-inputGroupAddon class="border-gray-200">
+                    <i class="pi pi-comments"></i>
+                </p-inputGroupAddon>
+                <input pInputText id="notes" placeholder="Notes" class="normal-input" />
+            </div>
+        </p-inputGroup>
+    </div>
+
+    <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-lg px-5 py-2 font-bold ml-auto cursor-pointer" (click)="handleSubmit()">Submit</button>
+    
+</div>
