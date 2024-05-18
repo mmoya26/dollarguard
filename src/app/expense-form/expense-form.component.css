@@ -1,7 +1,3 @@
-/* ::ng-deep .expense-input {
-    display: inline-block;
-} */
-
 ::ng-deep .expense-input input {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-input);
@@ -36,6 +32,10 @@
 ::ng-deep .expense-form .inputgroup-container > div {
     display: flex;
     flex-direction: column;
+}
+
+::ng-deep .expense-form p-calendar > span {
+    height: 100%;
 }
 
 ::ng-deep .expense-form .p-inputtext:enabled:focus, ::ng-deep .expense-form .p-component.p-dropdown {

@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeicons/primeicons.css";
-@import "primeng/resources/primeng.css";
+
+
 
 @tailwind components;
 @tailwind utilities;
+@tailwind base;
 
 @layer reset, primeng;
 
@@ -16,6 +17,7 @@
 
 * {
     font-family: "Inter", sans-serif;
+    box-sizing: border-box;
 }
 
 body {
