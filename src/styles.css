@@ -23,3 +23,7 @@
 body {
     background-color: #FBFBFB;
 }
+
+*:focus-visible {
+    outline: 0;
+}
