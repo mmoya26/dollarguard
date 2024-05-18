@@ -11,18 +11,33 @@
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: 1px solid #e5e7eb;
+    border-left-width: 0;
     width: 100%;
+    background-color: white;
+}
+
+::ng-deep .expense-form .inputgroup-input > span {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 ::ng-deep .expense-form .p-inputtext.normal-input, ::ng-deep .expense-form .normal-input >  span > input.p-inputtext {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: 1px solid #e5e7eb;
+    border-left-width: 0;
     width: 100%;
+    background-color: white;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
 ::ng-deep .expense-form .inputgroup-container > div {
     display: flex;
     flex-direction: column;
+}
+
+::ng-deep .expense-form .p-inputtext:enabled:focus, ::ng-deep .expense-form .p-component.p-dropdown {
+    box-shadow: none;
 }
