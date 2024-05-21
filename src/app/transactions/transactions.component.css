@@ -1,0 +1,20 @@
+table thead tr th {
+    @apply bg-gray-100;
+}
+
+table thead tr th:first-child {
+    border-top-left-radius: 8px;
+}
+
+table thead tr th:last-child {
+    border-top-left-radius: 8px;
+}
+
+table tbody tr td {
+    @apply border-b border-b-gray-200;
+}
+
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
