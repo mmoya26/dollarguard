@@ -8,3 +8,7 @@ Personal project to learn Angular and everything involded with it.
 - Add character count to notes text input field
 - Remove outline from date field when clicking away
 - Add pKeyFilter directive to amount field
+
+
+## Todo in general
+- Figure out how the month selection functionality is going to look like

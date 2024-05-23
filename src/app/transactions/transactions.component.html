@@ -1,14 +1,14 @@
 <div class="mt-14">
     <h2 class="text-xl text-slate-900 font-medium">Transactions</h2>
 
-    <div class="mt-5 max-h-96 overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">
+    <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">
         <table class="w-full border-separate border-spacing-0 bg-white">
             <thead class="bg-transparent rounded-lg">
                 <tr class="border-none text-slate-600 ">
                     <th class="py-5">#</th>
                     <th>Amount</th>
                     <th>Date</th>
-                    <th>Category</th>
+                    <th class="w-1/4">Category</th>
                     <th class="text-transparent">Missing</th>
                 </tr>
             </thead>
@@ -37,7 +37,7 @@
                         <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
                     </td>
                 </tr>
-    
+
                 <tr class="text-center text-slate-700 text-base">
                     <td class="py-7">10</td>
                     <td>$123.98</td>
@@ -48,6 +48,40 @@
                     <td>
                         <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
                     </td>
+                    <tr class="text-center text-slate-700 text-base">
+                        <td class="py-7">10</td>
+                        <td>$123.98</td>
+                        <td>5/10/2024</td>
+                        <td>
+                            <div class="w-fit mx-auto px-3 py-2 rounded-full border border-slate-600 text-slate-600">Miscellaneous</div>                    
+                        </td>
+                        <td>
+                            <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
+                        </td>
+                    </tr>
+        
+                    <tr class="text-center text-slate-700 text-base">
+                        <td class="py-7">10</td>
+                        <td>$123.98</td>
+                        <td>5/10/2024</td>
+                        <td>
+                            <div class="w-fit mx-auto px-3 py-2 rounded-full border border-amber-600 text-amber-600">Groceries</div>                    
+                        </td>
+                        <td>
+                            <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
+                        </td>
+                    </tr>
+    
+                    <tr class="text-center text-slate-700 text-base">
+                        <td class="py-7">10</td>
+                        <td>$123.98</td>
+                        <td>5/10/2024</td>
+                        <td>
+                            <div class="w-fit mx-auto px-3 py-2 rounded-full border border-indigo-600 text-indigo-600">Phone Bill</div>                    
+                        </td>
+                        <td>
+                            <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
+                        </td>
                 </tr>
             </tbody>
         </table>
