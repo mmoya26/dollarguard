@@ -9,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class TransactionsComponent {
 
+  editTransaction() {
+    alert('Edit icon was clicked!');
+  }
 }
