@@ -21,7 +21,7 @@
                         <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                             <i class="pi pi-dollar"></i>
                         </p-inputGroupAddon>
-                        <input pInputText id="amount" placeholder="Amount" class="normal-input" />
+                        <input pInputText (paste)="(false)" id="amount" placeholder="Amount" class="normal-input" [pKeyFilter]="blockSpaceAndOnlyAllowNumbers" />
                     </div>
                 </p-inputGroup>
             </div>
