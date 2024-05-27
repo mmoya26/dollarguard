@@ -41,3 +41,7 @@
 ::ng-deep .expense-form .p-inputtext:enabled:focus, ::ng-deep .expense-form .p-component.p-dropdown {
     box-shadow: none;
 }
+
+::ng-deep .expense-form .p-datepicker-title {
+    @apply flex gap-2
+}
