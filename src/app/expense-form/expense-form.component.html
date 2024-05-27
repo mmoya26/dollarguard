@@ -1,4 +1,4 @@
-<form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit()">
+<form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit($event)">
 
     {{this.expenseForm.value | json}}
 

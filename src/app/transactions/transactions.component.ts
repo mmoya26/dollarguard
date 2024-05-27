@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Transaction } from '../interfaces/transaction';
 
 @Component({
   selector: 'transactions',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './transactions.component.css'
 })
 export class TransactionsComponent {
+  @Input({required: true}) transactions!: Transaction[]
 
   editTransaction() {
     alert('Edit icon was clicked!');

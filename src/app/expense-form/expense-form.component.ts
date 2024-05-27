@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -8,6 +8,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import {FormBuilder,  FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule, formatDate } from '@angular/common';
+import { Transaction } from '../interfaces/transaction';
 
 @Component({
   selector: 'expense-form',
@@ -17,6 +18,10 @@ import { CommonModule, formatDate } from '@angular/common';
   styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent {
+
+  // Create output property to emmit an event of type transaction whenever the form gets submitted
+  @Output('expenseSubmitted') submit = new EventEmitter<Transaction>();
+
   categories = ["Miscellaneous", "Gas", "Groceries", "Phone Bill", "Utilities"];
   
   blockSpaceAndOnlyAllowNumbers : RegExp = /^\d*\.?\d*$/;
@@ -26,7 +31,7 @@ export class ExpenseFormComponent {
     amount: ['',  Validators.required],
     date: ['',  Validators.required],
     note: ['']
-  })
+  });
 
   get category() {
     return this.expenseForm.get('category');
@@ -40,9 +45,13 @@ export class ExpenseFormComponent {
     return this.expenseForm.get('date');
   }
 
-  onSubmit() {
+  onSubmit($event: SubmitEvent) {
+    $event.preventDefault();
+    
     if (!this.expenseForm.invalid) {
-      console.log("form is valid!!");
+      // Emit submit event when the form is valid with the current value of all Form Controls
+      // from our form casted to be a Transaction
+      this.submit.emit(<Transaction>this.expenseForm.value)
     } else {
       console.log("Form is invalid");
       this.expenseForm.markAllAsTouched();
