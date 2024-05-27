@@ -1,6 +1,6 @@
-<form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4 max-w-[592px]" (ngSubmit)="onSubmit()">
+<form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
-    <!-- {{this.expenseForm.value | json}} -->
+    {{this.expenseForm.value | json}}
 
     <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
 
