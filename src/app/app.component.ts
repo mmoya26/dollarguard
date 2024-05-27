@@ -35,8 +35,14 @@ export class AppComponent {
   ];
 
   handleSubmit(transaction: Transaction) {
-    let newTransaction = transaction;
+    // Temporary solution for the ids
+
+    // Create a new transaction object based on the properties of the passed transaction object
+    // instead of using the reference directly passed
+    let newTransaction: Transaction = {...transaction};
     newTransaction.id = String(this.listOfTransactions.length + 1);
+
+    console.log("Transaction: ", newTransaction);
     this.listOfTransactions.push(newTransaction);
   }
 }

@@ -27,6 +27,7 @@ export class ExpenseFormComponent {
   blockSpaceAndOnlyAllowNumbers : RegExp = /^\d*\.?\d*$/;
 
   expenseForm = this.formBuilder.group({
+    id: '',
     category: ['', Validators.required],
     amount: ['',  Validators.required],
     date: ['',  Validators.required],
@@ -45,17 +46,20 @@ export class ExpenseFormComponent {
     return this.expenseForm.get('date');
   }
 
-  onSubmit($event: SubmitEvent) {
-    $event.preventDefault();
-    
+  onSubmit() {    
     if (!this.expenseForm.invalid) {
       // Emit submit event when the form is valid with the current value of all Form Controls
       // from our form casted to be a Transaction
-      this.submit.emit(<Transaction>this.expenseForm.value)
+      this.submit.emit(<Transaction>this.expenseForm.value);
+      this.clear();
     } else {
       console.log("Form is invalid");
       this.expenseForm.markAllAsTouched();
     }
+  }
+
+  clear() {
+    this.expenseForm.reset();
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control
