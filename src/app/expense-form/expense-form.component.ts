@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -9,6 +9,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import {FormBuilder,  FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule, formatDate } from '@angular/common';
 import { Transaction } from '../interfaces/transaction';
+import { Category } from '../interfaces/category';
 
 @Component({
   selector: 'expense-form',
@@ -22,7 +23,9 @@ export class ExpenseFormComponent {
   // Create output property to emmit an event of type transaction whenever the form gets submitted
   @Output('expenseSubmitted') submit = new EventEmitter<Transaction>();
 
-  categories = ["Miscellaneous", "Gas", "Groceries", "Phone Bill", "Utilities"];
+  // categories = ["Miscellaneous", "Gas", "Groceries", "Phone Bill", "Utilities"];
+
+  @Input({required: true}) categories!: Category[];
   
   blockSpaceAndOnlyAllowNumbers : RegExp = /^\d*\.?\d*$/;
 
