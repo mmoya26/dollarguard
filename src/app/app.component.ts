@@ -21,32 +21,53 @@ export class AppComponent {
   listOfTransactions: Transaction[] = [
     {
       id: "1",
-      amount: "123.98",
+      amount: "100",
       date: "5/27/2024",
       category: 'Gas',
       note: "Test Notes"
     },
     {
       id: "2",
-      amount: "80.99",
+      amount: "50",
       date: "5/27/2024",
       category: 'Phone Bill',
       note: "Test Notes"
     },
     {
       id: "3",
-      amount: "10.99",
+      amount: "50",
       date: "6/2/2024",
       category: 'Utilities',
       note: "Test Notes"
     },
-    {
-      id: "4",
-      amount: "120.99",
-      date: "6/2/2024",
-      category: 'Groceries',
-      note: "Test Notes"
-    },
+    // {
+    //   id: "4",
+    //   amount: "100",
+    //   date: "6/2/2024",
+    //   category: 'Utilities',
+    //   note: "Test Notes"
+    // },
+    // {
+    //   id: "4",
+    //   amount: "120",
+    //   date: "6/2/2024",
+    //   category: 'Groceries',
+    //   note: "Test Notes"
+    // },
+    // {
+    //   id: "5",
+    //   amount: "120",
+    //   date: "6/2/2024",
+    //   category: 'Groceries',
+    //   note: "Test Notes"
+    // },
+    // {
+    //   id: "6",
+    //   amount: "50",
+    //   date: "5/27/2024",
+    //   category: 'Gas',
+    //   note: "Test Notes"
+    // },
   ];
 
   handleSubmit(transaction: Transaction) {

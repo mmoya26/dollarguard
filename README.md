@@ -14,3 +14,4 @@ Personal project to learn Angular and everything involded with it.
 - Design how transactions and percentage overview sections will look when there are 0 transactions
 - Add helper function to determine color of the category in the transactions table
 - Genarate unique ids for transactions in table
+- Verify if there is only one ActiveCategory and add border-radius to both left and right side of of bar for percentages overview
