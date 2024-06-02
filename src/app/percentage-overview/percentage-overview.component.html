@@ -11,12 +11,28 @@
     </div>
 
     <div class="mt-5 flex gap-[2px]">
-        <div class="flex flex-col items-center w-[50%] gap-1">
-            <div class="h-2 w-full bg-amber-600  rounded-l-lg"></div>
-            <span class="text-neutral-500 text-sm">50%</span>
-        </div>
 
-        <div class="flex flex-col items-center w-[30%] gap-1">
+        @for (transaction of transactions; track transaction.id; let idx = $index) {
+            @if(idx === 0) {
+                <div [style]="'width: 50%;'" class="flex flex-col items-center  gap-1">
+                    <div class="h-2 w-full bg-amber-600  rounded-l-lg"></div>
+                    <span class="text-neutral-500 text-sm">50%</span>
+                </div>
+            } @else if (idx === transactions.length - 1) {
+                <div [style]="'width: 50%'" class="flex flex-col items-center gap-1">
+                    <div [style]="'background-color: ' + getCategoryColor(transaction.category)" class="h-2 w-full rounded-r-lg"></div>
+                    <span class="text-neutral-500 text-sm">5%</span>
+                </div>
+            } @else {
+                <div [style]="'width: 50%;'" class="flex flex-col items-center gap-1">
+                    <div [style]="'background-color: ' + getCategoryColor(transaction.category)" class="h-2 w-full"></div>
+                    <span class="text-neutral-500 text-sm">5%</span>
+                </div>
+            }
+        }
+        
+
+        <!-- <div class="flex flex-col items-center w-[30%] gap-1">
             <div class="h-2 w-full bg-red-600"></div>
             <span class="text-neutral-500 text-sm">30%</span>
         </div>
@@ -39,6 +55,6 @@
         <div class="flex flex-col items-center w-[5%] gap-1">
             <div class="h-2 w-full bg-amber-300 rounded-r-lg"></div>
             <span class="text-neutral-500 text-sm">5%</span>
-        </div>
+        </div> -->
     </div>
 </div>
