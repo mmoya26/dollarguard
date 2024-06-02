@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -10,6 +10,7 @@ import {FormBuilder,  FormsModule, ReactiveFormsModule, Validators} from '@angul
 import { CommonModule, formatDate } from '@angular/common';
 import { Transaction } from '../interfaces/transaction';
 import { Category } from '../interfaces/category';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'expense-form',
@@ -18,14 +19,12 @@ import { Category } from '../interfaces/category';
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
-export class ExpenseFormComponent {
+export class ExpenseFormComponent implements OnInit {
 
   // Create output property to emmit an event of type transaction whenever the form gets submitted
   @Output('expenseSubmitted') submit = new EventEmitter<Transaction>();
 
-  // categories = ["Miscellaneous", "Gas", "Groceries", "Phone Bill", "Utilities"];
-
-  @Input({required: true}) categories!: Category[];
+  categories: Category[] = [];
   
   blockSpaceAndOnlyAllowNumbers : RegExp = /^\d*\.?\d*$/;
 
@@ -36,6 +35,10 @@ export class ExpenseFormComponent {
     date: ['',  Validators.required],
     note: ['']
   });
+
+  ngOnInit(): void {
+    this.categories = this.categoryService.categories;
+  }
 
   get category() {
     return this.expenseForm.get('category');
@@ -70,5 +73,5 @@ export class ExpenseFormComponent {
     this.expenseForm.controls['date'].setValue(date.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric', }));
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) {}
 }

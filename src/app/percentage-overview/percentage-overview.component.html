@@ -2,35 +2,12 @@
     <h2 class="text-xl text-slate-900 font-medium">Percentage Overview</h2>
 
     <div class="mt-5 flex gap-8">
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-amber-600 rounded-full"></div>
-            <p class="text-slate-600 text-s">Groceries</p>
-        </div>
-
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-red-600 rounded-full"></div>
-            <p class="text-slate-600 text-s">Gas</p>
-        </div>
-
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-cyan-600 rounded-full"></div>
-            <p class="text-slate-600 text-s">Utilities</p>
-        </div>
-
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-slate-600 rounded-full"></div>
-            <p class="text-slate-600 text-s">Miscellaneous</p>
-        </div>
-
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-indigo-600 rounded-full"></div>
-            <p class="text-slate-600 text-s">Phone Bill</p>
-        </div>
-
-        <div class="flex gap-2 items-center">
-            <div class="w-3 h-3 bg-amber-300 rounded-full"></div>
-            <p class="text-slate-600 text-s">Another Category</p>
-        </div>
+        @for (transaction of transactions; track transaction.id) {
+            <div class="flex gap-2 items-center">
+                <div [style]="'background-color: ' + getCategoryColor(transaction.category)" class="w-3 h-3 rounded-full"></div>
+                <p class="text-slate-600 text-s">{{transaction.category}}</p>
+            </div>
+        }
     </div>
 
     <div class="mt-5 flex gap-[2px]">

@@ -18,34 +18,6 @@ import { Category } from './interfaces/category';
 export class AppComponent {
   title = 'dollarguard';
 
-  categories: Category[] = [
-    {
-      name: "Miscellaneous",
-      hexColor: "#475569",
-      twClass: "slate-600"
-    },
-    {
-      name: "Gas",
-      hexColor: "#DC2626",
-      twClass: "red-600"
-    },
-    {
-      name: "Utilities",
-      hexColor: "#0891B2",
-      twClass: "cyan-600"
-    },
-    {
-      name: "Groceries",
-      hexColor: "#D97706",
-      twClass: "amber-600"
-    },
-    {
-      name: "Phone Bill",
-      hexColor: "#4F46E5",
-      twClass: "indigo-600"
-    }
-  ]
-
   listOfTransactions: Transaction[] = [
     {
       id: "1",
