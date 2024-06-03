@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Transaction } from '../interfaces/transaction';
-import { Category } from '../interfaces/category';
 import { CommonModule } from '@angular/common';
-import { getCategoryColor } from '../helpers/getCategoryColor';
 import { CategoryService } from '../services/category.service';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { TransactionsService } from '../services/transactions.service';
 
 @Component({
   selector: 'transactions',
@@ -12,16 +12,25 @@ import { CategoryService } from '../services/category.service';
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
-export class TransactionsComponent {
-  @Input({required: true}) transactions!: Transaction[]
+export class TransactionsComponent implements OnInit, OnDestroy {
+  private sub!: Subscription;
+  categoryService = inject(CategoryService);
+
+  transactions: Transaction[] = []
+
+  ngOnInit(): void {
+    this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
+      this.transactions = newTransactions;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 
   editTransaction() {
     alert('Edit icon was clicked!');
   }
 
-  getCategoryColor(name: string): string | undefined {
-    return this.categoryService.getCategoryColor(name);
-  }
-
-  constructor(private categoryService: CategoryService) {}
+  constructor(private transactionsService: TransactionsService) {}
 }

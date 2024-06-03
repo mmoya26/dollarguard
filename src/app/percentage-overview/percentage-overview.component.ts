@@ -1,6 +1,8 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Transaction } from '../interfaces/transaction';
 import { CategoryService } from '../services/category.service';
+import { Subscription } from 'rxjs';
+import { TransactionsService } from '../services/transactions.service';
 
 interface ActiveCategory {
   name: string,
@@ -15,8 +17,9 @@ interface ActiveCategory {
   templateUrl: './percentage-overview.component.html',
   styleUrl: './percentage-overview.component.css'
 })
-export class PercentageOverviewComponent implements OnInit {
-  @Input({required: true}) transactions!: Transaction[];
+export class PercentageOverviewComponent implements OnInit, OnDestroy {
+  private sub!: Subscription;
+  transactions: Transaction[] = [];
 
   activeCategories: ActiveCategory[] = [];
   transactionsTotal = 0;
@@ -31,6 +34,11 @@ export class PercentageOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
+      this.transactions = newTransactions;
+    });
+
+
     // Loop through all transactions and set to activeCategories to later generate percentages "more easily"
     this.transactions.forEach(t => {
       // If the category already exists
@@ -44,6 +52,10 @@ export class PercentageOverviewComponent implements OnInit {
       this.transactionsTotal += Number(t.amount);
     });
   }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
   
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}
 }

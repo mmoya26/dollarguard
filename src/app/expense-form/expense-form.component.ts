@@ -11,6 +11,7 @@ import { CommonModule, formatDate } from '@angular/common';
 import { Transaction } from '../interfaces/transaction';
 import { Category } from '../interfaces/category';
 import { CategoryService } from '../services/category.service';
+import { TransactionsService } from '../services/transactions.service';
 
 @Component({
   selector: 'expense-form',
@@ -20,9 +21,6 @@ import { CategoryService } from '../services/category.service';
   styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent implements OnInit {
-
-  // Create output property to emmit an event of type transaction whenever the form gets submitted
-  @Output('expenseSubmitted') submit = new EventEmitter<Transaction>();
 
   categories: Category[] = [];
   
@@ -54,9 +52,7 @@ export class ExpenseFormComponent implements OnInit {
 
   onSubmit() {    
     if (!this.expenseForm.invalid) {
-      // Emit submit event when the form is valid with the current value of all Form Controls
-      // from our form casted to be a Transaction
-      this.submit.emit(<Transaction>this.expenseForm.value);
+      this.transactionsService.addTransaction(<Transaction>this.expenseForm.value);
       this.clear();
     } else {
       console.log("Form is invalid");
@@ -73,5 +69,5 @@ export class ExpenseFormComponent implements OnInit {
     this.expenseForm.controls['date'].setValue(date.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric', }));
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) {}
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private transactionsService : TransactionsService) {}
 }

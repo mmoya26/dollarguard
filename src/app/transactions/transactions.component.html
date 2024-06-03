@@ -21,8 +21,8 @@
                             <td>${{transaction.amount}}</td>
                             <td>{{transaction.date}}</td>
                             <td>
-                                <div [style]="'color: ' + getCategoryColor(transaction.category) + ';' + 
-                                'border-color: ' + getCategoryColor(transaction.category) + ';' "
+                                <div [style]="'color: ' + this.categoryService.getCategoryColor(transaction.category) + ';' + 
+                                'border-color: ' + this.categoryService.getCategoryColor(transaction.category) + ';' "
                                 class=" border w-fit mx-auto px-3 py-2 rounded-full">{{transaction.category}}</div>                    
                             </td>
                             <td>
