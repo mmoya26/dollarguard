@@ -22,7 +22,7 @@ export class TransactionsService {
       category: 'Phone Bill',
       note: "Test Notes"
     },
-        // {
+    // {
     //   id: "3",
     //   amount: "50",
     //   date: "6/2/2024",
@@ -58,7 +58,6 @@ export class TransactionsService {
     //   note: "Test Notes"
     // },
   ]);
-
   public listOfTransactions$ = this._listOfTransactions.asObservable();
 
   getCurrentTransactions(): Transaction[] {
@@ -75,6 +74,5 @@ export class TransactionsService {
 
     this._listOfTransactions.next([...this._listOfTransactions.value, newTransaction]);
   }
-
   constructor() { }
 }

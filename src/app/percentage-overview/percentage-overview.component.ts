@@ -18,27 +18,31 @@ interface ActiveCategory {
   styleUrl: './percentage-overview.component.css'
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
-  private sub!: Subscription;
+  private sub: Subscription = new Subscription();
   transactions: Transaction[] = [];
 
   activeCategories: ActiveCategory[] = [];
   transactionsTotal = 0;
 
-  getCategoryColor(name: string): string | undefined {
-    return this.categoryService.getCategoryColor(name);
-  }
+  categoryService: CategoryService = new CategoryService();
 
   calculatePercentages(name: string) {
     let categoryAmount = this.activeCategories.find(c => c.name  === name)?.amount || 0;
-    return (categoryAmount / this.transactionsTotal) * 100;
+    return Math.round((categoryAmount / this.transactionsTotal) * 100);
   }
 
   ngOnInit(): void {
     this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
       this.transactions = newTransactions;
-    });
+      this.calculateCategoriesAndPercentages();
+    });    
+  }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 
+  calculateCategoriesAndPercentages() {
     // Loop through all transactions and set to activeCategories to later generate percentages "more easily"
     this.transactions.forEach(t => {
       // If the category already exists
@@ -52,10 +56,6 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       this.transactionsTotal += Number(t.amount);
     });
   }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
   
-  constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}
+  constructor(private transactionsService: TransactionsService) {}
 }

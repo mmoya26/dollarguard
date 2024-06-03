@@ -13,7 +13,7 @@ import { TransactionsService } from '../services/transactions.service';
   styleUrl: './transactions.component.css'
 })
 export class TransactionsComponent implements OnInit, OnDestroy {
-  private sub!: Subscription;
+  private sub: Subscription = new Subscription();
   categoryService = inject(CategoryService);
 
   transactions: Transaction[] = []
