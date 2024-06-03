@@ -11,11 +11,15 @@
     </div>
 
     <div class="mt-5 flex gap-[2px]">
-
         @for (category of activeCategories; track category.name; let idx = $index) {
-            @if(idx === 0) {
+            @if(idx === 0 && activeCategories.length > 1) {
                 <div [style]="'width:' + calculatePercentages(category.name) + '%;'" class="flex flex-col items-center  gap-1">
                     <div [style]="'background-color: ' + getCategoryColor(category.name)" class="h-2 w-full rounded-l-lg"></div>
+                    <span class="text-neutral-500 text-sm">{{calculatePercentages(category.name)}}%</span>
+                </div>
+            } @else if (idx === 0 && activeCategories.length === 1) {
+                <div [style]="'width:' + calculatePercentages(category.name) + '%;'" class="flex flex-col items-center  gap-1">
+                    <div [style]="'background-color: ' + getCategoryColor(category.name)" class="h-2 w-full rounded-lg"></div>
                     <span class="text-neutral-500 text-sm">{{calculatePercentages(category.name)}}%</span>
                 </div>
             } @else if (idx === transactions.length - 1) {
