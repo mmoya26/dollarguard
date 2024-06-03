@@ -33,13 +33,13 @@ export class AppComponent {
       category: 'Phone Bill',
       note: "Test Notes"
     },
-    {
-      id: "3",
-      amount: "50",
-      date: "6/2/2024",
-      category: 'Utilities',
-      note: "Test Notes"
-    },
+    // {
+    //   id: "3",
+    //   amount: "50",
+    //   date: "6/2/2024",
+    //   category: 'Utilities',
+    //   note: "Test Notes"
+    // },
     // {
     //   id: "4",
     //   amount: "100",
