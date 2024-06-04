@@ -20,12 +20,10 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
 
   activeCategories: ActiveCategory[] = [];
-  transactionsTotal = 0;
 
   ngOnInit(): void {
     this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
       this.updateActiveCategories(newTransactions);
-      this.transactionsTotal = this.transactionsService.transactionsTotalAmount; // MAKE THIS A OBSERVABLE LATER ON
       this.calculateActiveCategoriesPercentages();
     });    
   }
@@ -37,24 +35,24 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   updateActiveCategories(transactions: Transaction[]) {
     transactions.forEach(t => {
       if (!this.activeCategories.some(activeCategory => activeCategory.name === t.category.name)) {
+        console.log("Updating Active Categories...");
         this.activeCategories.push({name: t.category.name, hexColor: t.category.hexColor, percentage: '0'});
       }
     });
   }
 
-  categoryBarWidth(category: string) {
-    return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsTotal) * 100);
-  }
-
   calculateActiveCategoriesPercentages() {
+    console.log("Calculating Active Categories percentages...");
     let newCalculatedCategories: ActiveCategory[] = this.activeCategories.map(c => {
-      let newActiveCategory: ActiveCategory = {...c, percentage: String(Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(c.name) / this.transactionsTotal) * 100))}
+      let newActiveCategory: ActiveCategory = {...c, percentage: String(this.categoryBarWidth(c.name))}
       return newActiveCategory
     });
 
     this.activeCategories = [...newCalculatedCategories]
+  }
 
-    console.log(newCalculatedCategories);
+  categoryBarWidth(category: string) {
+    return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsService.transactionsTotalAmount) * 100);
   }
   
   constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}
