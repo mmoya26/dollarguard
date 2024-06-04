@@ -60,7 +60,7 @@ export class TransactionsService {
   ]);
   public listOfTransactions$ = this._listOfTransactions.asObservable();
 
-  // private _transactionsTotalAmount: BehaviorSubject<Number> = new BehaviorSubject<Number>(this.calculateTransactionTotalAmount());
+  // Wondering if I should make this an obversable as well
   public transactionsTotalAmount = this.calculateTransactionTotalAmount();
 
   getCurrentTransactions(): Transaction[] {
@@ -93,9 +93,7 @@ export class TransactionsService {
   }
 
   calculateTransactionTotalAmount() {
-    let amount = 0;
-    this._listOfTransactions.value.forEach(transaction =>  amount += Number(transaction.amount));
-    return amount;
+    return this._listOfTransactions.value.reduce((acc, current) => acc + Number(current.amount), 0);
   }
 
   constructor() { }
