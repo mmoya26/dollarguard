@@ -1,6 +1,5 @@
-import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Transaction } from '../interfaces/transaction';
-import { CommonModule } from '@angular/common';
 import { CategoryService } from '../services/category.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { TransactionsService } from '../services/transactions.service';
@@ -8,7 +7,7 @@ import { TransactionsService } from '../services/transactions.service';
 @Component({
   selector: 'transactions',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css'
 })
