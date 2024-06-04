@@ -55,5 +55,5 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
     return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsService.transactionsTotalAmount) * 100);
   }
   
-  constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}
+  constructor(private transactionsService: TransactionsService) {}
 }
