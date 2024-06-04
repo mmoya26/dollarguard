@@ -26,7 +26,7 @@ export class TransactionsService {
     //   id: "3",
     //   amount: "50",
     //   date: "6/2/2024",
-    //   category: 'Utilities',
+    //   category: 'Phone Bill',
     //   note: "Test Notes"
     // },
     // {
@@ -60,6 +60,9 @@ export class TransactionsService {
   ]);
   public listOfTransactions$ = this._listOfTransactions.asObservable();
 
+  // private _transactionsTotalAmount: BehaviorSubject<Number> = new BehaviorSubject<Number>(this.calculateTransactionTotalAmount());
+  public transactionsTotalAmount = this.calculateTransactionTotalAmount();
+
   getCurrentTransactions(): Transaction[] {
     return this._listOfTransactions.getValue();
   }
@@ -72,7 +75,28 @@ export class TransactionsService {
     let newTransaction: Transaction = {...transaction};
     newTransaction.id = String(this._listOfTransactions.value.length + 1);
 
+    // Ammount needs to be set first before triggering listOfTrasactions observable
+    this.transactionsTotalAmount += Number(transaction.amount);
     this._listOfTransactions.next([...this._listOfTransactions.value, newTransaction]);
   }
+
+  getTransactionsTotalAmountByCategory(category: string): number {
+    let amount = 0;
+
+    this._listOfTransactions.value.forEach(transaction => {
+      if (transaction.category === category) {
+        amount += Number(transaction.amount);
+      }
+    });
+
+    return amount;
+  }
+
+  calculateTransactionTotalAmount() {
+    let amount = 0;
+    this._listOfTransactions.value.forEach(transaction =>  amount += Number(transaction.amount));
+    return amount;
+  }
+
   constructor() { }
 }

@@ -19,22 +19,14 @@ interface ActiveCategory {
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
-  transactions: Transaction[] = [];
 
-  activeCategories: ActiveCategory[] = [];
+  activeCategories: string[] = [];
   transactionsTotal = 0;
-
-  categoryService: CategoryService = new CategoryService();
-
-  calculatePercentages(name: string) {
-    let categoryAmount = this.activeCategories.find(c => c.name  === name)?.amount || 0;
-    return Math.round((categoryAmount / this.transactionsTotal) * 100);
-  }
 
   ngOnInit(): void {
     this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
-      this.transactions = newTransactions;
-      this.calculateCategoriesAndPercentages();
+      this.updateActiveCategories(newTransactions);
+      this.transactionsTotal = this.transactionsService.transactionsTotalAmount ;
     });    
   }
 
@@ -42,20 +34,21 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  calculateCategoriesAndPercentages() {
-    // Loop through all transactions and set to activeCategories to later generate percentages "more easily"
-    this.transactions.forEach(t => {
-      // If the category already exists
-      if (!this.activeCategories.some(category => category.name === t.category)) {
-        this.activeCategories.push({name: t.category, amount: Number(t.amount), percentage: "0"});
-      } else {
-        let cIndex = this.activeCategories.findIndex(c => c.name === t.category);
-        this.activeCategories[cIndex].amount += Number(t.amount);
+  updateActiveCategories(transactions: Transaction[]) {
+    transactions.forEach(t => {
+      if (!this.activeCategories.some(category => category === t.category)) {
+        this.activeCategories.push(t.category);
       }
-
-      this.transactionsTotal += Number(t.amount);
     });
   }
+
+  categoryBarWidth(category: string) {
+    return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsTotal) * 100);
+  }
+
+  getCategoryColor(category: string) {
+    return this.categoryService.getCategoryColor(category);
+  }
   
-  constructor(private transactionsService: TransactionsService) {}
+  constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}
 }
