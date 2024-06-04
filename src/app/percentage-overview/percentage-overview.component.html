@@ -4,8 +4,8 @@
     <div class="mt-5 flex gap-8">
         @for (category of activeCategories; track category) {
             <div class="flex gap-2 items-center">
-                <div [style]="'background-color: ' + getCategoryColor(category)" class="w-3 h-3 rounded-full"></div>
-                <p class="text-slate-600 text-s">{{category}}</p>
+                <div [style]="'background-color: ' + category.hexColor" class="w-3 h-3 rounded-full"></div>
+                <p class="text-slate-600 text-s">{{category.name}}</p>
             </div>
         }
     </div>
@@ -13,24 +13,24 @@
     <div class="mt-5 flex gap-[2px]">
         @for (category of activeCategories; track category; let idx = $index) {
             @if(idx === 0 && activeCategories.length > 1) {
-                <div [style]="'width:' + categoryBarWidth(category) + '%;'" class="flex flex-col items-center  gap-1">
-                    <div [style]="'background-color: ' + getCategoryColor(category)" class="h-2 w-full rounded-l-lg"></div>
-                    <span class="text-neutral-500 text-sm">{{categoryBarWidth(category)}}%</span>
+                <div [style]="'width:' + category.percentage + '%;'" class="flex flex-col items-center  gap-1">
+                    <div [style]="'background-color: ' + category.hexColor" class="h-2 w-full rounded-l-lg"></div>
+                    <span class="text-neutral-500 text-sm">{{category.percentage}}%</span>
                 </div>
             } @else if (idx === 0 && activeCategories.length === 1) {
-                <div [style]="'width:' + categoryBarWidth(category) + '%;'" class="flex flex-col items-center  gap-1">
-                    <div [style]="'background-color: ' + getCategoryColor(category)" class="h-2 w-full rounded-lg"></div>
-                    <span class="text-neutral-500 text-sm">{{categoryBarWidth(category)}}%</span>
+                <div [style]="'width:' + category.percentage + '%;'" class="flex flex-col items-center  gap-1">
+                    <div [style]="'background-color: ' + category.hexColor" class="h-2 w-full rounded-lg"></div>
+                    <span class="text-neutral-500 text-sm">{{category.percentage}}%</span>
                 </div>
             } @else if (idx === activeCategories.length - 1 && activeCategories.length > 1) {
-                <div [style]="'width:' + categoryBarWidth(category) + '%;'" class="flex flex-col items-center gap-1">
-                    <div [style]="'background-color: ' + getCategoryColor(category)" class="h-2 w-full rounded-r-lg"></div>
-                    <span class="text-neutral-500 text-sm">{{categoryBarWidth(category)}}%</span>
+                <div [style]="'width:' + category.percentage + '%;'" class="flex flex-col items-center gap-1">
+                    <div [style]="'background-color: ' + category.hexColor" class="h-2 w-full rounded-r-lg"></div>
+                    <span class="text-neutral-500 text-sm">{{category.percentage}}%</span>
                 </div>
             } @else {
-                <div [style]="'width:' + categoryBarWidth(category) + '%;'" class="flex flex-col items-center gap-1">
-                    <div [style]="'background-color: ' + getCategoryColor(category)" class="h-2 w-full"></div>
-                    <span class="text-neutral-500 text-sm">{{categoryBarWidth(category)}}%</span>
+                <div [style]="'width:' + category.percentage + '%;'" class="flex flex-col items-center gap-1">
+                    <div [style]="'background-color: ' + category.hexColor" class="h-2 w-full"></div>
+                    <span class="text-neutral-500 text-sm">{{category.percentage}}%</span>
                 </div>
             }
         }

@@ -3,11 +3,10 @@ import { Transaction } from '../interfaces/transaction';
 import { CategoryService } from '../services/category.service';
 import { Subscription } from 'rxjs';
 import { TransactionsService } from '../services/transactions.service';
+import { Category } from '../interfaces/category';
 
-interface ActiveCategory {
-  name: string,
-  amount: number,
-  percentage: string;
+interface ActiveCategory extends Category {
+  percentage: string
 }
 
 @Component({
@@ -20,13 +19,14 @@ interface ActiveCategory {
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
 
-  activeCategories: string[] = [];
+  activeCategories: ActiveCategory[] = [];
   transactionsTotal = 0;
 
   ngOnInit(): void {
     this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
       this.updateActiveCategories(newTransactions);
-      this.transactionsTotal = this.transactionsService.transactionsTotalAmount ;
+      this.transactionsTotal = this.transactionsService.transactionsTotalAmount; // MAKE THIS A OBSERVABLE LATER ON
+      this.calculateActiveCategoriesPercentages();
     });    
   }
 
@@ -36,8 +36,8 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
 
   updateActiveCategories(transactions: Transaction[]) {
     transactions.forEach(t => {
-      if (!this.activeCategories.some(category => category === t.category)) {
-        this.activeCategories.push(t.category);
+      if (!this.activeCategories.some(activeCategory => activeCategory.name === t.category.name)) {
+        this.activeCategories.push({name: t.category.name, hexColor: t.category.hexColor, percentage: '0'});
       }
     });
   }
@@ -46,8 +46,15 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
     return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsTotal) * 100);
   }
 
-  getCategoryColor(category: string) {
-    return this.categoryService.getCategoryColor(category);
+  calculateActiveCategoriesPercentages() {
+    let newCalculatedCategories: ActiveCategory[] = this.activeCategories.map(c => {
+      let newActiveCategory: ActiveCategory = {...c, percentage: String(Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(c.name) / this.transactionsTotal) * 100))}
+      return newActiveCategory
+    });
+
+    this.activeCategories = [...newCalculatedCategories]
+
+    console.log(newCalculatedCategories);
   }
   
   constructor(private categoryService: CategoryService, private transactionsService: TransactionsService) {}

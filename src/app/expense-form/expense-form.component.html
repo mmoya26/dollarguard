@@ -11,7 +11,7 @@
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-list"></i>
                 </p-inputGroupAddon>
-                <p-dropdown id="category" formControlName="category" [options]="categories" optionLabel="name" optionValue="name" placeholder="Select a category" styleClass="inputgroup-input"/>
+                <p-dropdown id="category" formControlName="category" [options]="categories" optionLabel="name" optionValue="name" placeholder="Select a category" styleClass="inputgroup-input" (onChange)="onCategorySelect($event)"/>
             </div>
             <div *ngIf="category?.invalid && category?.touched" class="mt-2 text-red-500">Please select a category</div>
         </p-inputGroup>

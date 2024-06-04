@@ -21,9 +21,9 @@
                             <td>${{transaction.amount}}</td>
                             <td>{{transaction.date}}</td>
                             <td>
-                                <div [style]="'color: ' + this.categoryService.getCategoryColor(transaction.category) + ';' + 
-                                'border-color: ' + this.categoryService.getCategoryColor(transaction.category) + ';' "
-                                class=" border w-fit mx-auto px-3 py-2 rounded-full">{{transaction.category}}</div>                    
+                                <div [style]="'color: ' + transaction.category.hexColor + ';' + 
+                                'border-color: ' + transaction.category.hexColor + ';' "
+                                class=" border w-fit mx-auto px-3 py-2 rounded-full">{{transaction.category.name}}</div>                    
                             </td>
                             <td>
                                 <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>

@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import {FormBuilder,  FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Transaction } from '../interfaces/transaction';
 import { Category } from '../interfaces/category';
 import { CategoryService } from '../services/category.service';
@@ -52,7 +52,9 @@ export class ExpenseFormComponent implements OnInit {
 
   onSubmit() {    
     if (!this.expenseForm.invalid) {
-      this.transactionsService.addTransaction(<Transaction>this.expenseForm.value);
+      // Care for this statement, essentially we are saying this values are always going to be there when we access them...
+      let transaction = {...this.expenseForm.value, category: {name: this.expenseForm.value.category, hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)}}
+      this.transactionsService.addTransaction(<Transaction>transaction);
       this.clear();
     } else {
       console.log("Form is invalid");
@@ -61,12 +63,18 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   clear() {
-    this.expenseForm.reset();
+    this.expenseForm.reset({amount: '', id: '', category: '', date: '', note: ''});
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control
   onDateSelect(date : Date) {
     this.expenseForm.controls['date'].setValue(date.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric', }));
+  }
+
+  // Format the category so that is able to be set to the form group
+  onCategorySelect(categoryName: DropdownChangeEvent) {
+    this.expenseForm.controls['category'].setValue(categoryName.value);
+    return categoryName.value;
   }
 
   constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private transactionsService : TransactionsService) {}

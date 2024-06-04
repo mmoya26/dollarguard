@@ -12,51 +12,22 @@ export class TransactionsService {
       id: "1",
       amount: "100",
       date: "5/27/2024",
-      category: 'Gas',
+      category: {
+        name: 'Gas',
+        hexColor: '#DC2626'
+      },
       note: "Test Notes"
     },
     {
       id: "2",
       amount: "50",
       date: "5/27/2024",
-      category: 'Phone Bill',
+      category: {
+        name: 'Phone Bill',
+        hexColor: '#4F46E5'
+      },
       note: "Test Notes"
     },
-    // {
-    //   id: "3",
-    //   amount: "50",
-    //   date: "6/2/2024",
-    //   category: 'Phone Bill',
-    //   note: "Test Notes"
-    // },
-    // {
-    //   id: "4",
-    //   amount: "100",
-    //   date: "6/2/2024",
-    //   category: 'Utilities',
-    //   note: "Test Notes"
-    // },
-    // {
-    //   id: "4",
-    //   amount: "120",
-    //   date: "6/2/2024",
-    //   category: 'Groceries',
-    //   note: "Test Notes"
-    // },
-    // {
-    //   id: "5",
-    //   amount: "120",
-    //   date: "6/2/2024",
-    //   category: 'Groceries',
-    //   note: "Test Notes"
-    // },
-    // {
-    //   id: "6",
-    //   amount: "50",
-    //   date: "5/27/2024",
-    //   category: 'Gas',
-    //   note: "Test Notes"
-    // },
   ]);
   public listOfTransactions$ = this._listOfTransactions.asObservable();
 
@@ -84,7 +55,7 @@ export class TransactionsService {
     let amount = 0;
 
     this._listOfTransactions.value.forEach(transaction => {
-      if (transaction.category === category) {
+      if (transaction.category.name === category) {
         amount += Number(transaction.amount);
       }
     });

@@ -1,7 +1,9 @@
+import { Category } from "./category";
+
 export interface Transaction {
     id: string,
+    category: Category,
     amount: string,
     date: string,
-    category: string,
     note?: string
 }
