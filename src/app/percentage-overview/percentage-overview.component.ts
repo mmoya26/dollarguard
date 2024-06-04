@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Transaction } from '../interfaces/transaction';
-import { CategoryService } from '../services/category.service';
 import { Subscription } from 'rxjs';
 import { TransactionsService } from '../services/transactions.service';
 import { Category } from '../interfaces/category';
