@@ -19,7 +19,7 @@
                         <tr class="text-center text-slate-700 text-base">
                             <td class="py-7">{{transaction.id}}</td>
                             <td>${{transaction.amount}}</td>
-                            <td>{{transaction.date}}</td>
+                            <td>{{transaction.date | date}}</td>
                             <td>
                                 <div [style]="'color: ' + transaction.category.hexColor + ';' + 
                                 'border-color: ' + transaction.category.hexColor + ';' "
