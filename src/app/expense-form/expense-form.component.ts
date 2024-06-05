@@ -35,7 +35,7 @@ export class ExpenseFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.categories = this.categoryService.categories;
+    this.categories = this.categoryService.getAllCategories();
   }
 
   get category() {

@@ -6,7 +6,7 @@ import { Category } from '../interfaces/category';
 })
 export class CategoryService {
 
-  categories: Category[] = [
+  private categories: Category[] = [
     {
       name: "Miscellaneous",
       hexColor: "#475569",
@@ -34,6 +34,10 @@ export class CategoryService {
     const category = this.categories.find(c => c.name === name);
 
     return category?.hexColor
+  }
+
+  getAllCategories(): Category[] {
+    return this.categories;
   }
 
   constructor() { }
