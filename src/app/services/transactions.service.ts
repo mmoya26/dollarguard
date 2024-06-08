@@ -39,16 +39,9 @@ export class TransactionsService {
   }
 
   addTransaction(transaction: Transaction) {
-    // Temporary solution for the ids
-
-    // Create a new transaction object based on the properties of the passed transaction object
-    // instead of using the reference directly passed
-    let newTransaction: Transaction = {...transaction};
-    newTransaction.id = String(this._listOfTransactions.value.length + 1);
-
     // Ammount needs to be set first before triggering listOfTrasactions observable
     this.transactionsTotalAmount += Number(transaction.amount);
-    this._listOfTransactions.next([...this._listOfTransactions.value, newTransaction]);
+    this._listOfTransactions.next([...this._listOfTransactions.value, transaction]);
   }
 
   getTransactionsTotalAmountByCategory(category: string): number {

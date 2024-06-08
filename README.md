@@ -11,8 +11,10 @@ Personal project to learn Angular and everything involded with it.
 ## Todo in general
 - Figure out how the month selection functionality is going to look like
 - Fix bug where if user leaves category option clicked error message displays
-- Design how transactions and percentage overview sections will look when there are 0 transactions
-- Add helper function to determine color of the category in the transactions table
 - Genarate unique ids for transactions in table
-- Verify if there is only one ActiveCategory and add border-radius to both left and right side of of bar for percentages overview
 - Investigate about pure functions to prevent so many re-renders from Change Detection
+- Remove totalAmount from being set first before adding transaction
+- Invert transactions array to display the latest transactions at the top of the table
+
+# Design todos
+- Design how transactions and percentage overview sections will look when there are 0 transactions

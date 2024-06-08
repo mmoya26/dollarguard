@@ -6,12 +6,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import {FormBuilder,  FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Transaction } from '../interfaces/transaction';
 import { Category } from '../interfaces/category';
 import { CategoryService } from '../services/category.service';
 import { TransactionsService } from '../services/transactions.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'expense-form',
@@ -23,14 +24,14 @@ import { TransactionsService } from '../services/transactions.service';
 export class ExpenseFormComponent implements OnInit {
 
   categories: Category[] = [];
-  
-  blockSpaceAndOnlyAllowNumbers : RegExp = /^\d*\.?\d*$/;
+
+  blockSpaceAndOnlyAllowNumbers: RegExp = /^\d*\.?\d*$/;
 
   expenseForm = this.formBuilder.group({
-    id: '',
+    id: uuidv4(),
     category: ['', Validators.required],
-    amount: ['',  Validators.required],
-    date: ['',  Validators.required],
+    amount: ['', Validators.required],
+    date: ['', Validators.required],
     note: ['']
   });
 
@@ -50,7 +51,7 @@ export class ExpenseFormComponent implements OnInit {
     return this.expenseForm.get('date');
   }
 
-  onSubmit() {    
+  onSubmit() {
     if (!this.expenseForm.invalid) {
       // Care for this statement, essentially we are saying this values are always going to be there when we access them...
       let transaction = {...this.expenseForm.value, category: {name: this.expenseForm.value.category, hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)}}
@@ -63,11 +64,11 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   clear() {
-    this.expenseForm.reset({amount: '', id: '', category: '', date: '', note: ''});
+    this.expenseForm.reset({ amount: '', id: uuidv4(), category: '', date: '', note: '' });
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control
-  onDateSelect(date : Date) {
+  onDateSelect(date: Date) {
     this.expenseForm.controls['date'].setValue(date.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric', }));
   }
 
@@ -77,5 +78,5 @@ export class ExpenseFormComponent implements OnInit {
     return categoryName.value;
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private transactionsService : TransactionsService) {}
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private transactionsService: TransactionsService) { }
 }
