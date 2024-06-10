@@ -15,7 +15,7 @@
                 </thead>
         
                 <tbody>
-                    @for (transaction of transactions; track transaction.id; let idx = $index;) {
+                    @for (transaction of transactions; track transaction.transactionId; let idx = $index;) {
                         <tr class="text-center text-slate-700 text-base">
                             <td class="py-7">{{idx + 1}}</td>
                             <td>${{transaction.amount}}</td>

@@ -9,7 +9,8 @@ export class TransactionsService {
 
   private _listOfTransactions: BehaviorSubject<Transaction[]> = new BehaviorSubject<Transaction[]>([
     {
-      id: "1",
+      userId: "ui1",
+      transactionId: "1",
       amount: "100",
       date: "5/27/2024",
       category: {
@@ -19,7 +20,8 @@ export class TransactionsService {
       note: "Test Notes"
     },
     {
-      id: "2",
+      userId: "ui1",
+      transactionId: "2",
       amount: "50",
       date: "5/27/2024",
       category: {
