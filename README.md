@@ -18,3 +18,7 @@ Personal project to learn Angular and everything involded with it.
 
 # Design todos
 - Design how transactions and percentage overview sections will look when there are 0 transactions
+
+# Known defects
+
+- If a category has a big transaction it will ocuppy 100% of the percentage overview area
