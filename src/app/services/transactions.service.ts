@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from '../interfaces/transaction';
+import { Transaction } from '@interfaces/transaction';;
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Transaction } from '../interfaces/transaction';
+import { Transaction } from '@interfaces/transaction';;
 import { Subscription } from 'rxjs';
 import { TransactionsService } from '../services/transactions.service';
-import { Category } from '../interfaces/category';
+import { Category } from '@interfaces/category';
 
 interface ActiveCategory extends Category {
   percentage: string
