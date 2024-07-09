@@ -7,21 +7,21 @@ export type TransactionDocument = HydratedDocument<Transaction>;
 
 @Schema()
 export class Transaction {
-    @Prop({required: true})
+    @Prop({required: true, unique: true})
     userId: string;
 
-    @Prop()
+    @Prop({required: true, unique: true})
     transactionId: string;
 
     @Prop({type: Object})
     category: Category;
 
-    @Prop()
+    @Prop({required: true})
     amount: string;
 
-    @Prop()
+    @Prop({required: true})
     date: string;
-
+    
     @Prop()
     note?: string;
 }
