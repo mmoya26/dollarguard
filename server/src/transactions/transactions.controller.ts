@@ -23,4 +23,9 @@ export class TransactionsController {
     }]
     // return this.transactionsService.findAll();
   }
+
+  @Post()
+  createTransaction(@Body() createUserDto: CreateTransactionDto) {
+    this.transactionsService.create(createUserDto);
+  }
 }

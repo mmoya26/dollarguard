@@ -18,22 +18,12 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
   categoryService = inject(CategoryService);
 
-  transactions: Transaction[] = [{
-    userId: "ui1",
-    transactionId: "1",
-    amount: "100",
-    date: "5/27/2024",
-    category: {
-      name: 'Gas',
-      hexColor: '#DC2626'
-    },
-    note: "Test Notes"
-  }]
+  transactions: Transaction[] = []
 
   ngOnInit(): void {
-    // this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
-    //   this.transactions = newTransactions;
-    // });
+    this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
+      this.transactions = newTransactions;
+    });
 
     
   }
