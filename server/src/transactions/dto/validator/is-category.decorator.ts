@@ -12,7 +12,7 @@ class IsCategoryConstraint implements ValidatorConstraintInterface {
   }
 
   defaultMessage(args: ValidationArguments) {
-    return 'Address must contain a valid, name and hex color strings';
+    return 'Category must contain a valid name, and hex color string';
   }
 }
 
