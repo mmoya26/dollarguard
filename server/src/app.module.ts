@@ -6,7 +6,7 @@ import { TransactionModule } from './transactions/transactions.module';
 
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), TransactionModule],
+  imports: [MongooseModule.forRoot('mongodb://localhost/dollarguard'), TransactionModule],
   // controllers: [AppController],
   // providers: [AppService],
 })
