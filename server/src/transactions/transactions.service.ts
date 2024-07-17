@@ -13,7 +13,11 @@ export class TransactionsService {
     return newTransactions.save();
   }
 
-  async findAll(): Promise<Transaction[]> {
-    return this.transactionModel.find().exec();
+  async getTransactions(): Promise<Transaction[]> {
+    return this.transactionModel.find();
+  }
+
+  async getTransactionById(id: string): Promise<Transaction> {
+    return this.transactionModel.findById(id);
   }
 }
