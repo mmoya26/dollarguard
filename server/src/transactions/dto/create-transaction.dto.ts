@@ -1,15 +1,12 @@
 import { Category } from "@interfaces/category";
-import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator'
+import { IsNotEmpty, IsString, IsOptional, IsDate } from 'class-validator'
 import { IsCategory } from "./validator/is-category.decorator";
+import {Type} from 'class-transformer'
 
 export class CreateTransactionDto {
   @IsString()
   @IsNotEmpty()
   readonly userId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  readonly transactionId: number;
 
   @IsCategory()
   @IsNotEmpty()
@@ -18,10 +15,10 @@ export class CreateTransactionDto {
   @IsString()
   @IsNotEmpty()
   readonly amount: string;
-
-  @IsString()
   @IsNotEmpty()
-  readonly date: string
+  @IsDate()
+  @Type(() => Date)
+  readonly date: Date;
 
   @IsOptional()
   @IsString()

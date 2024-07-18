@@ -28,6 +28,10 @@ export class TransactionsController {
 
   @Post()
   createTransaction(@Body() createUserDto: CreateTransactionDto) {
+    const regexPattern = new RegExp(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/);
+
+    if (!regexPattern.test(String(createUserDto.date))) throw new HttpException('Bad transaction creation request', 400);
+
     return this.transactionsService.create(createUserDto);
-  }
+    }
 }

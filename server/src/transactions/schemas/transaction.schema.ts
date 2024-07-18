@@ -10,9 +10,6 @@ export class Transaction {
     @Prop({required: true})
     userId: string;
 
-    @Prop({required: true, unique: true})
-    transactionId: string;
-
     @Prop({type: Object})
     category: Category;
 
@@ -20,9 +17,9 @@ export class Transaction {
     amount: string;
 
     @Prop({required: true})
-    date: string;
+    date: Date;
     
-    @Prop()
+    @Prop({required: false})
     note?: string;
 }
 
