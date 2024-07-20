@@ -3,14 +3,14 @@ import { ExpenseFormComponent } from '@components/expense-form/expense-form.comp
 import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
 import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
 import { ExpensesTableComponent } from '@components/expenses-table/expenses-table.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
+import { ExpensesService } from '../../services/expenses.service';
 import { Expense } from '@interfaces/expense';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, HttpClientModule, MonthSelectorComponent],
+  imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.css'
 })
@@ -18,11 +18,18 @@ export class ExpensesComponent implements OnInit {
   @Input() year = ''
   @Input() month = ''
 
+  expenses: Expense[] = []
+
   ngOnInit(): void {
-    this.http.get<Expense[]>(`http://localhost:3000/expenses/${this.year}/${this.month}`).subscribe((data) => {
-      console.log(data)
+    console.log(`Calling API with year: ${this.year} & month: ${this.month}`);
+    
+    this.expensesService.getExpensesByYearAndMonth(this.year, this.month).subscribe((expenses: Expense[]) => {
+      this.expenses = expenses;
+      console.log(this.expenses)
     });
+
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private expensesService: ExpensesService) { }
+
 }

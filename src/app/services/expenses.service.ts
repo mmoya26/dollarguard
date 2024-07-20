@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Expense } from '@interfaces/expense';;
-import { BehaviorSubject } from 'rxjs';
+import { Expense } from '@interfaces/expense';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpensesService {
+  private API_URL = `http://localhost:3000/expenses`;
 
   // private _listOfTransactions: BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([
   //   {
@@ -62,5 +64,9 @@ export class ExpensesService {
   //   return this._listOfTransactions.value.reduce((acc, current) => acc + Number(current.amount), 0);
   // }
 
-  constructor() { }
+  getExpensesByYearAndMonth(year: string, month: string): Observable<Expense[]> {
+    return this.http.get<Expense[]>(`${this.API_URL}/${year}/${month}`);
+  }
+
+  constructor(private http: HttpClient) { }
 }

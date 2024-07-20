@@ -1,7 +1,7 @@
 <div class="mt-14">
     <h2 class="text-xl text-slate-900 font-medium">Transactions</h2>
 
-    @if(transactions.length > 0) {
+    @if(expenses.length > 0) {
         <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">
             <table class="w-full border-separate border-spacing-0 bg-white">
                 <thead class="bg-transparent rounded-lg">
@@ -15,15 +15,15 @@
                 </thead>
         
                 <tbody>
-                    @for (transaction of transactions; track transaction.transactionId; let idx = $index;) {
+                    @for (expense of expenses; track expense.id; let idx = $index;) {
                         <tr class="text-center text-slate-700 text-base">
                             <td class="py-7">{{idx + 1}}</td>
-                            <td>${{transaction.amount}}</td>
-                            <td>{{transaction.date | date}}</td>
+                            <td>${{expense.amount}}</td>
+                            <td>{{expense.date| date}}</td>
                             <td>
-                                <div [style]="'color: ' + transaction.category.hexColor + ';' + 
-                                'border-color: ' + transaction.category.hexColor + ';' "
-                                class=" border w-fit mx-auto px-3 py-2 rounded-full">{{transaction.category.name}}</div>                    
+                                <div [style]="'color: ' + expense.category.hexColor + ';' + 
+                                'border-color: ' + expense.category.hexColor + ';' "
+                                class=" border w-fit mx-auto px-3 py-2 rounded-full">{{expense.category.name}}</div>                    
                             </td>
                             <td>
                                 <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editTransaction()"></i>
