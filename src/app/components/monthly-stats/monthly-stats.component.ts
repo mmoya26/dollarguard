@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TransactionsService } from '../services/transactions.service';
+import { TransactionsService } from '../../services/transactions.service';
 
 @Component({
   selector: 'monthly-stats',

@@ -24,6 +24,8 @@
     ],
     "paths": {
         "@interfaces/*": [ "./server/src/interfaces/*" ],
+        "@components/*": [ "./src/app/components/*" ],
+        "@helpers/*": ["./src/app/helpers/*"]
     }
   },
   "angularCompilerOptions": {

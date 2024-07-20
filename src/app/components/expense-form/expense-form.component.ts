@@ -10,8 +10,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CommonModule } from '@angular/common';
 import { Transaction } from '@interfaces/transaction';
 import { Category } from '@interfaces/category';
-import { CategoryService } from '../services/category.service';
-import { TransactionsService } from '../services/transactions.service';
+import { CategoryService } from '../../services/category.service';
+import { TransactionsService } from '../../services/transactions.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({

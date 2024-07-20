@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Transaction } from '@interfaces/transaction';;
-import { CategoryService } from '../services/category.service';
+import { CategoryService } from '../../services/category.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { TransactionsService } from '../services/transactions.service';
+import { TransactionsService } from '../../services/transactions.service';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';

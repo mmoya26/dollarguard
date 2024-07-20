@@ -1,35 +1,31 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ExpenseFormComponent } from '../../expense-form/expense-form.component';
-import { MonthlyStatsComponent } from '../../monthly-stats/monthly-stats.component';
-import { PercentageOverviewComponent } from '../../percentage-overview/percentage-overview.component';
-import { TransactionsComponent } from '../../transactions/transactions.component';
+import { Component, Input, OnInit, output, Output } from '@angular/core';
+import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
+import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
+import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
+import { TransactionsComponent } from '@components/transactions/transactions.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
+import { getMonthName } from '@helpers/getMonthName';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, TransactionsComponent, HttpClientModule],
+  imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, TransactionsComponent, HttpClientModule, MonthSelectorComponent],
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.css'
 })
 export class ExpensesComponent implements OnInit {
-
-  @Input() year =  ''
+  @Input() year = ''
   @Input() month = ''
-
-  nameOfMonth = ''
 
   ngOnInit(): void {
     this.http.get(`http://localhost:3000/transactions/${this.year}/${this.month}`).subscribe((data) => {
       console.log(data)
     });
 
-    this.nameOfMonth = this.getMonthName(new Date(Number(this.year), Number(this.month) - 1))
+    
   }
 
-  getMonthName(date: Date) {
-    return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
-  }
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 }
