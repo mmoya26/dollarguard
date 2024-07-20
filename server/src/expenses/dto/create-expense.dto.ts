@@ -2,7 +2,7 @@ import { Category } from "@interfaces/category";
 import { IsNotEmpty, IsString, IsOptional, IsNumberString} from 'class-validator'
 import { IsCategory } from "./validator/is-category.decorator";
 
-export class CreateTransactionDto {
+export class CreateExpenseDto {
   @IsString()
   @IsNotEmpty()
   readonly userId: string;

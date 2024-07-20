@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { Transaction } from '@interfaces/transaction';;
+import { Expense } from '@interfaces/expense';;
 import { CategoryService } from '../../services/category.service';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { TransactionsService } from '../../services/transactions.service';
+import { ExpensesService } from '../../services/expenses.service';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,21 +11,16 @@ import { HttpClientModule } from '@angular/common/http';
   selector: 'transactions',
   standalone: true,
   imports: [DatePipe, HttpClientModule],
-  templateUrl: './transactions.component.html',
-  styleUrl: './transactions.component.css'
+  templateUrl: './expenses-table.component.html',
+  styleUrl: './expenses-table.component.css'
 })
-export class TransactionsComponent implements OnInit, OnDestroy {
+export class ExpensesTableComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
   categoryService = inject(CategoryService);
 
-  transactions: Transaction[] = []
+  transactions: Expense[] = []
 
   ngOnInit(): void {
-    this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
-      this.transactions = newTransactions;
-    });
-
-    
   }
 
   ngOnDestroy(): void {
@@ -34,9 +29,9 @@ export class TransactionsComponent implements OnInit, OnDestroy {
 
   editTransaction() {
     this.http.get('http://localhost:3000/').subscribe((data) => {
-      this.transactions = <Transaction[]>data;
+      this.transactions = <Expense[]>data;
     });
   }
 
-  constructor(private transactionsService: TransactionsService, private http: HttpClient) {}
+  constructor(private expensesService: ExpensesService, private http: HttpClient) {}
 }

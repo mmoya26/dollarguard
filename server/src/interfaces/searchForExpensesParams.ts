@@ -1,6 +1,6 @@
 import { IsNumberString } from "class-validator";
 
-export class SearchForTransactionParams {
+export class SearchForExpensesParams {
     @IsNumberString()
     year: string
 

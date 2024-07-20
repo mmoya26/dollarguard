@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { Category } from '@interfaces/category';
 
-export type TransactionDocument = HydratedDocument<Transaction>;
+export type TransactionDocument = HydratedDocument<Expense>;
 
 @Schema({
     toJSON: {
@@ -15,7 +15,7 @@ export type TransactionDocument = HydratedDocument<Transaction>;
         },
     },
 })
-export class Transaction {
+export class Expense {
     @Prop({ required: true })
     userId: string;
 
@@ -32,4 +32,4 @@ export class Transaction {
     note?: string;
 }
 
-export const TransactionSchema = SchemaFactory.createForClass(Transaction);
+export const ExpenseSchema = SchemaFactory.createForClass(Expense);

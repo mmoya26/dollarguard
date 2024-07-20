@@ -8,10 +8,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Transaction } from '@interfaces/transaction';
+import { Expense } from '@interfaces/expense';
 import { Category } from '@interfaces/category';
 import { CategoryService } from '../../services/category.service';
-import { TransactionsService } from '../../services/transactions.service';
+import { ExpensesService } from '../../services/expenses.service';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -65,8 +65,10 @@ export class ExpenseFormComponent implements OnInit {
   onSubmit() {
     if (!this.expenseForm.invalid) {
       // Care for this statement, essentially we are saying this values are always going to be there when we access them...
-      let transaction = {...this.expenseForm.value, category: {name: this.expenseForm.value.category, hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)}}
-      this.transactionsService.addTransaction(<Transaction>transaction);
+      // let transaction = {...this.expenseForm.value, category: {name: this.expenseForm.value.category, hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)}}
+      // this.transactionsService.addTransaction(<Expense>transaction);
+
+      console.log('valid')
       this.clear();
     } else {
       console.log("Form is invalid");
@@ -89,5 +91,5 @@ export class ExpenseFormComponent implements OnInit {
     return categoryName.value;
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private transactionsService: TransactionsService) { }
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService) { }
 }

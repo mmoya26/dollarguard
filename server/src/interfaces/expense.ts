@@ -1,10 +1,10 @@
 import { Category } from "./category";
 
-export interface Transaction {
+export interface Expense {
+    id: string,
     userId: string,
-    transactionId: string,
     category: Category,
     amount: string,
-    date: string,
-    note?: string
+    date: Date,
+    note?: string    
 }

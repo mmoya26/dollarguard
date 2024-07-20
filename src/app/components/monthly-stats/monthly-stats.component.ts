@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TransactionsService } from '../../services/transactions.service';
+import { ExpensesService } from '../../services/expenses.service';
 
 @Component({
   selector: 'monthly-stats',
@@ -22,14 +22,14 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.sub = this.transactionsService.listOfTransactions$.subscribe(transactions => {
-      this.monthExpenses = this.transactionsService.transactionsTotalAmount;
-    });
+    // this.sub = this.expensesService.listOfTransactions$.subscribe(transactions => {
+    //   this.monthExpenses = this.expensesService.transactionsTotalAmount;
+    // });
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  constructor(private transactionsService: TransactionsService) {}
+  constructor(private expensesService: ExpensesService) {}
 }

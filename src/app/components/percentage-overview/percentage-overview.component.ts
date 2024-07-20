@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Transaction } from '@interfaces/transaction';;
+import { Expense } from '@interfaces/expense';;
 import { Subscription } from 'rxjs';
-import { TransactionsService } from '../../services/transactions.service';
+import { ExpensesService } from '../../services/expenses.service';
 import { Category } from '@interfaces/category';
 
 interface ActiveCategory extends Category {
@@ -21,17 +21,17 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   activeCategories: ActiveCategory[] = [];
 
   ngOnInit(): void {
-    this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
-      this.updateActiveCategories(newTransactions);
-      this.calculateActiveCategoriesPercentages();
-    });    
+    // this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
+    //   this.updateActiveCategories(newTransactions);
+    //   this.calculateActiveCategoriesPercentages();
+    // });    
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-  updateActiveCategories(transactions: Transaction[]) {
+  updateActiveCategories(transactions: Expense[]) {
     transactions.forEach(t => {
       if (!this.activeCategories.some(activeCategory => activeCategory.name === t.category.name)) {
         console.log("Updating Active Categories...");
@@ -51,8 +51,8 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   }
 
   categoryBarWidth(category: string) {
-    return Math.round((this.transactionsService.getTransactionsTotalAmountByCategory(category) / this.transactionsService.transactionsTotalAmount) * 100);
+    // return Math.round((this.expensesService.getTransactionsTotalAmountByCategory(category) / this.expensesService.transactionsTotalAmount) * 100);
   }
   
-  constructor(private transactionsService: TransactionsService) {}
+  constructor(private expensesService: ExpensesService) {}
 }
