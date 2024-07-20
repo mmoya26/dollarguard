@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
 import { getMonthName } from '@helpers/getMonthName';
 import { EventEmitter } from 'stream';
+import { Transaction } from '@interfaces/transaction';
 
 @Component({
   selector: 'app-expenses',
@@ -20,11 +21,9 @@ export class ExpensesComponent implements OnInit {
   @Input() month = ''
 
   ngOnInit(): void {
-    this.http.get(`http://localhost:3000/transactions/${this.year}/${this.month}`).subscribe((data) => {
+    this.http.get<Transaction[]>(`http://localhost:3000/expenses/${this.year}/${this.month}`).subscribe((data) => {
       console.log(data)
     });
-
-    
   }
 
   constructor(private http: HttpClient) { }

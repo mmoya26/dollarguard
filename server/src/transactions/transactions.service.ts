@@ -11,7 +11,6 @@ export class TransactionsService {
   constructor(@InjectModel(Transaction.name) private readonly transactionModel: Model<Transaction>) {}
 
   async create(createTransactionDto: CreateTransactionDto, {year, month}: SearchForTransactionParams): Promise<Transaction> {
-
     if (!isValidDate(createTransactionDto.monthDay, Number(month) - 1, year)) throw new HttpException('Transaction could not be added', 400);
 
     const newTransaction = new this.transactionModel(createTransactionDto);
