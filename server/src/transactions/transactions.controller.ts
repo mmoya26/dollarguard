@@ -3,7 +3,7 @@ import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { SearchForTransactionParams } from '../interfaces/searchForTransactionParams';
 
-@Controller('transactions/:year/:month')
+@Controller('expenses/:year/:month')
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
