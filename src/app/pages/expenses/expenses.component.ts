@@ -17,10 +17,18 @@ export class ExpensesComponent implements OnInit {
   @Input() year =  ''
   @Input() month = ''
 
+  nameOfMonth = ''
+
   ngOnInit(): void {
     this.http.get(`http://localhost:3000/transactions/${this.year}/${this.month}`).subscribe((data) => {
       console.log(data)
     });
+
+    this.nameOfMonth = this.getMonthName(new Date(Number(this.year), Number(this.month) - 1))
+  }
+
+  getMonthName(date: Date) {
+    return new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
   }
 
   constructor(private http: HttpClient) {}
