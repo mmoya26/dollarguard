@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -22,6 +22,11 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent implements OnInit {
+  @Input({required: true}) month = ''
+  @Input({required: true}) year = ''
+
+  minDate = new Date();
+  maxDate = new Date();
 
   categories: Category[] = [];
 
@@ -37,6 +42,7 @@ export class ExpenseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories = this.categoryService.getAllCategories();
+    this.setMinAndMaxCalendarDates(this.month, this.year);
   }
 
   get category() {
@@ -49,6 +55,11 @@ export class ExpenseFormComponent implements OnInit {
 
   get date() {
     return this.expenseForm.get('date');
+  }
+
+  setMinAndMaxCalendarDates(m: string, y: string) {
+    this.minDate = new Date(Number(this.year), Number(this.month) - 1, 1);
+    this.maxDate = new Date(Number(this.year), Number(this.month), 0);
   }
 
   onSubmit() {
