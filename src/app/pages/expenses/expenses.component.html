@@ -1,10 +1,14 @@
 <div class="w-full max-w-8xl mx-auto my-10">
-    <app-month-selector [month]="month" [year]="year" ></app-month-selector>
+    @if (!isDataLoading) {
+        <app-month-selector [month]="month" [year]="year" ></app-month-selector>
     
-    <div class="flex justify-between items-center flex-wrap gap-y-20">
-        <expense-form [month]="month" [year]="year" class="block w-fit"></expense-form>
-        <monthly-stats></monthly-stats>
-    </div>
-    <percentage-overview />
-    <expenses-table  [expenses]="expenses"/>
+        <div class="flex justify-between items-center flex-wrap gap-y-20">
+            <expense-form [month]="month" [year]="year" class="block w-fit"></expense-form>
+            <monthly-stats></monthly-stats>
+        </div>
+        <percentage-overview [expenses]="expenses" />
+        <expenses-table [expenses]="expenses" />
+    } @else {
+        <div>Page is loading...</div>
+    }
 </div>

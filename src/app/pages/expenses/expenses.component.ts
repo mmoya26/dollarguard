@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
 import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
 import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
@@ -19,17 +19,16 @@ export class ExpensesComponent implements OnInit {
   @Input() month = ''
 
   expenses: Expense[] = []
+  isDataLoading = true
 
   ngOnInit(): void {
     console.log(`Calling API with year: ${this.year} & month: ${this.month}`);
     
-    this.expensesService.getExpensesByYearAndMonth(this.year, this.month).subscribe((expenses: Expense[]) => {
+    this.expensesService.getExpenses(this.year, this.month).subscribe((expenses: Expense[]) => {
       this.expenses = expenses;
-      console.log(this.expenses)
+      this.isDataLoading = false
     });
-
   }
 
   constructor(private expensesService: ExpensesService) { }
-
 }

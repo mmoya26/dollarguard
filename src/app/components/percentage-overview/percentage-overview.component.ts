@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
-import { Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
 import { Category } from '@interfaces/category';
 
@@ -15,35 +14,34 @@ interface ActiveCategory extends Category {
   templateUrl: './percentage-overview.component.html',
   styleUrl: './percentage-overview.component.css'
 })
-export class PercentageOverviewComponent implements OnInit, OnDestroy {
-  private sub: Subscription = new Subscription();
+export class PercentageOverviewComponent implements OnInit {
+  @Input({ required: true }) expenses!: Expense[]
 
   activeCategories: ActiveCategory[] = [];
 
+  expensesTotalAmount = 0;
+
   ngOnInit(): void {
-    // this.sub = this.transactionsService.listOfTransactions$.subscribe(newTransactions => {
-    //   this.updateActiveCategories(newTransactions);
-    //   this.calculateActiveCategoriesPercentages();
-    // });    
+    this.expensesTotalAmount = this.expensesService.calculateTotalAmount(this.expenses);
+    this.activeCategories = this.updateActiveCategories();
+    this.calculateActiveCategoriesPercentages();
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+  updateActiveCategories(): ActiveCategory[] {
+    let returnArray: ActiveCategory[] = []
 
-  updateActiveCategories(transactions: Expense[]) {
-    transactions.forEach(t => {
-      if (!this.activeCategories.some(activeCategory => activeCategory.name === t.category.name)) {
-        console.log("Updating Active Categories...");
-        this.activeCategories.push({name: t.category.name, hexColor: t.category.hexColor, percentage: '0'});
+    this.expenses.forEach(e => {
+      if (!this.activeCategories.some(activeCategory => activeCategory.name === e.category.name)) {
+        returnArray.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: '0' });
       }
     });
+
+    return returnArray;
   }
 
   calculateActiveCategoriesPercentages() {
-    console.log("Calculating Active Categories percentages...");
     let newCalculatedCategories: ActiveCategory[] = this.activeCategories.map(c => {
-      let newActiveCategory: ActiveCategory = {...c, percentage: String(this.categoryBarWidth(c.name))}
+      let newActiveCategory: ActiveCategory = { ...c, percentage: String(this.categoryBarWidth(c.name)) }
       return newActiveCategory
     });
 
@@ -51,8 +49,21 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   }
 
   categoryBarWidth(category: string) {
-    // return Math.round((this.expensesService.getTransactionsTotalAmountByCategory(category) / this.expensesService.transactionsTotalAmount) * 100);
+    return Math.round((this.getTransactionsTotalAmountByCategory(category) / this.expensesTotalAmount) * 100);
   }
-  
-  constructor(private expensesService: ExpensesService) {}
+
+
+  getTransactionsTotalAmountByCategory(category: string): number {
+    let amount = 0;
+
+    this.expenses.forEach(expense => {
+      if (expense.category.name === category) {
+        amount += Number(expense.amount);
+      }
+    });
+
+    return amount;
+  }
+
+  constructor(private expensesService: ExpensesService) { }
 }
