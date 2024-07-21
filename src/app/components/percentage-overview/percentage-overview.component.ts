@@ -49,11 +49,11 @@ export class PercentageOverviewComponent implements OnInit {
   }
 
   categoryBarWidth(category: string) {
-    return Math.round((this.getTransactionsTotalAmountByCategory(category) / this.expensesTotalAmount) * 100);
+    return Math.round((this.getExpensesTotalAmountByCategory(category) / this.expensesTotalAmount) * 100);
   }
 
 
-  getTransactionsTotalAmountByCategory(category: string): number {
+  getExpensesTotalAmountByCategory(category: string): number {
     let amount = 0;
 
     this.expenses.forEach(expense => {
