@@ -28,15 +28,21 @@ export class PercentageOverviewComponent implements OnInit {
   }
 
   updateActiveCategories(): ActiveCategory[] {
-    let returnArray: ActiveCategory[] = []
-
+    // We create a need array instead of referencing the one in memory because if we don't create a new one
+    // we will be changing but the reference and the original array which will trigger multiple rerenders
+    let currentActiveCategories = [...this.activeCategories];
+    
     this.expenses.forEach(e => {
-      if (!this.activeCategories.some(activeCategory => activeCategory.name === e.category.name)) {
-        returnArray.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: '0' });
+      if (!this.isCategoryActive(e.category, currentActiveCategories)) {
+        currentActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: '0' });
       }
-    });
+    })
 
-    return returnArray;
+    return currentActiveCategories;
+  }
+
+  isCategoryActive(category: Category, currentActiveCategories: Category[]): boolean {
+    return currentActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
   }
 
   calculateActiveCategoriesPercentages() {

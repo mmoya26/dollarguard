@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
 import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
 import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
@@ -14,7 +14,7 @@ import { Expense } from '@interfaces/expense';
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.css'
 })
-export class ExpensesComponent implements OnInit {
+export class ExpensesComponent implements OnInit, OnChanges {
   @Input() year = ''
   @Input() month = ''
 
@@ -28,6 +28,10 @@ export class ExpensesComponent implements OnInit {
       this.expenses = expenses;
       this.isDataLoading = false
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('From main page', changes)
   }
 
   constructor(private expensesService: ExpensesService) { }
