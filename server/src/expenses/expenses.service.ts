@@ -36,7 +36,7 @@ export class ExpensesService {
     return this.expenseModel.find({
       date: {
         $gte: startDate,
-        $lt: endDate
+        $lte: endDate
       }
     })
   }
