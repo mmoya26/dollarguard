@@ -2,7 +2,7 @@
 
 Personal project to learn Angular and everything involded with it.
 
-## Currently working on: Integrating expense form with database (functionality)
+## Currently working on: Design details
 
 ## Todo: Expense Form (not high priority)
 - Add character count to notes text input field
@@ -14,6 +14,8 @@ Personal project to learn Angular and everything involded with it.
 - Investigate about pure functions to prevent so many re-renders from Change Detection
 - Invert expense array to display the latest expenses at the top of the table
 - Add fourth monthly stat card for which expense has the highest dollar amount
+- Remove specific expense
+- Edit specific expense
 
 # Design todos
 - Design how expenses and percentage overview sections will look when there are 0 expenses
