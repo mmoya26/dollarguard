@@ -29,7 +29,7 @@ export class Expense {
     date: Date;
 
     @Prop({ required: false })
-    note?: string;
+    notes?: string;
 }
 
 export const ExpenseSchema = SchemaFactory.createForClass(Expense);

@@ -21,5 +21,5 @@ export class CreateExpenseDto {
 
   @IsOptional()
   @IsString()
-  readonly note?: string
+  readonly notes?: string
 }
