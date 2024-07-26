@@ -5,7 +5,6 @@ import { PercentageOverviewComponent } from '@components/percentage-overview/per
 import { ExpensesTableComponent } from '@components/expenses-table/expenses-table.component';
 import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
 import { ExpensesService } from '../../services/expenses.service';
-import { Expense } from '@interfaces/expense';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -21,17 +20,18 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   @Input() year = ''
   @Input() month = ''
 
-  expenses: Expense[] = []
   isDataLoading = true
 
   ngOnInit(): void {
-    this.expensesService.getExpenses(this.year, this.month).subscribe((expenses: Expense[]) => {
-      console.log('Expenses calling');
-      this.isDataLoading = false
-    }, (e) => {
-      console.log('Not able to retrieve expenses', e)
-      this.isDataLoading = false
-    });
+    this.expensesService.getExpenses(this.year, this.month).subscribe({
+      next: (_) => {
+        this.isDataLoading = false
+      },
+
+      error: (e) => {
+        console.log('Unable to fetch expenses', e);
+      }
+    })
   }
 
   ngOnDestroy(): void {
@@ -39,7 +39,6 @@ export class ExpensesComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
 
   constructor(private expensesService: ExpensesService) { }
 }

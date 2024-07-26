@@ -13,6 +13,7 @@ Personal project to learn Angular and everything involded with it.
 ## Todo in general
 - Investigate about pure functions to prevent so many re-renders from Change Detection
 - Invert expense array to display the latest expenses at the top of the table
+- Add fourth monthly stat card for which expense has the highest dollar amount
 
 # Design todos
 - Design how expenses and percentage overview sections will look when there are 0 expenses
