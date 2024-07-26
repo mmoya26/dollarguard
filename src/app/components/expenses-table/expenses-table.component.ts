@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, inject, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
-import { CategoryService } from '../../services/category.service';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { DatePipe } from '@angular/common';
+import { ExpensesService } from '../../services/expenses.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'expenses-table',
@@ -12,19 +12,25 @@ import { DatePipe } from '@angular/common';
   styleUrl: './expenses-table.component.css'
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy {
-  // private sub: Subscription = new Subscription();
-  categoryService = inject(CategoryService);
+  private subscription: Subscription = new Subscription();
 
-  @Input({required: true}) expenses!: Expense[];
+  expenses: Expense[] = [];
 
   ngOnInit(): void {
+    this.subscription = this.expenseService.listOfExpenses$.subscribe(expenses => {
+      this.expenses = expenses;
+    });
   }
 
   ngOnDestroy(): void {
-    // this.sub.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   editTransaction() {
     
   }
+
+  constructor(private expenseService: ExpensesService) {}
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
 import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
 import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
@@ -6,6 +6,7 @@ import { ExpensesTableComponent } from '@components/expenses-table/expenses-tabl
 import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
 import { ExpensesService } from '../../services/expenses.service';
 import { Expense } from '@interfaces/expense';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-expenses',
@@ -14,7 +15,9 @@ import { Expense } from '@interfaces/expense';
   templateUrl: './expenses.component.html',
   styleUrl: './expenses.component.css'
 })
-export class ExpensesComponent implements OnInit, OnChanges {
+export class ExpensesComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+
   @Input() year = ''
   @Input() month = ''
 
@@ -22,17 +25,21 @@ export class ExpensesComponent implements OnInit, OnChanges {
   isDataLoading = true
 
   ngOnInit(): void {
-    console.log(`Calling API with year: ${this.year} & month: ${this.month}`);
-    
     this.expensesService.getExpenses(this.year, this.month).subscribe((expenses: Expense[]) => {
-      this.expenses = expenses;
+      console.log('Expenses calling');
+      this.isDataLoading = false
+    }, (e) => {
+      console.log('Not able to retrieve expenses', e)
       this.isDataLoading = false
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('From main page', changes)
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
+
 
   constructor(private expensesService: ExpensesService) { }
 }

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { ExpensesService } from '../../services/expenses.service';
 import { Category } from '@interfaces/category';
+import { Subscription } from 'rxjs';
 
 interface ActiveCategory extends Category {
   percentage: string
@@ -14,44 +15,55 @@ interface ActiveCategory extends Category {
   templateUrl: './percentage-overview.component.html',
   styleUrl: './percentage-overview.component.css'
 })
-export class PercentageOverviewComponent implements OnInit {
-  @Input({ required: true }) expenses!: Expense[]
+export class PercentageOverviewComponent implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
+
+  expenses: Expense[] = []
 
   activeCategories: ActiveCategory[] = [];
 
   expensesTotalAmount = 0;
 
   ngOnInit(): void {
-    this.expensesTotalAmount = this.expensesService.calculateTotalAmount(this.expenses);
-    this.activeCategories = this.updateActiveCategories();
-    this.calculateActiveCategoriesPercentages();
+    this.subscription = this.expensesService.listOfExpenses$.subscribe(expenses => {
+      this.expenses = expenses;
+      this.expensesTotalAmount = this.expensesService.calculateTotalAmount(this.expenses);
+      this.activeCategories = this.updateActiveCategories();
+    });
   }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
 
   updateActiveCategories(): ActiveCategory[] {
     // We create a need array instead of referencing the one in memory because if we don't create a new one
     // we will be changing but the reference and the original array which will trigger multiple rerenders
     let currentActiveCategories = [...this.activeCategories];
-    
+
     this.expenses.forEach(e => {
       if (!this.isCategoryActive(e.category, currentActiveCategories)) {
         currentActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: '0' });
       }
     })
 
-    return currentActiveCategories;
+    return this.calculateActiveCategoriesPercentages(currentActiveCategories);;
   }
 
   isCategoryActive(category: Category, currentActiveCategories: Category[]): boolean {
     return currentActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
   }
 
-  calculateActiveCategoriesPercentages() {
-    let newCalculatedCategories: ActiveCategory[] = this.activeCategories.map(c => {
+  calculateActiveCategoriesPercentages(currentActiveCategories: ActiveCategory[]): ActiveCategory[] {
+    const newCalculatedCategories: ActiveCategory[] = currentActiveCategories.map(c => {
       let newActiveCategory: ActiveCategory = { ...c, percentage: String(this.categoryBarWidth(c.name)) }
       return newActiveCategory
     });
 
-    this.activeCategories = [...newCalculatedCategories]
+    return newCalculatedCategories;
   }
 
   categoryBarWidth(category: string) {
