@@ -19,4 +19,4 @@ Personal project to learn Angular and everything involded with it.
 - Design how expenses and percentage overview sections will look when there are 0 expenses
 
 # Known defects
-- If a category has a big expense it will ocuppy 100% of the percentage overview area
+- If a category has a big expense it will occupy 100% of the percentage overview area
