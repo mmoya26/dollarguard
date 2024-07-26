@@ -16,6 +16,7 @@ Personal project to learn Angular and everything involded with it.
 - Add fourth monthly stat card for which expense has the highest dollar amount
 - Remove specific expense
 - Edit specific expense
+- Look into moving validations of params to their on validator constraint
 
 # Design todos
 - Design how expenses and percentage overview sections will look when there are 0 expenses
