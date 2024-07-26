@@ -8,12 +8,12 @@ export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
   @Get()
-  async getTransactionsByYearAndMonth(@Param() params: SearchForExpensesParams) {
+  async getExpensesByYearAndMonth(@Param() params: SearchForExpensesParams) {
     return this.expensesService.getExpensesByYearAndMonth(params);
   }
 
   @Post()
-  createTransaction(@Param() params: SearchForExpensesParams, @Body() createExpenseDto: CreateExpenseDto) {
+  createExpense(@Param() params: SearchForExpensesParams, @Body() createExpenseDto: CreateExpenseDto) {
     return this.expensesService.create(createExpenseDto, params);
   }
 }

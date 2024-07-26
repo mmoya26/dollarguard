@@ -23,11 +23,11 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   activeCategories: ActiveCategory[] = [];
 
   expensesTotalAmount = 0;
-
+  
   ngOnInit(): void {
     this.subscription = this.expensesService.listOfExpenses$.subscribe(expenses => {
       this.expenses = expenses;
-      this.expensesTotalAmount = this.expensesService.calculateTotalAmount(this.expenses);
+      this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
     });
   }
@@ -37,7 +37,6 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
-
 
   updateActiveCategories(): ActiveCategory[] {
     // We create a need array instead of referencing the one in memory because if we don't create a new one

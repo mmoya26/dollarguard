@@ -28,7 +28,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  editTransaction() {
+  editExpense() {
     
   }
 

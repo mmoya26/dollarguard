@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { Category } from '@interfaces/category';
 
-export type TransactionDocument = HydratedDocument<Expense>;
+export type ExpenseDocument = HydratedDocument<Expense>;
 
 @Schema({
     toJSON: {

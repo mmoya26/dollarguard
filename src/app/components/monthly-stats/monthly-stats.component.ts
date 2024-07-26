@@ -10,25 +10,25 @@ import { ExpensesService } from '../../services/expenses.service';
   styleUrl: './monthly-stats.component.css'
 })
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
-  private sub: Subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
-  monthlyBudget = 3100.00;
+  monthlyBudget = 4000.00;
   monthExpenses = 0;
-
 
   get runningTotal() {
     return this.monthlyBudget - this.monthExpenses;
   }
 
-
   ngOnInit(): void {
-    // this.sub = this.expensesService.listOfTransactions$.subscribe(transactions => {
-    //   this.monthExpenses = this.expensesService.transactionsTotalAmount;
-    // });
+    this.subscription = this.expensesService.listOfExpenses$.subscribe((_) => {
+      this.monthExpenses = this.expensesService.expensesTotalAmount;
+    });
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   constructor(private expensesService: ExpensesService) {}

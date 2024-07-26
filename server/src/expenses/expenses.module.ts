@@ -9,4 +9,4 @@ import { Expense, ExpenseSchema } from './schemas/expense.schema';
   controllers: [ExpensesController],
   providers: [ExpensesService],
 })
-export class TransactionModule {}
+export class ExpenseModule {}

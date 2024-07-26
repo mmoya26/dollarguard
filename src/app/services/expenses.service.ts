@@ -20,8 +20,8 @@ export class ExpensesService {
     );
   }
 
-  calculateTotalAmount(expenses: Expense[]): number {
-    return expenses.reduce((acc, current) => acc + Number(current.amount), 0);
+  get expensesTotalAmount() {
+    return this._listOfExpenses.value.reduce((acc, current) => acc + Number(current.amount), 0);
   }
 
   constructor(private http: HttpClient) { }
