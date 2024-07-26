@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Expense } from '@interfaces/expense';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ExpenseDto } from '../interfaces/expense-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,12 @@ export class ExpensesService {
         this._listOfExpenses.next(expenses);
       })
     );
+  }
+
+  addExpense(expense: ExpenseDto, year: string, month: string) {
+    return this.http.post<Expense>(`${this.API_URL}/${year}/${month}`, expense).subscribe(expense => {
+      this._listOfExpenses.next([...this._listOfExpenses.value, expense]);
+    })
   }
 
   get expensesTotalAmount() {

@@ -8,11 +8,10 @@ import { CalendarModule } from 'primeng/calendar';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Expense } from '@interfaces/expense';
 import { Category } from '@interfaces/category';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
-import { v4 as uuidv4 } from 'uuid';
+import { ExpenseDto } from '../../interfaces/expense-dto';
 
 @Component({
   selector: 'expense-form',
@@ -22,8 +21,8 @@ import { v4 as uuidv4 } from 'uuid';
   styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent implements OnInit {
-  @Input({required: true}) month = ''
-  @Input({required: true}) year = ''
+  @Input({ required: true }) month = ''
+  @Input({ required: true }) year = ''
 
   minDate = new Date();
   maxDate = new Date();
@@ -33,11 +32,10 @@ export class ExpenseFormComponent implements OnInit {
   blockSpaceAndOnlyAllowNumbers: RegExp = /^\d*\.?\d*$/;
 
   expenseForm = this.formBuilder.group({
-    id: uuidv4(),
     category: ['', Validators.required],
     amount: ['', Validators.required],
     date: ['', Validators.required],
-    note: ['']
+    notes: ['']
   });
 
   ngOnInit(): void {
@@ -63,21 +61,29 @@ export class ExpenseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.expenseForm.invalid) {
-      // Care for this statement, essentially we are saying this values are always going to be there when we access them...
-      // let transaction = {...this.expenseForm.value, category: {name: this.expenseForm.value.category, hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)}}
-      // this.transactionsService.addTransaction(<Expense>transaction);
-
-      console.log('valid')
-      this.clear();
-    } else {
-      console.log("Form is invalid");
+    if (this.expenseForm.invalid) {
       this.expenseForm.markAllAsTouched();
+      return
     }
+
+    let newExpense: ExpenseDto = {
+      userId: 'ui22',
+      amount: this.expenseForm.value?.amount || '0',
+      category: {
+        name: this.expenseForm.value?.category || 'NO COLOR',
+        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!) || '#2e1d14'
+      },
+      monthDay: String(new Date(this.expenseForm.value.date!).getDate()),
+      notes: this.expenseForm.value.notes!
+    }
+  
+    this.expensesService.addExpense(newExpense, this.year, this.month);
+
+    this.clear();
   }
 
   clear() {
-    this.expenseForm.reset({ amount: '', id: uuidv4(), category: '', date: '', note: '' });
+    this.expenseForm.reset({ amount: '', category: '', date: '', notes: '' });
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control
