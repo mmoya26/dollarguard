@@ -13,7 +13,6 @@ interface ActiveCategory extends Category {
   standalone: true,
   imports: [],
   templateUrl: './percentage-overview.component.html',
-  styleUrl: './percentage-overview.component.css'
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();

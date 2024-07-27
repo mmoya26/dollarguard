@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { Category } from '@interfaces/category';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
-import { ExpenseDto } from '../../interfaces/expense-dto';
+import { ExpenseDto } from '@interfaces/expense';
 
 @Component({
   selector: 'expense-form',

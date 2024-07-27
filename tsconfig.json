@@ -23,7 +23,7 @@
       "dom"
     ],
     "paths": {
-        "@interfaces/*": [ "./server/src/interfaces/*" ],
+        "@interfaces/*": [ "./src/app/interfaces/*" ],
         "@components/*": [ "./src/app/components/*" ],
         "@helpers/*": ["./src/app/helpers/*"]
     }

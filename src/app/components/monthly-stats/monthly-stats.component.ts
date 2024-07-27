@@ -7,7 +7,6 @@ import { ExpensesService } from '../../services/expenses.service';
   standalone: true,
   imports: [],
   templateUrl: './monthly-stats.component.html',
-  styleUrl: './monthly-stats.component.css'
 })
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();

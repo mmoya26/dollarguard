@@ -7,7 +7,6 @@ import { RouterLink, Router } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './month-selector.component.html',
-  styleUrl: './month-selector.component.css'
 })
 export class MonthSelectorComponent implements OnInit {
   @Input({ required: true }) month = ''

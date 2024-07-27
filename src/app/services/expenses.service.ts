@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Expense } from '@interfaces/expense';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ExpenseDto } from '../interfaces/expense-dto';
+import { ExpenseDto } from '@interfaces/expense'
 
 @Injectable({
   providedIn: 'root'

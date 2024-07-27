@@ -13,7 +13,6 @@ import { Expense } from '@interfaces/expense';
   standalone: true,
   imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent],
   templateUrl: './expenses.component.html',
-  styleUrl: './expenses.component.css'
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
