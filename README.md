@@ -23,4 +23,3 @@ Personal project to learn Angular and everything involded with it.
 
 # Known defects
 - If a category has a big expense it will occupy 100% of the percentage overview area
-- If server is not running the whole page does not load currently

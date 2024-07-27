@@ -25,8 +25,15 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   expenses: Expense[] = []
 
   ngOnInit(): void {
-    this.subscription = this.expensesService.getExpenses(this.year, this.month).subscribe(_ => {
-      this.isDataLoading = false
+    this.subscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
+      next: (_) => {
+        this.isDataLoading = false
+      },
+
+      error: (e) => {
+        this.isDataLoading = false
+        console.error('Unable to fetch expenses', e);
+      }
     });
 
     this.subscription2 = this.expensesService.listOfExpenses$.subscribe(expenses => {
