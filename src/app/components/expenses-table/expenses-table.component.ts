@@ -36,7 +36,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
   }
 
   deleteExpense(id: string) {
-    this.expenseService.deleteExpense(id, this.year, this.month)
+    this.expenseService.deleteExpense(id)
   }
 
   constructor(private expenseService: ExpensesService) {}

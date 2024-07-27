@@ -3,13 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { Expense } from "./schemas/expense.schema";
-import { SearchForExpensesParams } from '../interfaces/searchForExpensesParams';
+import { ExpenseParams } from '../interfaces/expenseParams';
 
 @Injectable()
 export class ExpensesService {
   constructor(@InjectModel(Expense.name) private readonly expenseModel: Model<Expense>) {}
 
-  async create(createExpenseDto: CreateExpenseDto, {year, month}: SearchForExpensesParams): Promise<Expense> {
+  async create(createExpenseDto: CreateExpenseDto, {year, month}: ExpenseParams): Promise<Expense> {
     const newExpense = new this.expenseModel(createExpenseDto);
     newExpense.date = new Date(`${month}/${createExpenseDto.monthDay}/${year}`);
 
@@ -24,7 +24,7 @@ export class ExpensesService {
     return this.expenseModel.findById(id);
   }
 
-  async getExpensesByYearAndMonth({year, month} : SearchForExpensesParams): Promise<Expense[]> {
+  async getExpensesByYearAndMonth({year, month} : ExpenseParams): Promise<Expense[]> {
     const startDate = new Date(Number(year), Number(month) - 1, 1);
     const endDate = new Date(Number(year), Number(month), 0);
 

@@ -27,8 +27,8 @@ export class ExpensesService {
     })
   }
 
-  deleteExpense(id: string, year: string, month: string) {
-    return this.http.delete(`${this.API_URL}/${year}/${month}/${id}`).subscribe((_) => {
+  deleteExpense(id: string) {
+    return this.http.delete(`${this.API_URL}/${id}`).subscribe((_) => {
       const filteredList = this._listOfExpenses.value.filter(e => e.id !== id);
       this._listOfExpenses.next(filteredList);
     })
