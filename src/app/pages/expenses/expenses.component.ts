@@ -6,6 +6,7 @@ import { ExpensesTableComponent } from '@components/expenses-table/expenses-tabl
 import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
 import { ExpensesService } from '../../services/expenses.service';
 import { Subscription } from 'rxjs';
+import { Expense } from '@interfaces/expense';
 
 @Component({
   selector: 'app-expenses',
@@ -21,11 +22,13 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   @Input() month = ''
 
   isDataLoading = true
+  expenses: Expense[] = []
 
   ngOnInit(): void {
     this.expensesService.getExpenses(this.year, this.month).subscribe({
-      next: (_) => {
+      next: (expenses) => {
         this.isDataLoading = false
+        this.expenses = expenses
       },
 
       error: (e) => {

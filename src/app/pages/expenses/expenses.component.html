@@ -6,8 +6,11 @@
             <expense-form [month]="month" [year]="year" class="block w-fit"></expense-form>
             <monthly-stats></monthly-stats>
         </div>
-        <percentage-overview />
-        <expenses-table [month]="month" [year]="year" />
+
+        @if (expenses.length > 0) {
+            <percentage-overview />
+            <expenses-table [month]="month" [year]="year" />
+        }
     } @else {
         <div>Page is loading...</div>
     }
