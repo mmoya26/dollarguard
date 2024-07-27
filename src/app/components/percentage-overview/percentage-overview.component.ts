@@ -26,6 +26,7 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.subscription = this.expensesService.listOfExpenses$.subscribe(expenses => {
+      // debugger;
       this.expenses = expenses;
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
@@ -41,7 +42,7 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   updateActiveCategories(): ActiveCategory[] {
     // We create a need array instead of referencing the one in memory because if we don't create a new one
     // we will be changing but the reference and the original array which will trigger multiple rerenders
-    let currentActiveCategories = [...this.activeCategories];
+    let currentActiveCategories: ActiveCategory[] = [];
 
     this.expenses.forEach(e => {
       if (!this.isCategoryActive(e.category, currentActiveCategories)) {

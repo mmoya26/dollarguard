@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
@@ -13,6 +13,9 @@ import { Subscription } from 'rxjs';
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+
+  @Input({required: true}) year!: string;
+  @Input({required: true}) month!: string;
 
   expenses: Expense[] = [];
 
@@ -30,6 +33,10 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   editExpense() {
     
+  }
+
+  deleteExpense(id: string) {
+    this.expenseService.deleteExpense(id, this.year, this.month)
   }
 
   constructor(private expenseService: ExpensesService) {}

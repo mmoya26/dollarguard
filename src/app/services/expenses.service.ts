@@ -27,6 +27,13 @@ export class ExpensesService {
     })
   }
 
+  deleteExpense(id: string, year: string, month: string) {
+    return this.http.delete(`${this.API_URL}/${year}/${month}/${id}`).subscribe((_) => {
+      const filteredList = this._listOfExpenses.value.filter(e => e.id !== id);
+      this._listOfExpenses.next(filteredList);
+    })
+  }
+
   get expensesTotalAmount() {
     return this._listOfExpenses.value.reduce((acc, current) => acc + Number(current.amount), 0);
   }

@@ -7,7 +7,7 @@
             <monthly-stats></monthly-stats>
         </div>
         <percentage-overview />
-        <expenses-table />
+        <expenses-table [month]="month" [year]="year" />
     } @else {
         <div>Page is loading...</div>
     }
