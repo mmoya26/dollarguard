@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post, Delete, HttpException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, HttpException, Patch } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
-import { CreateExpenseDto } from './dto/create-expense.dto';
-import { ExpenseParams } from '../interfaces/expenseParams';
+import { ExpenseDto, UpdateExpenseDto } from './dto/expense.dto';
+import { ExpenseParams, UpdateExpenseParams } from '../interfaces/expenseParams';
 import mongoose from 'mongoose';
 import { isValidDate, isValidMonth } from './helpers/dateFunctions';
 
@@ -16,7 +16,7 @@ export class ExpensesController {
   }
 
   @Post(':year/:month')
-  createExpense(@Param() params: ExpenseParams, @Body() createExpenseDto: CreateExpenseDto) {
+  createExpense(@Param() params: ExpenseParams, @Body() createExpenseDto: ExpenseDto) {
     if (!isValidDate(createExpenseDto.monthDay, Number(params.month) - 1, params.year)) throw new HttpException('Expense could not be added', 400);
 
     return this.expensesService.create(createExpenseDto, params);
@@ -29,5 +29,16 @@ export class ExpensesController {
 
     const deletedExpense = await this.expensesService.deleteExpense(id) 
     if (!deletedExpense) throw new HttpException('Expense not found', 404);
+  }
+
+  @Patch(':id')
+  async updateExpense(@Param() updateExpenseParams: UpdateExpenseParams, @Body() updateExpenseDto: UpdateExpenseDto) {
+    const isValidId = mongoose.Types.ObjectId.isValid(updateExpenseParams.id);
+    if (!isValidId) throw new HttpException('Invalid ID', 400);
+
+    const updatedExpense =  await this.expensesService.updateExpense(updateExpenseParams, updateExpenseDto);
+    if (!updatedExpense) throw new HttpException('Unable to update expense', 400);
+
+    return updatedExpense;
   }
 }
