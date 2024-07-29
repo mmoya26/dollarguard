@@ -6,7 +6,7 @@ export interface Expense {
     category: Category,
     amount: string,
     date: Date,
-    note?: string    
+    notes?: string    
 }
 
 export interface ExpenseDto {

@@ -31,8 +31,8 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  editExpense() {
-    
+  editExpense(expense: Expense) {
+    this.expenseService.editExpense(expense);
   }
 
   deleteExpense(id: string) {

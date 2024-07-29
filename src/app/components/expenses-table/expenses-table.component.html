@@ -26,7 +26,7 @@
                                 class=" border w-fit mx-auto px-3 py-2 rounded-full">{{expense.category.name}}</div>                    
                             </td>
                             <td class="w-1/5">
-                                <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editExpense()"></i>
+                                <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer" (click)="editExpense(expense)"></i>
                                 <i class="group-hover:opacity-100 transition-all opacity-0 pi pi-trash bg-red-500 
                                 p-3 rounded-full text-white cursor-pointer ml-5" (click)="deleteExpense(expense.id)"></i>
                             </td>

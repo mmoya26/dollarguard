@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -12,6 +12,7 @@ import { Category } from '@interfaces/category';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'expense-form',
@@ -20,9 +21,11 @@ import { ExpenseDto } from '@interfaces/expense';
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
-export class ExpenseFormComponent implements OnInit {
+export class ExpenseFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) month = ''
   @Input({ required: true }) year = ''
+
+  currentExpenseSubscription: Subscription = new Subscription();
 
   minDate = new Date();
   maxDate = new Date();
@@ -41,6 +44,19 @@ export class ExpenseFormComponent implements OnInit {
   ngOnInit(): void {
     this.categories = this.categoryService.getAllCategories();
     this.setMinAndMaxCalendarDates(this.month, this.year);
+
+    this.currentExpenseSubscription = this.expensesService.currentExpense$.subscribe(expense => {
+      this.expenseForm.controls['category'].setValue(expense.category);
+      this.expenseForm.controls['amount'].setValue(expense.amount);
+      this.expenseForm.controls['date'].setValue(expense.date);
+      this.expenseForm.controls['notes'].setValue(expense.notes);
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentExpenseSubscription) {
+      this.currentExpenseSubscription.unsubscribe();
+    }
   }
 
   get category() {
