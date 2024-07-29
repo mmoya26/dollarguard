@@ -53,5 +53,15 @@
             </div>
         </p-inputGroup>
     </div>
-    <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
+    
+    @if (isEditingExpense) {
+        <div class="flex justify-end gap-3">
+            <button type="button" class="w-fit border-0 text-slate-900 rounded-[20px] px-5 py-2 cursor-pointer" (click)="stopEditing()">Cancel</button>
+            <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Update</button>
+        </div>
+        
+    } @else {
+        <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
+    }
+    
 </form>

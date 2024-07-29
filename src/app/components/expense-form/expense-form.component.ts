@@ -34,6 +34,8 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   blockSpaceAndOnlyAllowNumbers: RegExp = /^\d*\.?\d*$/;
 
+  isEditingExpense = false;
+
   expenseForm = this.formBuilder.group({
     category: ['', Validators.required],
     amount: ['', Validators.required],
@@ -42,15 +44,21 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getAllCategories();
-    this.setMinAndMaxCalendarDates(this.month, this.year);
-
     this.currentExpenseSubscription = this.expensesService.currentExpense$.subscribe(expense => {
+      // Use this as an indicator to know if this is the first time the subscription is being ran
+      // We don't want to run the code below this line if it is the first time
+      if (this.categories.length === 0) return;
+
       this.expenseForm.controls['category'].setValue(expense.category);
       this.expenseForm.controls['amount'].setValue(expense.amount);
       this.expenseForm.controls['date'].setValue(expense.date);
       this.expenseForm.controls['notes'].setValue(expense.notes);
-    })
+
+      this.isEditingExpense = true;
+    });
+
+    this.categories = this.categoryService.getAllCategories();
+    this.setMinAndMaxCalendarDates(this.month, this.year);
   }
 
   ngOnDestroy(): void {
@@ -82,6 +90,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
       return
     }
 
+
     let newExpense: ExpenseDto = {
       userId: 'ui22',
       amount: this.expenseForm.value?.amount || '0',
@@ -90,16 +99,26 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
         hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!) || '#2e1d14'
       },
       monthDay: String(new Date(this.expenseForm.value.date!).getDate()),
-      notes: this.expenseForm.value.notes!
+      notes: this.expenseForm.value.notes || ""
     }
-  
-    this.expensesService.addExpense(newExpense, this.year, this.month);
+
+    if (this.isEditingExpense) {
+      console.log("HTTP PATCH CALL");
+      this.stopEditing();
+    } else {
+      this.expensesService.addExpense(newExpense, this.year, this.month);
+    }
 
     this.clear();
   }
 
   clear() {
     this.expenseForm.reset({ amount: '', category: '', date: '', notes: '' });
+  }
+
+  stopEditing() {
+    this.isEditingExpense = false;
+    this.clear();
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control
