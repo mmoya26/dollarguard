@@ -39,6 +39,9 @@ export class ExpensesService {
 
   async updateExpense(updateExpenseParams: UpdateExpenseParams, updateExpenseDto: UpdateExpenseDto) {
     const foundRecord = await this.expenseModel.findById(updateExpenseParams.id);
+    
+    if (!foundRecord) return null
+    
     const currentExpenseYear = foundRecord.date.getFullYear();
     const currentExpenseMonth = foundRecord.date.getMonth() + 1; // add +1 to match with real index numbers
 
