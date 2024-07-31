@@ -9,10 +9,11 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category } from '@interfaces/category';
+import { Expense } from '@interfaces/expense';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
 
 @Component({
   selector: 'expense-form',
@@ -44,11 +45,9 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.currentExpenseSubscription = this.expensesService.currentExpense$.subscribe(expense => {
-      // Use this as an indicator to know if this is the first time the subscription is being ran
-      // We don't want to run the code below this line if it is the first time
-      if (this.categories.length === 0) return;
-
+    this.currentExpenseSubscription = this.expensesService.currentExpenseBeingEdited$
+    .pipe(skip(1)) // Skip the first suscribe to no have to set the fields to empty again
+    .subscribe(expense => {
       this.expenseForm.controls['category'].setValue(expense.category);
       this.expenseForm.controls['amount'].setValue(expense.amount);
       this.expenseForm.controls['date'].setValue(expense.date);
@@ -90,35 +89,34 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
       return
     }
 
-
-    let newExpense: ExpenseDto = {
+    let transferedExpense: ExpenseDto = {
       userId: 'ui22',
       amount: this.expenseForm.value?.amount || '0',
       category: {
-        name: this.expenseForm.value?.category || 'NO COLOR',
-        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!) || '#2e1d14'
+        name: this.expenseForm.value?.category || 'NO COLOR NAME',
+        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!) || 'NO COLOR'
       },
       monthDay: String(new Date(this.expenseForm.value.date!).getDate()),
       notes: this.expenseForm.value.notes || ""
     }
 
     if (this.isEditingExpense) {
-      console.log("HTTP PATCH CALL");
+      this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense);
       this.stopEditing();
     } else {
-      this.expensesService.addExpense(newExpense, this.year, this.month);
+      this.expensesService.addExpense(transferedExpense, this.year, this.month);
     }
 
-    this.clear();
+    this.clearForm();
   }
 
-  clear() {
+  clearForm() {
     this.expenseForm.reset({ amount: '', category: '', date: '', notes: '' });
   }
 
   stopEditing() {
     this.isEditingExpense = false;
-    this.clear();
+    this.clearForm();
   }
 
   // Format date to not include names and only numbers mm/dd/yyyy before setting Date Form control

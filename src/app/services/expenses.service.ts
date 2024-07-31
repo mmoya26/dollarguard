@@ -13,8 +13,8 @@ export class ExpensesService {
   private _listOfExpenses: BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([]);
   public listOfExpenses$ = this._listOfExpenses.asObservable();
 
-  private _currentExpense = new BehaviorSubject({ amount: '', category: '', date: '', notes: '' });
-  public currentExpense$ = this._currentExpense.asObservable();
+  private _currentExpenseBeingEdited = new BehaviorSubject({ id: '', amount: '', category: '', date: '', notes: '' });
+  public currentExpenseBeingEdited$ = this._currentExpenseBeingEdited.asObservable();
 
   getExpenses(year: string, month: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(`${this.API_URL}/${year}/${month}`).pipe(
@@ -42,11 +42,39 @@ export class ExpensesService {
     const [year, month, day] = datePart.split('-');
     const formattedDate = `${month}/${day}/${year}`;
 
-    this._currentExpense.next({amount: expense.amount, category: expense.category.name, date: formattedDate, notes: expense.notes || ""})
+    this._currentExpenseBeingEdited.next({ id: expense.id, amount: expense.amount, category: expense.category.name, date: formattedDate, notes: expense.notes || "" })
+  }
+
+  updateExpense(id: string, expense: ExpenseDto) {
+    return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).subscribe(_ => {
+      // Update local expenses list
+      let expenseBeingEdited: Expense = this._listOfExpenses.value.find(e => e.id === id)!;
+      expenseBeingEdited.amount = expense.amount
+      expenseBeingEdited.category = expense.category
+      expenseBeingEdited.userId = expense.userId
+      expenseBeingEdited.notes = expense.notes ?? ""
+
+      const newDate = new Date(expenseBeingEdited.date);
+      newDate.setDate(Number(expense.monthDay));
+
+      expenseBeingEdited.date = newDate;
+
+      const filteredListOfExpenses = this._listOfExpenses.value.filter(e => e.id !== id);
+
+      this._listOfExpenses.next([...filteredListOfExpenses, expenseBeingEdited]);
+    });
+  }
+
+  clearCurrentExpenseBeingEdited() {
+    this._currentExpenseBeingEdited.next({ id: '', amount: '', category: '', date: '', notes: '' });
   }
 
   get expensesTotalAmount() {
     return this._listOfExpenses.value.reduce((acc, current) => acc + Number(current.amount), 0);
+  }
+
+  get expenseBeingEditedId() {
+    return this._currentExpenseBeingEdited.value.id;
   }
 
   constructor(private http: HttpClient) { }
