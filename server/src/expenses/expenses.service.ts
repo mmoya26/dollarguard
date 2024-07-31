@@ -39,7 +39,7 @@ export class ExpensesService {
 
   async updateExpense(updateExpenseParams: UpdateExpenseParams, updateExpenseDto: UpdateExpenseDto) {
     const foundRecord = await this.expenseModel.findById(updateExpenseParams.id);
-
+    
     if (!foundRecord) return null
     
     const currentExpenseYear = foundRecord.date.getFullYear();
