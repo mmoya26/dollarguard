@@ -43,9 +43,11 @@ export class ExpensesService {
     if (!foundRecord) return null
     
     const currentExpenseYear = foundRecord.date.getFullYear();
-    const currentExpenseMonth = foundRecord.date.getMonth() + 1; // add +1 to match with real index numbers
+    const currentExpenseMonth = foundRecord.date.getMonth() + 1; // Add + 1 because the return value will based on index 0
 
-    if (!isValidDate(updateExpenseDto.monthDay, currentExpenseMonth, currentExpenseYear)) {
+    // Subtract 1 from currentExpenseMonth to check if it is a valid date because the function is based on index 0
+    // so march for example will actually be index 2 instead of 3.
+    if (!isValidDate(updateExpenseDto.monthDay, currentExpenseMonth - 1, currentExpenseYear)) {
       return null;
     }
 
