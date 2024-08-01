@@ -1,12 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { getMonthName } from '@helpers/getMonthName';
 import { RouterLink, Router } from '@angular/router';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-month-selector',
   standalone: true,
   imports: [RouterLink],
   templateUrl: './month-selector.component.html',
+  animations: [
+    trigger('openMonthsMenu', [
+      state('open', style({
+        opacity: 1,
+        visibility: 'visible'
+      })),
+
+      state('close', style({
+        opacity: 0,
+        visibility: 'hidden'
+      })),
+
+      transition('open => close', [animate('0.3s')]),
+      transition('close => open', [animate('0.2s')])
+    ])
+  ]
 })
 export class MonthSelectorComponent implements OnInit {
   @Input({ required: true }) month = ''

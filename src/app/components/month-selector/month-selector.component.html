@@ -2,13 +2,11 @@
     <button (click)="toggleMonthsView()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 flex items-center gap-2 font-bold ">
         {{nameOfMonth}} <i class="pi pi-chevron-down"></i>
     </button>
-    @if (displayMonths) {
-        <div class="flex gap-x-6">
-            @for (month of months; track month) {
-            <a routerLink="/expenses/{{year}}/{{month.index}}" (click)="refreshRoute(year, month.index)" class="hover:bg-slate-900 hover:text-white border cursor-pointer border-slate-900 rounded-[20px] text-slate-900 py-2 px-4 flex items-center gap-2">
-                {{month.name}}
-            </a>
-            }
-        </div>
-    }
+    <div class="flex gap-x-6" [@openMonthsMenu]="displayMonths ? 'open' : 'close'">
+        @for (month of months; track month) {
+        <a routerLink="/expenses/{{year}}/{{month.index}}" (click)="refreshRoute(year, month.index)" class="hover:bg-slate-900 hover:text-white border cursor-pointer border-slate-900 rounded-[20px] text-slate-900 py-2 px-4 flex items-center gap-2">
+            {{month.name}}
+        </a>
+        }
+    </div>
 </div>
