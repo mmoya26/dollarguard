@@ -9,6 +9,11 @@ import { isValidDate, isValidMonth } from './helpers/dateFunctions';
 export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
+  @Get()
+  async getUserYears() {
+    return await this.expensesService.getYears()
+  }
+
   @Get(':year/:month')
   async getExpensesByYearAndMonth(@Param() params: ExpenseParams) {
     if (!isValidMonth(params.month)) throw new HttpException('Unable to get expenses', 400);

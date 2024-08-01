@@ -59,4 +59,19 @@ export class ExpensesService {
   async deleteExpense(id: string) {
     return this.expenseModel.findByIdAndDelete(id)
   }
+
+
+  async getYears(): Promise<String[]> {
+    const years = await this.expenseModel.aggregate([
+      { $match: { userId: 'ui22' } },
+      { $group: {
+          _id: { $year: "$date" }
+        }
+      },
+      { $sort: { _id: -1 } },
+      { $project: { _id: 0, year: { $toString: "$_id" } } }
+    ]);
+
+    return years.map(y => y.year);
+  }
 }
