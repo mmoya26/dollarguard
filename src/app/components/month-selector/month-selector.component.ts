@@ -20,8 +20,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         visibility: 'hidden'
       })),
 
-      transition('open => close', [animate('0.3s')]),
-      transition('close => open', [animate('0.2s')])
+      // From open to close & from close to open animate in 0.2s
+      transition('open <=> close', [animate('0.2s')]),
     ])
   ]
 })

@@ -22,3 +22,4 @@ Personal project to learn Angular and everything involded with it.
 
 # Known defects
 - If a category has a big expense it will occupy 100% of the percentage overview area
+- Users are allowed to enter a new expense with amount 0
