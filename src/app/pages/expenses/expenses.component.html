@@ -1,4 +1,4 @@
-<div class="w-full max-w-8xl mx-auto my-10">
+<div class="content-container">
     @if (!isDataLoading) {
         <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
@@ -10,8 +10,7 @@
         <percentage-overview />
         <expenses-table [month]="month" [year]="year" />
 
-
     } @else {
-    <div>Page is loading...</div>
+        <div>Page is loading...</div>
     }
 </div>

@@ -24,8 +24,6 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   expenses: Expense[] = []
 
   ngOnInit(): void {
-    console.log(this.year);
-    console.log(this.month);
     this.subscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
       next: (_) => {
         this.isDataLoading = false
