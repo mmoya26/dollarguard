@@ -16,7 +16,6 @@ import { Expense } from '@interfaces/expense';
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  private subscription2: Subscription = new Subscription();
 
   @Input() year = ''
   @Input() month = ''
@@ -25,6 +24,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   expenses: Expense[] = []
 
   ngOnInit(): void {
+    console.log(this.year);
+    console.log(this.month);
     this.subscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
       next: (_) => {
         this.isDataLoading = false
@@ -35,19 +36,11 @@ export class ExpensesComponent implements OnInit, OnDestroy {
         console.error('Unable to fetch expenses', e);
       }
     });
-
-    this.subscription2 = this.expensesService.listOfExpenses$.subscribe(expenses => {
-      this.expenses = expenses;
-    })
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
-    }
-
-    if (this.subscription2) {
-      this.subscription2.unsubscribe();
     }
   }
 
