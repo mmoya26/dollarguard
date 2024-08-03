@@ -1,13 +1,19 @@
 <div class="content-container">
     <h1 class="text-center font-bold text-4xl text-slate-900">Year selection</h1>
-    <h4 class="text-center text-slate-600 text-sm mt-1">Select a year to edit or view your expenses</h4>
+    <h4 class="text-center text-slate-600 text-sm mt-2">Select a year to edit or view your expenses</h4>
 
-    <div class="flex gap-x-6 mt-8 justify-center">
-        @for (year of years$ | async; track year) {
-            <a [routerLink]="['/expenses', year, currentMonth]"
-                class="hover:border-slate-900 transition-all hover:bg-transparent hover:text-slate-900 text-white border border-slate-900 cursor-pointer bg-slate-900 rounded-[20px] py-2 px-4">
-                {{year}}
-            </a>
-        }
-    </div>
+    @if (years$ | async; as years) {
+        @if (years.length > 0) {
+            <div class="flex gap-x-6 mt-8 justify-center">
+                @for (year of years; track year) {
+                    <a [routerLink]="['/expenses', year, currentMonth]"
+                        class="hover:border-slate-900 transition-all hover:bg-transparent hover:text-slate-900 text-white border border-slate-900 cursor-pointer bg-slate-900 rounded-[20px] py-2 px-4">
+                        {{year}}
+                    </a>
+                }
+            </div>
+        } @else {
+            <a [routerLink]="['/expenses', currentYear, currentMonth]" class="bg-slate-900 w-fit rounded-[20px] justify-start text-white py-2 px-4 flex items-center gap-3 mx-auto mt-10"><i class="pi pi-plus"></i>Create your first expense</a>
+        }     
+    }
 </div>
