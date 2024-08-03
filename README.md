@@ -2,7 +2,7 @@
 
 Personal project to learn Angular and everything involded with it.
 
-## Currently working on: Implementing editing expense with backend
+## Currently working on: Years selection page
 
 ## Todo: Expense Form (not high priority)
 - Add character count to notes text input field
@@ -14,12 +14,12 @@ Personal project to learn Angular and everything involded with it.
 - Investigate about pure functions to prevent so many re-renders from Change Detection
 - Invert expense array to display the latest expenses at the top of the table
 - Add fourth monthly stat card for which expense has the highest dollar amount
-- Edit specific expense
 - Look into moving validations of params to their on validator constraint
 - Sort user expense years from latest to oldest
 
-# Design todos
-- Design how expenses and percentage overview sections will look when there are 0 expenses
+# Design/create todos
+- Design how expenses table and percentage overview sections will look when there are zero expenses
+- Design how years selection page will look like when there is zero years for the user's account
 
 # Known defects
 - If a category has a big expense it will occupy 100% of the percentage overview area
