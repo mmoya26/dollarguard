@@ -1,7 +1,8 @@
 <div class="content-container">
-    @if (!isDataLoading) {
-        <app-month-selector [month]="month" [year]="year"></app-month-selector>
+    <a routerLink="/expenses" class="text-slate-900"><i class="pi pi-chevron-left text-slate-900 text-base pr-1"></i>Years Selection</a>
+    <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
+    @if (!isDataLoading) {
         <div class="flex justify-between items-center flex-wrap gap-y-20">
             <expense-form [month]="month" [year]="year" class="block w-fit"></expense-form>
             <monthly-stats></monthly-stats>

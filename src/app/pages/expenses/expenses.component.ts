@@ -7,11 +7,12 @@ import { MonthSelectorComponent } from '@components/month-selector/month-selecto
 import { ExpensesService } from '../../services/expenses.service';
 import { Subscription } from 'rxjs';
 import { Expense } from '@interfaces/expense';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent],
+  imports: [RouterLink, ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent],
   templateUrl: './expenses.component.html',
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
