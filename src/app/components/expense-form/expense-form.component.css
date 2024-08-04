@@ -12,12 +12,17 @@
     background-color: white;
 }
 
-::ng-deep .expense-form .inputgroup-input > span {
+::ng-deep .expense-form .inputgroup-input>span {
     padding-left: 0;
     padding-right: 0;
 }
 
-::ng-deep .expense-form .p-inputtext.normal-input, ::ng-deep .expense-form .normal-input >  span > input.p-inputtext {
+::ng-deep .p-datepicker table td.p-datepicker-today>span {
+    background-color: transparent;
+}
+
+::ng-deep .expense-form .p-inputtext.normal-input,
+::ng-deep .expense-form .normal-input>span>input.p-inputtext {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: 1px solid #e5e7eb;
@@ -29,16 +34,17 @@
 }
 
 
-::ng-deep .expense-form .inputgroup-container > div {
+::ng-deep .expense-form .inputgroup-container>div {
     display: flex;
     flex-direction: column;
 }
 
-::ng-deep .expense-form p-calendar > span {
+::ng-deep .expense-form p-calendar>span {
     height: 100%;
 }
 
-::ng-deep .expense-form .p-inputtext:enabled:focus, ::ng-deep .expense-form .p-component.p-dropdown {
+::ng-deep .expense-form .p-inputtext:enabled:focus,
+::ng-deep .expense-form .p-component.p-dropdown {
     box-shadow: none;
 }
 
