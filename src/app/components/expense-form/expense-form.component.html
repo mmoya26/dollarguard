@@ -36,7 +36,7 @@
                         <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                             <i class="pi pi-calendar"></i>
                         </p-inputGroupAddon>
-                        <p-calendar formControlName="date" class="normal-input" id="date" dateFormat="mm/dd/yy" placeholder="Date" (onSelect)="onDateSelect($event)" [maxDate]="maxDate" [minDate]="minDate"/>
+                        <p-calendar formControlName="date" class="normal-input" id="date" [defaultDate]="this.minDate" dateFormat="mm/dd/yy" placeholder="Date" (onSelect)="onDateSelect($event)" [maxDate]="maxDate" [minDate]="minDate"/>
                     </div>
                     <div *ngIf="date?.invalid && date?.touched" class="mt-2 text-red-500">Please enter a date</div>
                 </p-inputGroup>
