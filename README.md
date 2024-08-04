@@ -12,11 +12,11 @@ Personal project to learn Angular and everything involded with it.
 
 ## Todo in general
 - Investigate about pure functions to prevent so many re-renders from Change Detection
-- Invert expense array to display the latest expenses at the top of the table
 - Add fourth monthly stat card for which expense has the highest dollar amount
 - Look into moving validations of params to their on validator constraint
 - Sort user expense years from latest to oldest
 - Add year indicator in the expenses page
+- Use InputNumber component instead of regular Input for amount input field for expense form
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
