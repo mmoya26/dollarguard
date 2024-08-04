@@ -16,6 +16,7 @@ Personal project to learn Angular and everything involded with it.
 - Add fourth monthly stat card for which expense has the highest dollar amount
 - Look into moving validations of params to their on validator constraint
 - Sort user expense years from latest to oldest
+- Add year indicator in the expenses page
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
