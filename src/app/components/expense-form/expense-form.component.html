@@ -2,7 +2,11 @@
 
     <!-- {{this.expenseForm.value | json}} -->
 
-    <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
+    @if (isEditingExpense) {
+        <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
+    } @else {
+        <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
+    }
 
     <div class="flex flex-col gap-3">
         <p-inputGroup class="inputgroup-container">
