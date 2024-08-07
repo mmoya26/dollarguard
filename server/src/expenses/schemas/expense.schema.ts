@@ -23,7 +23,7 @@ export class Expense {
     category: Category;
 
     @Prop({ required: true })
-    amount: string;
+    amount: number;
 
     @Prop({ required: true })
     date: Date;

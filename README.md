@@ -24,4 +24,4 @@ Personal project to learn Angular and everything involded with it.
 
 # Known defects
 - If a category has a big expense it will occupy 100% of the percentage overview area
-- Users are allowed to enter a new expense with amount 0
+- Users can start editing an expense and then delete the expense before updating it (causing a 400 bad requet error)

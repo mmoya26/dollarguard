@@ -30,7 +30,8 @@
                         </p-inputGroupAddon>
                         <input pInputText formControlName="amount" (paste)="(false)" id="amount" placeholder="Amount" class="normal-input" [pKeyFilter]="blockSpaceAndOnlyAllowNumbers" />
                     </div>
-                    <div *ngIf="amount?.invalid && amount?.touched" class="mt-2 text-red-500">Please enter an amount</div>
+                    <div *ngIf="amount?.touched && amount?.errors?.['required']" class="mt-2 text-red-500">Please enter an amount</div>
+                    <div *ngIf="amount?.touched && amount?.errors?.['min'] && !amount?.errors?.['required']" class="mt-2 text-red-500">Please an amount greater than 0</div>
                 </p-inputGroup>
             </div>
             <div>

@@ -13,7 +13,7 @@ export class ExpensesService {
   private _listOfExpenses: BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([]);
   public listOfExpenses$ = this._listOfExpenses.asObservable();
 
-  private _currentExpenseBeingEdited = new BehaviorSubject({ id: '', amount: '', category: '', date: '', notes: '' });
+  private _currentExpenseBeingEdited = new BehaviorSubject({ id: '', amount: 0, category: '', date: '', notes: '' });
   public currentExpenseBeingEdited$ = this._currentExpenseBeingEdited.asObservable();
 
   getExpenses(year: string, month: string): Observable<Expense[]> {
@@ -66,7 +66,7 @@ export class ExpensesService {
   }
 
   clearCurrentExpenseBeingEdited() {
-    this._currentExpenseBeingEdited.next({ id: '', amount: '', category: '', date: '', notes: '' });
+    this._currentExpenseBeingEdited.next({ id: '', amount: 0, category: '', date: '', notes: '' });
   }
 
   getUsersYearsForExpenses() {
@@ -74,7 +74,7 @@ export class ExpensesService {
   }
 
   get expensesTotalAmount() {
-    return this._listOfExpenses.value.reduce((acc, current) => acc + Number(current.amount), 0);
+    return this._listOfExpenses.value.reduce((acc, current) => acc + current.amount, 0);
   }
 
   get expenseBeingEditedId() {

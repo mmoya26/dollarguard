@@ -9,7 +9,6 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Category } from '@interfaces/category';
-import { Expense } from '@interfaces/expense';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
@@ -39,9 +38,9 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   expenseForm = this.formBuilder.group({
     category: ['', Validators.required],
-    amount: ['', Validators.required],
+    amount: [null as number | null, [Validators.required, Validators.min(1)]],
     date: ['', Validators.required],
-    notes: ['']
+    notes: ''
   });
 
   ngOnInit(): void {
@@ -85,19 +84,20 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.expenseForm.invalid) {
+      console.log("Form is invalid");
       this.expenseForm.markAllAsTouched();
       return
     }
 
     let transferedExpense: ExpenseDto = {
       userId: 'ui22',
-      amount: this.expenseForm.value?.amount || '0',
+      amount: Number(this.expenseForm.value.amount)!,
       category: {
-        name: this.expenseForm.value?.category || 'NO COLOR NAME',
-        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!) || 'NO COLOR'
+        name: this.expenseForm.value.category!,
+        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)!
       },
       monthDay: String(new Date(this.expenseForm.value.date!).getDate()),
-      notes: this.expenseForm.value.notes || ""
+      notes: this.expenseForm.value.notes || ''
     }
 
     if (this.isEditingExpense) {
@@ -111,7 +111,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   }
 
   clearForm() {
-    this.expenseForm.reset({ amount: '', category: '', date: '', notes: '' });
+    this.expenseForm.reset({ amount: null, category: '', date: '', notes: '' });
   }
 
   stopEditing() {

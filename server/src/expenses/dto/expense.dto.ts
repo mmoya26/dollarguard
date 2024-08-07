@@ -1,5 +1,5 @@
 import { Category } from "@interfaces/category";
-import { IsNotEmpty, IsString, IsOptional, IsNumberString} from 'class-validator'
+import { IsNotEmpty, IsString, IsOptional, IsNumberString, Min, IsNumber} from 'class-validator'
 import { IsCategory } from "./validator/is-category.decorator";
 
 export class ExpenseDto {
@@ -11,9 +11,10 @@ export class ExpenseDto {
   @IsNotEmpty()
   readonly category: Category;
 
-  @IsString()
+  @Min(1)
+  @IsNumber()
   @IsNotEmpty()
-  readonly amount: string;
+  readonly amount: number;
 
   @IsNumberString()
   @IsNotEmpty()
@@ -29,9 +30,10 @@ export class UpdateExpenseDto {
   @IsNotEmpty()
   readonly category: Category;
 
-  @IsString()
+  @Min(1)
+  @IsNumber()
   @IsNotEmpty()
-  readonly amount: string;
+  readonly amount: number;
 
   @IsNumberString()
   @IsNotEmpty()

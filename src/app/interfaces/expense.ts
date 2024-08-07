@@ -4,7 +4,7 @@ export interface Expense {
     id: string,
     userId: string,
     category: Category,
-    amount: string,
+    amount: number,
     date: Date,
     notes?: string    
 }
@@ -12,7 +12,7 @@ export interface Expense {
 export interface ExpenseDto {
     userId: string
     category: Category,
-    amount: string,
+    amount: number,
     monthDay: string,
     notes?: string
 }
