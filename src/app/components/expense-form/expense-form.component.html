@@ -3,9 +3,9 @@
     <!-- {{this.expenseForm.value | json}} -->
 
     @if (isEditingExpense) {
-        <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
+    <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
     } @else {
-        <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
+    <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
     }
 
     <div class="flex flex-col gap-3">
@@ -15,11 +15,13 @@
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-list"></i>
                 </p-inputGroupAddon>
-                <p-dropdown id="category" formControlName="category" [options]="categories" optionLabel="name" optionValue="name" placeholder="Select a category" styleClass="inputgroup-input" (onChange)="onCategorySelect($event)"/>
+                <p-dropdown id="category" formControlName="category" [options]="categories" optionLabel="name"
+                    optionValue="name" placeholder="Select a category" styleClass="inputgroup-input"
+                    (onChange)="onCategorySelect($event)" />
             </div>
             <div *ngIf="category?.invalid && category?.touched" class="mt-2 text-red-500">Please select a category</div>
         </p-inputGroup>
-    
+
         <div class="flex gap-3">
             <div>
                 <p-inputGroup class="inputgroup-container">
@@ -28,10 +30,14 @@
                         <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                             <i class="pi pi-dollar"></i>
                         </p-inputGroupAddon>
-                        <input pInputText formControlName="amount" (paste)="(false)" id="amount" placeholder="Amount" class="normal-input" [pKeyFilter]="blockSpaceAndOnlyAllowNumbers" />
+                        <p-inputNumber formControlName="amount" (paste)="(false)" id="amount"
+                            placeholder="Amount" inputId="minmaxfraction" [minFractionDigits]="0"
+                            [maxFractionDigits]="2" class="normal-input" [maxlength]="7"/>
                     </div>
-                    <div *ngIf="amount?.touched && amount?.errors?.['required']" class="mt-2 text-red-500">Please enter an amount</div>
-                    <div *ngIf="amount?.touched && amount?.errors?.['min'] && !amount?.errors?.['required']" class="mt-2 text-red-500">Please an amount greater than 0</div>
+                    <div *ngIf="amount?.touched && amount?.errors?.['required']" class="mt-2 text-red-500">Please enter
+                        an amount</div>
+                    <div *ngIf="(amount?.touched && amount?.errors?.['min'] || amount?.touched && amount?.errors?.['max']) && !amount?.errors?.['required']"
+                        class="mt-2 text-red-500">Please an amount greater than 0 but <br /> less than 1,000,000</div>
                 </p-inputGroup>
             </div>
             <div>
@@ -41,7 +47,9 @@
                         <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                             <i class="pi pi-calendar"></i>
                         </p-inputGroupAddon>
-                        <p-calendar formControlName="date" class="normal-input" id="date" [defaultDate]="this.minDate" dateFormat="mm/dd/yy" placeholder="Date" (onSelect)="onDateSelect($event)" [maxDate]="maxDate" [minDate]="minDate"/>
+                        <p-calendar formControlName="date" class="normal-input" id="date" [defaultDate]="this.minDate"
+                            dateFormat="mm/dd/yy" placeholder="Date" (onSelect)="onDateSelect($event)"
+                            [maxDate]="maxDate" [minDate]="minDate" />
                     </div>
                     <div *ngIf="date?.invalid && date?.touched" class="mt-2 text-red-500">Please enter a date</div>
                 </p-inputGroup>
@@ -54,19 +62,23 @@
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-comments"></i>
                 </p-inputGroupAddon>
-                <input pInputText formControlName="notes" id="notes" placeholder="Notes" [value]="" class="normal-input" />
+                <input pInputText formControlName="notes" id="notes" placeholder="Notes" [value]=""
+                    class="normal-input" />
             </div>
         </p-inputGroup>
     </div>
-    
+
     @if (isEditingExpense) {
-        <div class="flex justify-end gap-3">
-            <button type="button" class="w-fit border-0 text-slate-900 rounded-[20px] px-5 py-2 cursor-pointer" (click)="stopEditing()">Cancel</button>
-            <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Update</button>
-        </div>
-        
+    <div class="flex justify-end gap-3">
+        <button type="button" class="w-fit border-0 text-slate-900 rounded-[20px] px-5 py-2 cursor-pointer"
+            (click)="stopEditing()">Cancel</button>
+        <button type="submit"
+            class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Update</button>
+    </div>
+
     } @else {
-        <button type="submit" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
+    <button type="submit"
+        class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
     }
-    
+
 </form>

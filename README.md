@@ -15,8 +15,9 @@ Personal project to learn Angular and everything involded with it.
 - Add fourth monthly stat card for which expense has the highest dollar amount
 - Look into moving validations of params to their on validator constraint
 - Sort user expense years from latest to oldest
+- Sort expenses table from newest to oldest
 - Add year indicator in the expenses page
-- Use InputNumber component instead of regular Input for amount input field for expense form
+- Add comma formatting to the expenses amount displayed in the expenses table
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
@@ -25,3 +26,6 @@ Personal project to learn Angular and everything involded with it.
 # Known defects
 - If a category has a big expense it will occupy 100% of the percentage overview area
 - Users can start editing an expense and then delete the expense before updating it (causing a 400 bad requet error)
+
+# Maybe future features
+- Add support for different types of currencies

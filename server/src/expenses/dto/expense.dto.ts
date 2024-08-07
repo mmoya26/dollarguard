@@ -1,5 +1,5 @@
 import { Category } from "@interfaces/category";
-import { IsNotEmpty, IsString, IsOptional, IsNumberString, Min, IsNumber} from 'class-validator'
+import { IsNotEmpty, IsString, IsOptional, IsNumberString, Min, IsNumber, Max} from 'class-validator'
 import { IsCategory } from "./validator/is-category.decorator";
 
 export class ExpenseDto {
@@ -12,6 +12,7 @@ export class ExpenseDto {
   readonly category: Category;
 
   @Min(1)
+  @Max(999999)
   @IsNumber()
   @IsNotEmpty()
   readonly amount: number;
@@ -31,6 +32,7 @@ export class UpdateExpenseDto {
   readonly category: Category;
 
   @Min(1)
+  @Max(999999)
   @IsNumber()
   @IsNotEmpty()
   readonly amount: number;

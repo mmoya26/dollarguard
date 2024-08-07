@@ -13,11 +13,12 @@ import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
 import { skip, Subscription } from 'rxjs';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'expense-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule, InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule, InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
@@ -32,13 +33,11 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   categories: Category[] = [];
 
-  blockSpaceAndOnlyAllowNumbers: RegExp = /^\d*\.?\d*$/;
-
   isEditingExpense = false;
 
   expenseForm = this.formBuilder.group({
     category: ['', Validators.required],
-    amount: [null as number | null, [Validators.required, Validators.min(1)]],
+    amount: [null as number | null, [Validators.required, Validators.min(1), Validators.max(999999)]],
     date: ['', Validators.required],
     notes: ''
   });
