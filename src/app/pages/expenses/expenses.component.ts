@@ -35,6 +35,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
         console.error('Unable to fetch expenses', e);
       }
     });
+
+    
   }
 
   ngOnDestroy(): void {
