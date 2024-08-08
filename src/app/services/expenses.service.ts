@@ -25,9 +25,11 @@ export class ExpensesService {
   }
 
   addExpense(expense: ExpenseDto, year: string, month: string) {
-    return this.http.post<Expense>(`${this.API_URL}/${year}/${month}`, expense).subscribe(expense => {
-      this._listOfExpenses.next([...this._listOfExpenses.value, expense]);
-    })
+    return this.http.post<Expense>(`${this.API_URL}/${year}/${month}`, expense).pipe(
+      tap((expense: Expense) => {
+        this._listOfExpenses.next([...this._listOfExpenses.value, expense]);
+      })
+    );
   }
 
   deleteExpense(id: string) {

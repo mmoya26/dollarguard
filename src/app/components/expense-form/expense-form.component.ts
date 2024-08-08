@@ -14,11 +14,15 @@ import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
 import { skip, Subscription } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'expense-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule, InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule, 
+  InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
@@ -44,15 +48,15 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentExpenseSubscription = this.expensesService.currentExpenseBeingEdited$
-    .pipe(skip(1)) // Skip the first suscribe to no have to set the fields to empty again
-    .subscribe(expense => {
-      this.expenseForm.controls['category'].setValue(expense.category);
-      this.expenseForm.controls['amount'].setValue(expense.amount);
-      this.expenseForm.controls['date'].setValue(expense.date);
-      this.expenseForm.controls['notes'].setValue(expense.notes);
+      .pipe(skip(1)) // Skip the first suscribe to no have to set the fields to empty again
+      .subscribe(expense => {
+        this.expenseForm.controls['category'].setValue(expense.category);
+        this.expenseForm.controls['amount'].setValue(expense.amount);
+        this.expenseForm.controls['date'].setValue(expense.date);
+        this.expenseForm.controls['notes'].setValue(expense.notes);
 
-      this.isEditingExpense = true;
-    });
+        this.isEditingExpense = true;
+      });
 
     this.categories = this.categoryService.getAllCategories();
     this.setMinAndMaxCalendarDates(this.month, this.year);
@@ -103,7 +107,11 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
       this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense);
       this.stopEditing();
     } else {
-      this.expensesService.addExpense(transferedExpense, this.year, this.month);
+      this.expensesService.addExpense(transferedExpense, this.year, this.month).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Expense added' });
+        }
+      });
     }
 
     this.clearForm();
@@ -129,5 +137,5 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     return categoryName.value;
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService) { }
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService, private messageService: MessageService) { }
 }

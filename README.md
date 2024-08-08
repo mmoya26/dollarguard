@@ -19,6 +19,8 @@ Personal project to learn Angular and everything involded with it.
 - Add year indicator in the expenses page
 - Add comma formatting to the expenses amount displayed in the expenses table
 - Use NestJS HttpExceptions enums instead of using hard coded status codes
+- Use .pipe() and tap() operator instead of suscribing in the expense service
+- Style success message when creating an expense
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
