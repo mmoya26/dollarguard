@@ -16,7 +16,7 @@ export class AuthService {
     const user = await this.usersService.findUserByEmail(username);
 
     // Bcrypt compare here
-    if (user?.password !== pass) {
+    if (!user || user?.password !== pass) {
       throw new UnauthorizedException();
     }
 
