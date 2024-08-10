@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Delete, HttpException, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, HttpException, Patch, HttpStatus } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { ExpenseDto, UpdateExpenseDto } from './dto/expense.dto';
 import { ExpenseParams, UpdateExpenseParams } from '../interfaces/expenseParams';
@@ -16,13 +16,13 @@ export class ExpensesController {
 
   @Get(':year/:month')
   async getExpensesByYearAndMonth(@Param() params: ExpenseParams) {
-    if (!isValidMonth(params.month)) throw new HttpException('Unable to get expenses', 400);
+    if (!isValidMonth(params.month)) throw new HttpException('Unable to get expenses', HttpStatus.BAD_REQUEST);
     return this.expensesService.getExpensesByYearAndMonth(params);
   }
 
   @Post(':year/:month')
-  createExpense(@Param() params: ExpenseParams, @Body() createExpenseDto: ExpenseDto) {
-    if (!isValidDate(createExpenseDto.monthDay, Number(params.month) - 1, params.year)) throw new HttpException('Expense could not be added', 400);
+  async createExpense(@Param() params: ExpenseParams, @Body() createExpenseDto: ExpenseDto) {
+    if (!isValidDate(createExpenseDto.monthDay, Number(params.month) - 1, params.year)) throw new HttpException('Expense could not be added', HttpStatus.BAD_REQUEST);
 
     return this.expensesService.create(createExpenseDto, params);
   }
@@ -30,19 +30,19 @@ export class ExpensesController {
   @Delete(':id')
   async deleteExpense(@Param('id') id: string) {
     const isValidId = mongoose.Types.ObjectId.isValid(id);
-    if (!isValidId) throw new HttpException('Invalid ID', 400);
+    if (!isValidId) throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
 
     const deletedExpense = await this.expensesService.deleteExpense(id) 
-    if (!deletedExpense) throw new HttpException('Expense not found', 404);
+    if (!deletedExpense) throw new HttpException('Expense not found', HttpStatus.NOT_FOUND);
   }
 
   @Patch(':id')
   async updateExpense(@Param() updateExpenseParams: UpdateExpenseParams, @Body() updateExpenseDto: UpdateExpenseDto) {
     const isValidId = mongoose.Types.ObjectId.isValid(updateExpenseParams.id);
-    if (!isValidId) throw new HttpException('Invalid ID', 400);
+    if (!isValidId) throw new HttpException('Invalid ID', HttpStatus.BAD_REQUEST);
 
     const updatedExpense =  await this.expensesService.updateExpense(updateExpenseParams, updateExpenseDto);
-    if (!updatedExpense) throw new HttpException('Unable to update expense', 400);
+    if (!updatedExpense) throw new HttpException('Unable to update expense', HttpStatus.BAD_REQUEST);
 
     return updatedExpense;
   }
