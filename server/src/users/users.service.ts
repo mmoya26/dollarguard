@@ -4,6 +4,7 @@ import { UserDto } from './dto/user.dto';
 import { User } from './schemas/users.schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -27,8 +28,16 @@ export class UsersService {
 
     if (exisitingUser) { throw new HttpException('Unable to create the user account', HttpStatus.BAD_REQUEST)}
 
-    const newUser = new this.userModel(user);
-    newUser.creationDate = new Date();
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+
+    const newUser = await this.userModel.create({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      creationDate: new Date(),
+      email: user.email,
+      password: hashedPassword
+    });
+
     return newUser.save();
   }
 
