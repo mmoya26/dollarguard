@@ -2,7 +2,7 @@
 
 Personal project to learn Angular and everything involded with it.
 
-## Currently working on: Years selection page
+## Currently working on: User Authentication
 
 ## Todo: Expense Form (not high priority)
 - Add character count to notes text input field
@@ -22,6 +22,7 @@ Personal project to learn Angular and everything involded with it.
 - Use .pipe() and tap() operator instead of suscribing in the expense service
 - Style success message when creating an expense
 - Move validation from NestJS controller to services instead
+- Add create expense for a particular year in the expenses page
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +33,13 @@ export class LoginComponent {
 
     if (this.loginForm.invalid) return;
 
-    console.log('Valid');
-    this.clearForm();
+    this.authService.login(this.loginForm.get('email')?.value!, this.loginForm.get('password')?.value!).subscribe({
+      next: () => {
+        console.log('logged in');
+        this.router.navigate(['/expenses']);
+      }
+    });
+    
   }
 
   clearForm() {
@@ -40,5 +47,5 @@ export class LoginComponent {
     this.submitedForm = false;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 }
