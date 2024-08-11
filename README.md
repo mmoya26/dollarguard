@@ -21,6 +21,7 @@ Personal project to learn Angular and everything involded with it.
 - Use NestJS HttpExceptions enums instead of using hard coded status codes
 - Use .pipe() and tap() operator instead of suscribing in the expense service
 - Style success message when creating an expense
+- Move validation from NestJS controller to services instead
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
