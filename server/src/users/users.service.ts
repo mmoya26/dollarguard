@@ -10,19 +10,6 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
-
   async createUser(user: UserDto) {
     const exisitingUser = await this.userModel.findOne({email: user.email});
 
@@ -38,7 +25,7 @@ export class UsersService {
       password: hashedPassword
     });
 
-    return newUser.save();
+    return newUser.save()
   }
 
   async findUserById(id: string) {
