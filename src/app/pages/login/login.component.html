@@ -1,16 +1,24 @@
 <div class="h-screen flex items-center justify-center">
     <div class="p-5 max-w-lg w-full">
-        <h1 class="font-bold text-4xl mb-10 text-center text-slate-900">Welcome</h1>
+        <h1 class="font-bold text-4xl mb-10 text-center text-slate-900">Log In</h1>
 
-        <form class="flex flex-col gap-y-4" (ngSubmit)="login()">
+        <form class="flex flex-col gap-y-4" (ngSubmit)="login()" [formGroup]="loginForm">
             <div class="flex flex-col gap-y-1">
                 <label for="email">Email</label>
-                <input class="auth-inputs" type="email" name="email" id="email">
+                <input class="auth-inputs" type="email" name="email" id="email" formControlName="email">
+                @if (email?.invalid && submitedForm) {
+                    <div class="mt-2 text-red-500">Please enter your email</div>
+                }
+                
             </div>
 
             <div class="flex flex-col gap-y-1">
                 <label for="password">Password</label>
-                <input class="auth-inputs" type="password" name="password" id="password">
+                <input class="auth-inputs" type="password" name="password" id="password" formControlName="password">
+
+                @if (password?.invalid && submitedForm) {
+                    <div class="mt-2 text-red-500">Please enter your password</div>
+                }
             </div>
 
             <span class="block text-right text-gray-600 hover:underline">Forgot your password?</span>

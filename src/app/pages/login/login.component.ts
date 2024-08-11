@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -11,7 +11,34 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
 
-  login() {
-    console.log('xd')
+  loginForm = this.fb.group({
+    email:['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  });
+
+  submitedForm = false
+
+  get email() {
+    return this.loginForm.get('email');
   }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+  
+  login() {
+    this.submitedForm = true;
+
+    if (this.loginForm.invalid) return;
+
+    console.log('Valid');
+    this.clearForm();
+  }
+
+  clearForm() {
+    this.loginForm.reset({email: '', password: ''});
+    this.submitedForm = false;
+  }
+
+  constructor(private fb: FormBuilder) {}
 }
