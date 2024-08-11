@@ -1,0 +1,25 @@
+<div class="h-screen flex items-center justify-center">
+    <div class="p-5 max-w-lg w-full">
+        <h1 class="font-bold text-4xl mb-10 text-center text-slate-900">Welcome</h1>
+
+        <form class="flex flex-col gap-y-4" (ngSubmit)="login()">
+            <div class="flex flex-col gap-y-1">
+                <label for="email">Email</label>
+                <input class="auth-inputs" type="email" name="email" id="email">
+            </div>
+
+            <div class="flex flex-col gap-y-1">
+                <label for="password">Password</label>
+                <input class="auth-inputs" type="password" name="password" id="password">
+            </div>
+
+            <span class="block text-right text-gray-600 hover:underline">Forgot your password?</span>
+
+            <button type="submit" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4">Login</button>
+
+            <hr class="mt-3" />
+
+            <p class="text-center">Don't have an account? <a routerLink="/signup" class="text-indigo-600 hover:underline">Sign up now</a></p>
+        </form>
+    </div>
+</div>
