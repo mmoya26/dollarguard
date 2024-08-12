@@ -20,8 +20,8 @@ import { UserLoginDto } from './dto/user-login.dto';
   
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    login(@Body() userLoginDto: UserLoginDto) {
-      return this.authService.login(userLoginDto.email, userLoginDto.password);
+    async login(@Body() userLoginDto: UserLoginDto) {
+      return await this.authService.login(userLoginDto.email, userLoginDto.password);
     }
   
     @UseGuards(AuthGuard)
@@ -31,9 +31,9 @@ import { UserLoginDto } from './dto/user-login.dto';
     }
 
     @HttpCode(HttpStatus.CREATED)
-    @Post('register')
-    signUp(@Body() user: UserDto) {
-      return this.authService.signUp(user);
+    @Post('signup')
+    async signUp(@Body() user: UserDto) {
+      return await this.authService.signUp(user);
     }
   }
   

@@ -24,7 +24,7 @@ export class UsersService {
       password: hashedPassword
     });
 
-    return newUser.save()
+    return await newUser.save()
   }
 
   async findUserById(id: string) {

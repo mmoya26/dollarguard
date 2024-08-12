@@ -10,6 +10,8 @@ export class TokenService {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + expirationDays);
     
+
+    // TODO: HttpOnly add to cookie value
     const cookieValue = encodeURIComponent(token) + '; expires=' + expirationDate.toUTCString() + '; path=/; Secure; SameSite=Strict';
     document.cookie = `${this.tokenKey}=${cookieValue}`; 
   }

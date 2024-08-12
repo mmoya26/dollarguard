@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router} from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,18 @@ export class SignUpComponent {
 
     if (this.signUpForm.invalid) return;
 
-    this.clearForm();
+    const name = this.signUpForm.get('name')?.value!;
+    const email = this.signUpForm.get('email')?.value!
+    const password = this.signUpForm.get('password')?.value!
+
+    this.authService.signUp(name, email, password).subscribe({
+      next: () => {
+        this.router.navigate(['/expenses']);
+      },
+      error: (e) => {
+        console.error('Error while signing up', e);
+      }
+    });
   }
 
   get name() {
@@ -44,5 +56,5 @@ export class SignUpComponent {
     this.submitedForm = false;
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 }

@@ -18,5 +18,13 @@ export class AuthService {
     )
   }
 
+  signUp(name: string, email: string, password: string) {
+    return this.http.post<{access_token: string}>(`${this.AUTH_URL_ENDPOINT}/signup`, {name, email, password}).pipe(
+      tap(response => {
+        this.tokenService.setToken(response.access_token);
+      })
+    )
+  }
+
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 }
