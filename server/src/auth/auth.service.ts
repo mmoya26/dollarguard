@@ -13,24 +13,23 @@ export class AuthService {
     private userService: UsersService
   ) {}
 
-  async signIn(username: string, pass: string): Promise<{ access_token: string }> {
-    const user = await this.usersService.findUserByEmail(username);
+  async login(email: string, password: string): Promise<{ access_token: string }> {
+    const user = await this.usersService.findUserByEmail(email);
 
     if (!user) throw new UnauthorizedException();
 
-    const isPasswordAMatch = await bcrypt.compare(pass, user.password);
+    const isPasswordAMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordAMatch) throw new UnauthorizedException();
 
-    const payload = { id: user.id, email: user.email, firstName: user.firstName, lastName: user.lastName };
+    const payload = { id: user.id, email: user.email, name: user.name};
 
     return {
       access_token: await this.jwtService.signAsync(payload),
     };
   }
 
-
-  async register(user: UserDto) {
+  async signUp(user: UserDto) {
     return this.userService.createUser(user);
   }
 }
