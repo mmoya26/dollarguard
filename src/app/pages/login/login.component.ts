@@ -34,8 +34,7 @@ export class LoginComponent {
     if (this.loginForm.invalid) return;
 
     this.authService.login(this.loginForm.get('email')?.value!, this.loginForm.get('password')?.value!).subscribe({
-      next: () => {
-        console.log('logged in');
+      next: (response) => {
         this.router.navigate(['/expenses']);
       }
     });
