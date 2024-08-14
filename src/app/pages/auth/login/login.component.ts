@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
 
@@ -19,6 +18,7 @@ export class LoginComponent {
   });
 
   submitedForm = false
+  invalidCredentials = false
 
   get email() {
     return this.loginForm.get('email');
@@ -34,8 +34,13 @@ export class LoginComponent {
     if (this.loginForm.invalid) return;
 
     this.authService.login(this.loginForm.get('email')?.value!, this.loginForm.get('password')?.value!).subscribe({
-      next: (response) => {
+      next: (_) => {
         this.router.navigate(['/expenses']);
+      },
+
+      error: (e) => {
+        console.error('Error when trying to log in, check your credentials', e);
+        this.invalidCredentials = true
       }
     });
     

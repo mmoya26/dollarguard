@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { ExpensesComponent } from './pages/expenses/expenses.component';
 import { YearsSelectionComponent } from './pages/years-selection/years-selection.component';
-import { LoginComponent } from './pages/login/login.component';
-import { SignUpComponent } from './pages/signup/signup.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignUpComponent } from './pages/auth/signup/signup.component';
 
 export const routes: Routes = [
     {path: 'expenses/:year/:month', component: ExpensesComponent},

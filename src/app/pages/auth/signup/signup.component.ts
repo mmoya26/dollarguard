@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink, Router} from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +20,8 @@ export class SignUpComponent {
 
   submitedForm = false
 
+  userAlreadyExists = false
+
   signup() {
     this.submitedForm = true
 
@@ -30,11 +32,12 @@ export class SignUpComponent {
     const password = this.signUpForm.get('password')?.value!
 
     this.authService.signUp(name, email, password).subscribe({
-      next: () => {
+      next: (_) => {
         this.router.navigate(['/expenses']);
       },
       error: (e) => {
         console.error('Error while signing up', e);
+        this.userAlreadyExists = true;
       }
     });
   }
@@ -54,6 +57,11 @@ export class SignUpComponent {
   clearForm() {
     this.signUpForm.reset({name: '', email: '', password: ''});
     this.submitedForm = false;
+  }
+
+  resetPage() {
+    this.userAlreadyExists = false;
+    this.clearForm();
   }
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }

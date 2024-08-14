@@ -23,8 +23,6 @@ Personal project to learn Angular and everything involded with it.
 - Style success message when creating an expense
 - Move validation from NestJS controller to services instead
 - Add create expense for a particular year in the expenses page
-- Handle errors if user enter wrong credentials
-- Handle errors if user enter an exisiting email when signing up
 - Guard front-end and backend routes
 - Look into anything security wise before fully finishing the auth process
 - Add HttpOnly when creating cookies
@@ -39,3 +37,9 @@ Personal project to learn Angular and everything involded with it.
 
 # Maybe future features
 - Add support for different types of currencies
+
+
+
+# Things Done (Front-End Auth)
+- Handle errors if user enter wrong credentials
+- Handle errors if user enter an exisiting email when signing up
