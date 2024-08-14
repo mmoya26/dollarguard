@@ -14,12 +14,9 @@ export type UserDocumenbt = HydratedDocument<User>;
         },
     },
 })
-export class User { 
+export class User {
     @Prop({required: true})
-    firstName: string;
-    
-    @Prop({required: true})
-    lastName: string;
+    name: string;
 
     @Prop({required: true, unique: true})
     email: string;

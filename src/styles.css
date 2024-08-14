@@ -30,3 +30,7 @@ body {
     max-width: 1400px;
     margin: 2.5rem auto;
 }
+
+.auth-inputs {
+    @apply border border-gray-200 w-full p-3 rounded-lg;
+}
