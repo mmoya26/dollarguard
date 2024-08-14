@@ -8,12 +8,13 @@ export class AuthService {
   private AUTH_URL_ENDPOINT = `http://localhost:3000/auth`
 
   login(email: string, password: string) {
-    return this.http.post(`${this.AUTH_URL_ENDPOINT}/login`, {email, password}, {withCredentials: true});
+    return this.http.post(`${this.AUTH_URL_ENDPOINT}/login`, {email, password});
   }
 
   signUp(name: string, email: string, password: string) {
-    return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, {name, email, password}, {withCredentials: true});
+    return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, {name, email, password});
   }
+
 
   constructor(private http: HttpClient) { }
 }
