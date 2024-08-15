@@ -21,11 +21,15 @@ export class SignUpComponent {
   submitedForm = false
 
   userAlreadyExists = false
+  unknownError = false
+  signUpLoading = false
 
   signup() {
     this.submitedForm = true
 
     if (this.signUpForm.invalid) return;
+
+    this.clearErrorMessages();
 
     const name = this.signUpForm.get('name')?.value!;
     const email = this.signUpForm.get('email')?.value!
@@ -36,10 +40,19 @@ export class SignUpComponent {
         this.router.navigate(['/expenses']);
       },
       error: (e) => {
+        if (e.status === 400) {
+          this.userAlreadyExists = true;
+        } else {
+          this.unknownError = true;
+        }
+
         console.error('Error while signing up', e);
-        this.userAlreadyExists = true;
+        this.signUpLoading = false;
+
       }
     });
+
+    this.signUpLoading = true
   }
 
   get name() {
@@ -57,6 +70,11 @@ export class SignUpComponent {
   clearForm() {
     this.signUpForm.reset({name: '', email: '', password: ''});
     this.submitedForm = false;
+  }
+
+  clearErrorMessages() {
+    this.userAlreadyExists = false;
+    this.unknownError = false;
   }
 
   resetPage() {

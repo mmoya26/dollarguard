@@ -7,6 +7,11 @@
                 <i class="pi pi-exclamation-circle text-rose-800 break-words"></i>
                 <p class="text-rose-800 w-4/5">Email address is already being used, please choose a different email</p>
             </div>
+        } @else if (unknownError) {
+            <div class="bg-rose-200 rounded-lg py-6 mb-4 flex justify-center items-center gap-x-2">
+                <i class="pi pi-exclamation-circle text-rose-800"></i>
+                <p class="text-rose-800 w-4/5">There was an in issue when trying to sign you up, please try again later</p>
+            </div>
         }
 
         <form class="flex flex-col gap-y-4" (ngSubmit)="signup()" [formGroup]="signUpForm">
@@ -37,8 +42,12 @@
                 }
             </div>
 
-            <button type="submit" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4">Sign up</button>
-
+            @if (!signUpLoading) {
+                <button type="submit" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4">Sign up</button>
+            } @else { 
+                <button type="button" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4"><i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i></button>
+            }
+            
             <p class="text-center mt-3">Already have an account? <a routerLink="/login" class="text-indigo-600 hover:underline">Log in</a></p>
         </form>
     </div>

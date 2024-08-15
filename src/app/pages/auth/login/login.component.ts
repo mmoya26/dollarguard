@@ -36,14 +36,16 @@ export class LoginComponent {
     if (this.loginForm.invalid) return;
 
     this.clearErrorMessages();
+    
+    const email = this.loginForm.get('email')?.value!
+    const password = this.loginForm.get('password')?.value!
 
-    this.authService.login(this.loginForm.get('email')?.value!, this.loginForm.get('password')?.value!).subscribe({
+    this.authService.login(email, password).subscribe({
       next: (_) => {
         this.router.navigate(['/expenses']);
       },
 
       error: (e) => {
-        
         if (e.status === 401) {
           this.invalidCredentials = true
         } else {{
