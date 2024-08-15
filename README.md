@@ -25,7 +25,8 @@ Personal project to learn Angular and everything involded with it.
 - Add create expense for a particular year in the expenses page
 - Look into anything security wise before fully finishing the auth process
 - Guard front-end and backend routes
-- Create endpoint on the server to validate if the user is logged in, if they are return true or false, otherwise return cached results 
+- Create endpoint on the server to validate if the user is logged in, if they are return true or false, otherwise return cached results
+- Create component for error handling when logging in or signing up
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses

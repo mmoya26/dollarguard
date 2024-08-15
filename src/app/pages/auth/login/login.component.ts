@@ -19,6 +19,8 @@ export class LoginComponent {
 
   submitedForm = false
   invalidCredentials = false
+  loginLoading = false
+  unknownError = false
 
   get email() {
     return this.loginForm.get('email');
@@ -33,17 +35,32 @@ export class LoginComponent {
 
     if (this.loginForm.invalid) return;
 
+    this.clearErrorMessages();
+
     this.authService.login(this.loginForm.get('email')?.value!, this.loginForm.get('password')?.value!).subscribe({
       next: (_) => {
         this.router.navigate(['/expenses']);
       },
 
       error: (e) => {
+        
+        if (e.status === 401) {
+          this.invalidCredentials = true
+        } else {{
+          this.unknownError = true
+        }}
+
         console.error('Error when trying to log in, check your credentials', e);
-        this.invalidCredentials = true
+        this.loginLoading = false
       }
     });
-    
+
+    this.loginLoading = true; 
+  }
+
+  clearErrorMessages() {
+    this.invalidCredentials = false;
+    this.unknownError = false;
   }
 
   clearForm() {
