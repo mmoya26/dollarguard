@@ -10,5 +10,4 @@ export const routes: Routes = [
     {path: 'expenses', component: YearsSelectionComponent, canActivate: [AuthGuard]},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignUpComponent},
-    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

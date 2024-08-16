@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private AUTH_URL_ENDPOINT = `http://localhost:3000/auth`
-  public isAuthenticatedStatus: boolean | null = null;
 
-  private isLoadingSubject = new BehaviorSubject<boolean>(false);
+  private isAuthLoading = new BehaviorSubject<boolean>(false);
+  public isAuthLoading$ = this.isAuthLoading.asObservable();
+
   private isUserLoggedIn = false
 
   login(email: string, password: string) {
@@ -29,56 +30,33 @@ export class AuthService {
     return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, { name, email, password });
   }
 
-  get isLoading$(): Observable<boolean> {
-    return this.isLoadingSubject.asObservable();
+  setIsAuthLoading(flag: boolean) {
+    this.isAuthLoading.next(flag);
   }
 
-  clearAuthStatus() {
-    this.isAuthenticatedStatus = false;
-    this.isLoadingSubject.next(false);
+  handleUnathenticatedUsers() {
+    this.isUserLoggedIn = false;
+    this.isAuthLoading.next(false)
+    this.router.navigate(['/login']);
   }
-
-  handleUnauthorizedAccess() {
-    if (this.router.url !== '/login') {
-      this.router.navigate(['/login']);
-    }
-  }
-
-  // isAuthenticated(): Observable<boolean> {
-  //   console.log(this.isAuthenticatedStatus);
-
-  //   this.isLoadingSubject.next(true);
-
-  //   if (this.isAuthenticatedStatus !== null) {
-  //     this.isLoadingSubject.next(false);
-  //     return of(this.isAuthenticatedStatus!);
-  //   }
-
-  //   return this.http.get<{ isAuthenticated: boolean }>(`${this.AUTH_URL_ENDPOINT}/validate`).pipe(
-  //     map(response => response.isAuthenticated),
-  //     tap(isAuthenticated => {
-  //       this.isLoadingSubject.next(false);
-  //       this.isAuthenticatedStatus = isAuthenticated
-  //     }),
-  //     catchError(() => {
-  //       // Handle non 401 errors 
-  //       this.clearAuthStatus();
-  //       return of(false);
-  //     })
-  //   );
-
-  // }
 
   validateSession() {
+    console.log('Validate session running...')
+    this.isAuthLoading.next(true);
+
     if (this.isUserLoggedIn) {
-      return of(true)
+      this.isAuthLoading.next(false);
+      return Promise.resolve(true);
     }
 
-    return this.http.get<{ isAuthenticated: boolean }>(`${this.AUTH_URL_ENDPOINT}/validate`).pipe(
-      map(response => response.isAuthenticated),
-      tap(isValid => {
-        this.isUserLoggedIn = isValid;
-      })
+    return firstValueFrom(
+      this.http.get<{ isAuthenticated: boolean }>(`${this.AUTH_URL_ENDPOINT}/validate`).pipe(
+        map(response => response.isAuthenticated),
+        tap(isValid => {
+          this.isUserLoggedIn = isValid;
+          this.isAuthLoading.next(false);
+        })
+      )
     )
   }
 

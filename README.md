@@ -29,6 +29,7 @@ Personal project to learn Angular and everything involded with it.
 - Create component for error handling when logging in or signing up
 - Disable log in & sign up button while request is loading (type button will not work anymore)
 
+
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
 - Design how years selection page will look like when there is zero years for the user's account
@@ -39,6 +40,7 @@ Personal project to learn Angular and everything involded with it.
 
 # Maybe future features
 - Add support for different types of currencies
+- Add in the future maybe query params to tell the user they have been logged out for a reason
 
 # Things Done (Front-End Auth)
 - Handle errors if user enter wrong credentials

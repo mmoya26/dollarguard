@@ -60,7 +60,6 @@ export class AuthController {
   }
 
   @Get('validate')
-  @UseGuards(AuthGuard)
   async validateUser() {
     return {isAuthenticated: true}
   }
