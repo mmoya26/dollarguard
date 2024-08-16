@@ -2,6 +2,7 @@ import { CanActivateFn } from '@angular/router';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 export const AuthGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
@@ -9,9 +10,18 @@ export const AuthGuard: CanActivateFn = (route, state) => {
 
   console.log('In Guard');
 
-  if (true) return true;
-
-  router.navigate(['/login']);
-
-  return false;
+  return authService.isAuthenticated().pipe(
+    map(isAuthenticated => {      
+      if (!isAuthenticated) {
+        router.navigate(['/login']);
+        return false
+      }
+      
+      return true
+    }),
+    catchError(() => {
+      router.navigate(['/login']);
+      return of(false)
+    })
+  )
 };

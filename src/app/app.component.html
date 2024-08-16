@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+@if (isLoading$ | async) {
+    <p>Loading...</p>
+} @else {
+    <router-outlet></router-outlet>
+}

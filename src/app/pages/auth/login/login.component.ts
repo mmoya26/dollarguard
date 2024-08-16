@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   loginForm = this.fb.group({
-    email:['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
 
@@ -29,14 +30,14 @@ export class LoginComponent {
   get password() {
     return this.loginForm.get('password');
   }
-  
+
   login() {
     this.submitedForm = true;
 
     if (this.loginForm.invalid) return;
 
     this.clearErrorMessages();
-    
+
     const email = this.loginForm.get('email')?.value!
     const password = this.loginForm.get('password')?.value!
 
@@ -48,16 +49,16 @@ export class LoginComponent {
       error: (e) => {
         if (e.status === 401) {
           this.invalidCredentials = true
-        } else {{
+        } else {
           this.unknownError = true
-        }}
+        }
 
         console.error('Error when trying to log in, check your credentials', e);
         this.loginLoading = false
       }
     });
 
-    this.loginLoading = true; 
+    this.loginLoading = true;
   }
 
   clearErrorMessages() {
@@ -66,7 +67,7 @@ export class LoginComponent {
   }
 
   clearForm() {
-    this.loginForm.reset({email: '', password: ''});
+    this.loginForm.reset({ email: '', password: '' });
     this.submitedForm = false;
   }
 

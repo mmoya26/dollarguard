@@ -32,12 +32,14 @@ export class AuthController {
       maxAge: 24 * 60 * 60 * 1000 // 1 day - Change this in the future?
     });
 
+    // return {message: "Login Sucessfully", toke: access_token}
     return { message: "Login Sucessfully" }
   }
 
   @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Req() req) {
+    console.log(req.user);
     return req.user;
   }
 
@@ -55,5 +57,11 @@ export class AuthController {
 
     // return { message: "Signed up sucessfully", token: access_token }
     return { message: "Signed up sucessfully" }
+  }
+
+  @Get('validate')
+  @UseGuards(AuthGuard)
+  async validateUser() {
+    return {isAuthenticated: true}
   }
 }

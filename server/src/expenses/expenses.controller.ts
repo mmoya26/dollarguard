@@ -1,11 +1,13 @@
-import { Body, Controller, Get, Param, Post, Delete, HttpException, Patch, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, HttpException, Patch, HttpStatus, UseGuards } from '@nestjs/common';
 import { ExpensesService } from './expenses.service';
 import { ExpenseDto, UpdateExpenseDto } from './dto/expense.dto';
 import { ExpenseParams, UpdateExpenseParams } from '../interfaces/expenseParams';
 import mongoose from 'mongoose';
 import { isValidDate, isValidMonth } from './helpers/dateFunctions';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('expenses')
+@UseGuards(AuthGuard)
 export class ExpensesController {
   constructor(private readonly expensesService: ExpensesService) {}
 
