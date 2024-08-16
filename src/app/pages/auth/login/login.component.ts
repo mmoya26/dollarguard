@@ -36,8 +36,9 @@ export class LoginComponent {
 
     if (this.loginForm.invalid) return;
 
+    this.loginLoading = true;
     this.clearErrorMessages();
-
+    
     const email = this.loginForm.get('email')?.value!
     const password = this.loginForm.get('password')?.value!
 
@@ -57,8 +58,6 @@ export class LoginComponent {
         this.loginLoading = false
       }
     });
-
-    this.loginLoading = true;
   }
 
   clearErrorMessages() {

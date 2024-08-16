@@ -15,11 +15,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   });
 
   return next(requestWithCredentials).pipe(
-    catchError((e) => {
+    catchError((e: HttpErrorResponse) => {
       if (e.status == 401) {
-        // Add in the future maybe query params to tell the user they have been logged out for a reason
-        router.navigate(['/login']);
-        authService.clearAuthStatus();
+        authService.handleUnauthorizedAccess();
       }
       
       return throwError(() => e);

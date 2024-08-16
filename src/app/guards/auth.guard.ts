@@ -4,24 +4,28 @@ import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { catchError, map, Observable, of } from 'rxjs';
 
-export const AuthGuard: CanActivateFn = (route, state) => {
+export const AuthGuard: CanActivateFn = (route, state): Observable<boolean> => {
   const router = inject(Router)
   const authService = inject(AuthService);
 
   console.log('In Guard');
 
-  return authService.isAuthenticated().pipe(
-    map(isAuthenticated => {      
-      if (!isAuthenticated) {
-        router.navigate(['/login']);
-        return false
+  if(authService.isUserAuthenticated) {
+    return of(true);
+  }
+
+  return authService.validateSession().pipe(
+    map(isValid => {
+
+      if (!isValid) {
+        authService.handleUnauthorizedAccess();
       }
-      
-      return true
+
+      return isValid
     }),
     catchError(() => {
-      router.navigate(['/login']);
-      return of(false)
+      authService.handleUnauthorizedAccess();
+      return of(false);
     })
   )
 };
