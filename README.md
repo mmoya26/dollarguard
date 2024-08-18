@@ -9,6 +9,7 @@ Personal project to learn Angular and everything involded with it.
 - Remove outline from date field when clicking away
 - Remove the ability to click in the month title to navigate the calendar
 - Fix bug where if user leaves category option clicked error message displays
+- Allow cents expenses
 
 ## Todo in general
 - Enable fourth monthly stat card for which expense has the highest dollar amount

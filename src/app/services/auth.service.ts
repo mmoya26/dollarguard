@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   valiteUserSession() {
-    console.log('test')
     if (this.isUserAuthenticated) {
       
       return of(true);
