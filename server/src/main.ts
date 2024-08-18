@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as dotenv from 'dotenv'
 import * as cookieParser from 'cookie-parser';
+import { json } from 'express';
 
 async function bootstrap() {
   // Call first to have access to .env variables
@@ -14,11 +15,11 @@ async function bootstrap() {
     origin: 'http://localhost:4200',  // Allow only Angular app to access
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
+    preflightContinue: false
   });
 
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
-
   await app.listen(3000);
 }
 bootstrap();

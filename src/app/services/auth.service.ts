@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, firstValueFrom, map, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,55 +9,49 @@ import { BehaviorSubject, firstValueFrom, map, tap } from 'rxjs';
 export class AuthService {
   private AUTH_URL_ENDPOINT = `http://localhost:3000/auth`
 
-  private isAuthLoading = new BehaviorSubject<boolean>(false);
-  public isAuthLoading$ = this.isAuthLoading.asObservable();
-
-  private isUserLoggedIn = false
+  private isUserAuthenticated: boolean | null = null;
 
   login(email: string, password: string) {
     return this.http.post(`${this.AUTH_URL_ENDPOINT}/login`, { email, password }).pipe(
-      tap(() => {
-        this.isUserLoggedIn = true;
+      tap(_ => {
+        this.isUserAuthenticated = true
+      })
+    )
+  }
+
+  signUp(name: string, email: string, password: string) {
+    return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, { name, email, password }).pipe(
+      tap(_ => {
+        this.isUserAuthenticated = true
       })
     );
   }
 
-  get isUserAuthenticated() {
-    return this.isUserLoggedIn;
-  }
-
-  signUp(name: string, email: string, password: string) {
-    return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, { name, email, password });
-  }
-
-  setIsAuthLoading(flag: boolean) {
-    this.isAuthLoading.next(flag);
-  }
-
-  handleUnathenticatedUsers() {
-    this.isUserLoggedIn = false;
-    this.isAuthLoading.next(false)
-    this.router.navigate(['/login']);
-  }
-
-  validateSession() {
-    console.log('Validate session running...')
-    this.isAuthLoading.next(true);
-
-    if (this.isUserLoggedIn) {
-      this.isAuthLoading.next(false);
-      return Promise.resolve(true);
+  valiteUserSession() {
+    console.log('test')
+    if (this.isUserAuthenticated) {
+      
+      return of(true);
     }
 
-    return firstValueFrom(
-      this.http.get<{ isAuthenticated: boolean }>(`${this.AUTH_URL_ENDPOINT}/validate`).pipe(
-        map(response => response.isAuthenticated),
-        tap(isValid => {
-          this.isUserLoggedIn = isValid;
-          this.isAuthLoading.next(false);
-        })
-      )
+    return this.http.get<{isAuthenticated: boolean}>(`${this.AUTH_URL_ENDPOINT}/validate`).pipe(
+      map((response) => response.isAuthenticated),
+      tap((validation) => {
+        this.isUserAuthenticated = validation;
+      }),
+      catchError((e) => {
+        console.error('Error when trying to validate user');
+        return of(false);
+      })
     )
+  }
+
+  handleUnauthorizedAccess() {
+    this.isUserAuthenticated = false;
+
+    if (this.router.url !== '/login') {
+      this.router.navigate(['/login']);
+    }
   }
 
   constructor(private http: HttpClient, private router: Router) { }

@@ -45,7 +45,7 @@
             @if (!signUpLoading) {
                 <button type="submit" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4">Sign up</button>
             } @else { 
-                <button type="button" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4"><i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i></button>
+                <button disabled type="button" class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer mt-4"><i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i></button>
             }
             
             <p class="text-center mt-3">Already have an account? <a routerLink="/login" class="text-indigo-600 hover:underline">Log in</a></p>

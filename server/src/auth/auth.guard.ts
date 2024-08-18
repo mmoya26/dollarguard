@@ -1,38 +1,34 @@
 
-import {
-    CanActivate,
-    ExecutionContext,
-    Injectable,
-    UnauthorizedException,
-  } from '@nestjs/common';
-  import { JwtService } from '@nestjs/jwt';
-  import { Request } from 'express';
-  
-  @Injectable()
-  export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService) {}
-  
-    async canActivate(context: ExecutionContext): Promise<boolean> {
-      const request = context.switchToHttp().getRequest<Request>();
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
-      const token = request.cookies['auth_token'];
+@Injectable()
+export class AuthGuard implements CanActivate {
+  async canActivate(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest<Request>();
 
-      if (!token) {
-        throw new UnauthorizedException();
-      }
-      try {
-        const payload = await this.jwtService.verifyAsync(
-          token,
-          {
-            secret: process.env.JWTSECRET
-          }
-        );
+    const token = request.cookies['auth_token'];
 
-        request['user'] = payload;
-      } catch {
-        throw new UnauthorizedException();
-      }
-      return true;
+    if (!token) {
+      throw new UnauthorizedException();
     }
+
+    try {
+      const payload = await this.jwtService.verifyAsync(
+        token,
+        {
+          secret: process.env.JWTSECRET
+        }
+      );
+
+      request['user'] = payload;
+    } catch {
+      throw new UnauthorizedException();
+    }
+
+    return true;
   }
-  
+
+  constructor(private jwtService: JwtService) { }
+}
