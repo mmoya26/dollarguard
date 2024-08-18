@@ -8,6 +8,7 @@ import { ExpensesService } from '../../services/expenses.service';
 import { Subscription } from 'rxjs';
 import { Expense } from '@interfaces/expense';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-expenses',
@@ -43,5 +44,9 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private expensesService: ExpensesService) { }
+  logout() {
+    this.authService.logout();
+  }
+
+  constructor(private expensesService: ExpensesService, private authService: AuthService) { }
 }

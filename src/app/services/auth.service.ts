@@ -27,6 +27,22 @@ export class AuthService {
     );
   }
 
+  logout() {
+    console.log('Login user out...');
+
+    this.http.post(`${this.AUTH_URL_ENDPOINT}/logout`, {}).subscribe({
+      next: () => {
+        this.isUserAuthenticated = false;
+        this.router.navigate(['/login']);
+      },
+      error: (e) => {
+        console.error('Error when logging user out', e)
+        this.isUserAuthenticated = false;
+        this.router.navigate(['/login']);
+      }
+    })
+  }
+
   valiteUserSession() {
     if (this.isUserAuthenticated) {
       

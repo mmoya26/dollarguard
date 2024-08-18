@@ -1,8 +1,10 @@
 <div class="content-container">
-    <a routerLink="/expenses" class="text-slate-900"
-        ><i class="pi pi-chevron-left text-slate-900 text-base pr-1"></i>Years
-        Selection</a
-    >
+
+    <div class="flex justify-between p-3">
+        <a routerLink="/expenses" class="text-slate-900"><i class="pi pi-chevron-left text-slate-900 text-base pr-1"></i>Years Selection</a>
+        <a (click)="logout()" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Log out</a>
+    </div>
+
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
     @if (!isDataLoading) {

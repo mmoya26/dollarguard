@@ -1,7 +1,5 @@
 <form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
-    <!-- {{this.expenseForm.value | json}} -->
-
     @if (isEditingExpense) {
     <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
     } @else {

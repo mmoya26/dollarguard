@@ -25,7 +25,8 @@ Personal project to learn Angular and everything involded with it.
 - Add create expense for a particular year in the expenses page in the year selection page
 - Create component for error handling when logging in or signing up
 - Look into preventing user from making too many login & sign up requests with invalid credentials or duplicate email for sign up
-- Look into anything security wise before fully finishing the auth process 
+- Look into anything security wise before fully finishing the auth process
+- Update auth.guard.ts in server to check if the token has not expired because we are only checking if the token is present or not
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses

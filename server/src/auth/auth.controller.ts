@@ -40,6 +40,19 @@ export class AuthController {
     return { message: "Signed up sucessfully" }
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Post('logout')
+  logout(@Res({ passthrough: true }) response: Response) {
+    response.cookie('auth_token', '', {
+      httpOnly: true,
+      secure: true, 
+      sameSite: 'lax',
+    });
+
+    return { message: 'Logged out sucessfully' }
+  }
+
+
   @Get('validate')
   @UseGuards(AuthGuard)
   validateUser() {
