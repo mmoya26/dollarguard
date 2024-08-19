@@ -32,5 +32,5 @@ body {
 }
 
 .auth-inputs {
-    @apply border border-gray-200 w-full p-3 rounded-lg;
+    @apply border border-l-0 border-gray-200 w-full py-3 px-0 rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg;
 }

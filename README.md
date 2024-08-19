@@ -27,6 +27,7 @@ Personal project to learn Angular and everything involded with it.
 - Look into preventing user from making too many login & sign up requests with invalid credentials or duplicate email for sign up
 - Look into anything security wise before fully finishing the auth process
 - Update auth.guard.ts in server to check if the token has not expired because we are only checking if the token is present or not
+- Look into creating reusable components with input fields with icons on the side
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
