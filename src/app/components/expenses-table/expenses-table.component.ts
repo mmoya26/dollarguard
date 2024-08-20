@@ -21,7 +21,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.expenseService.listOfExpenses$.subscribe(expenses => {
-      this.expenses = expenses;
+      this.expenses = expenses.reverse();
     });
   }
 
