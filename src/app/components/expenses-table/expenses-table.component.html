@@ -1,5 +1,8 @@
 <div class="mt-14">
-    <h2 class="text-xl text-slate-900 font-medium">Expenses</h2>
+    <div class="flex items-center justify-between">
+        <h2 class="text-xl text-slate-900 font-medium">Expenses</h2>
+        <p class="text-slate-500">{{transactionsCount}} Expenses</p>
+    </div>
 
     @if(expenses.length > 0) {
         <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">

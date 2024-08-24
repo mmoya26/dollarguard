@@ -39,5 +39,9 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     this.expenseService.deleteExpense(id)
   }
 
+  get transactionsCount() {
+    return this.expenses.length;
+  }
+
   constructor(private expenseService: ExpensesService) {}
 }
