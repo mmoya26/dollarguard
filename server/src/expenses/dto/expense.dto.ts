@@ -3,30 +3,6 @@ import { IsNotEmpty, IsString, IsOptional, IsNumberString, Min, IsNumber, Max} f
 import { IsCategory } from "./validator/is-category.decorator";
 
 export class ExpenseDto {
-  @IsString()
-  @IsNotEmpty()
-  readonly userId: string;
-
-  @IsCategory()
-  @IsNotEmpty()
-  readonly category: Category;
-
-  @Min(1)
-  @Max(999999)
-  @IsNumber()
-  @IsNotEmpty()
-  readonly amount: number;
-
-  @IsNumberString()
-  @IsNotEmpty()
-  readonly monthDay: string;
-
-  @IsOptional()
-  @IsString()
-  readonly notes?: string
-}
-
-export class UpdateExpenseDto {
   @IsCategory()
   @IsNotEmpty()
   readonly category: Category;

@@ -3,7 +3,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/users/dto/user.dto';
 import * as bcrypt from 'bcrypt';
-import { JWTPayload } from '@interfaces/jwtPayload';
+import { UserJWTPayload } from '@interfaces/UserJWTPayload';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +22,7 @@ export class AuthService {
 
     if (!isPasswordAMatch) throw new UnauthorizedException();
 
-    const payload: JWTPayload = { id: user.id, email: user.email, name: user.name};
+    const payload: UserJWTPayload = { id: user.id, email: user.email, name: user.name};
 
     return {
       access_token: await this.jwtService.signAsync(payload),
@@ -32,7 +32,7 @@ export class AuthService {
   async signUp(user: UserDto) {
     const {id, email, name} = await this.userService.createUser(user);
 
-    const payload: JWTPayload = { id, email, name};
+    const payload: UserJWTPayload = { id, email, name};
 
     return {
       access_token: await this.jwtService.signAsync(payload)

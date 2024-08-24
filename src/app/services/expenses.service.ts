@@ -53,7 +53,6 @@ export class ExpensesService {
       let expenseBeingEdited: Expense = this._listOfExpenses.value.find(e => e.id === id)!;
       expenseBeingEdited.amount = expense.amount
       expenseBeingEdited.category = expense.category
-      expenseBeingEdited.userId = expense.userId
       expenseBeingEdited.notes = expense.notes ?? ""
 
       const newDate = new Date(expenseBeingEdited.date);

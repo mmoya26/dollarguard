@@ -93,7 +93,6 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     }
 
     let transferedExpense: ExpenseDto = {
-      userId: 'ui22',
       amount: Number(this.expenseForm.value.amount)!,
       category: {
         name: this.expenseForm.value.category!,

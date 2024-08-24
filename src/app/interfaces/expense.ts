@@ -10,7 +10,6 @@ export interface Expense {
 }
 
 export interface ExpenseDto {
-    userId: string
     category: Category,
     amount: number,
     monthDay: string,
