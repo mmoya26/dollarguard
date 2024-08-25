@@ -21,6 +21,11 @@ body {
     background-color: #fbfbfb;
 }
 
+html,
+body {
+    @apply w-full h-full p-0 m-0 overflow-x-hidden
+}
+
 *:focus-visible {
     outline: 0;
 }
