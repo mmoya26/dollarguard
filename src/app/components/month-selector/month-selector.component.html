@@ -1,5 +1,6 @@
-<div class="mb-14 mx-auto flex flex-col items-center gap-8">
-    <button (click)="toggleMonthsView()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 flex items-center gap-2 font-bold ">
+<div class="mb-14 mx-auto flex flex-col items-center ">
+    <p class="text-xl font-bold">{{year}}</p>
+    <button (click)="toggleMonthsView()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 flex items-center gap-2 font-bold mb-6 mt-2">
         {{nameOfMonth}} <i class="pi pi-chevron-down"></i>
     </button>
     <div class="flex gap-x-6" [@openMonthsMenu]="displayMonths ? 'open' : 'close'">
