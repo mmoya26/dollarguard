@@ -15,12 +15,7 @@ export class AuthController {
   async login(@Body() userLoginDto: UserLoginDto, @Res({ passthrough: true }) response: Response) {
     const { access_token } = await this.authService.login(userLoginDto.email, userLoginDto.password);
 
-    response.cookie('auth_token', access_token, {
-      httpOnly: true,
-      secure: true, 
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000 
-    });
+    this.authService.setAuthCookiesConfigurations(response, access_token);
 
     return { message: "Login Sucessfully" }
   }
@@ -30,12 +25,7 @@ export class AuthController {
   async signUp(@Body() user: UserDto, @Res({ passthrough: true }) response: Response) {
     const { access_token } = await this.authService.signUp(user);
 
-    response.cookie('auth_token', access_token, {
-      httpOnly: true,
-      secure: true, 
-      sameSite: 'lax',
-      maxAge: 24 * 60 * 60 * 1000
-    });
+    this.authService.setAuthCookiesConfigurations(response, access_token);
 
     return { message: "Signed up sucessfully" }
   }
@@ -43,11 +33,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('logout')
   logout(@Res({ passthrough: true }) response: Response) {
-    response.cookie('auth_token', '', {
-      httpOnly: true,
-      secure: true, 
-      sameSite: 'lax',
-    });
+    this.authService.setAuthCookiesConfigurations(response);
 
     return { message: 'Logged out sucessfully' }
   }

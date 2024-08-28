@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/users/dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UserJWTPayload } from '@interfaces/UserJWTPayload';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -37,5 +38,14 @@ export class AuthService {
     return {
       access_token: await this.jwtService.signAsync(payload)
     };
+  }
+
+  setAuthCookiesConfigurations(res: Response, access_token?: string) {
+    res.cookie('auth_token', access_token ? access_token : '', {
+      httpOnly: true,
+      secure: true, 
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000
+    });
   }
 }
