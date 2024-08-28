@@ -48,22 +48,24 @@ export class ExpensesService {
   }
 
   updateExpense(id: string, expense: ExpenseDto) {
-    return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).subscribe(_ => {
-      // Update local expenses list
-      let expenseBeingEdited: Expense = this._listOfExpenses.value.find(e => e.id === id)!;
-      expenseBeingEdited.amount = expense.amount
-      expenseBeingEdited.category = expense.category
-      expenseBeingEdited.notes = expense.notes ?? ""
+    return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).pipe(
+      tap((_) => {
+        // Update local expenses list
+        let expenseBeingEdited: Expense = this._listOfExpenses.value.find(e => e.id === id)!;
+        expenseBeingEdited.amount = expense.amount
+        expenseBeingEdited.category = expense.category
+        expenseBeingEdited.notes = expense.notes ?? ""
 
-      const newDate = new Date(expenseBeingEdited.date);
-      newDate.setDate(Number(expense.monthDay));
+        const newDate = new Date(expenseBeingEdited.date);
+        newDate.setDate(Number(expense.monthDay));
 
-      expenseBeingEdited.date = newDate;
+        expenseBeingEdited.date = newDate;
 
-      const filteredListOfExpenses = this._listOfExpenses.value.filter(e => e.id !== id);
+        const filteredListOfExpenses = this._listOfExpenses.value.filter(e => e.id !== id);
 
-      this._listOfExpenses.next([...filteredListOfExpenses, expenseBeingEdited]);
-    });
+        this._listOfExpenses.next([...filteredListOfExpenses, expenseBeingEdited]);
+      })
+    );
   }
 
   clearCurrentExpenseBeingEdited() {

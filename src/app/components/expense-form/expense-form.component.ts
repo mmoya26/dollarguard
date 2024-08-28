@@ -104,13 +104,26 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.isEditingExpense) {
-      this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense);
-      this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Expense updated ' });
+      this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense).subscribe({
+        next: () => {
+          this.messageService.add({ severity: 'success', summary: 'Error', detail: 'Expense updated' });
+        },
+        error: (e) => {
+          console.log('Error when updating an expense', e);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Expense was unable to be updated', life: 2000000});
+        },
+      });
+      
       this.stopEditing();
     } else {
       this.expensesService.addExpense(transferedExpense, this.year, this.month).subscribe({
         next: () => {
           this.messageService.add({ severity: 'success', summary: 'Added', detail: 'Expense added' });
+        },
+        
+        error: (e) => {
+          console.log('Error when updating an expense', e);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Expense was unable to be added' });
         }
       });
     }
