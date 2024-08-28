@@ -49,5 +49,24 @@
 }
 
 ::ng-deep .expense-form .p-datepicker-title {
-    @apply flex gap-2
+    @apply flex gap-2;
+}
+
+
+/* Toast Message CSS */
+
+::ng-deep .expense-form .p-toast-message-content {
+    @apply flex items-center bg-green-600 text-white;
+}
+
+::ng-deep .expense-form .p-toast-message-content svg {
+    @apply text-white;
+}
+
+::ng-deep .expense-form .p-toast-icon-close {
+    @apply self-baseline;
+}
+
+::ng-deep .expense-form .p-toast-detail {
+    @apply m-0;
 }

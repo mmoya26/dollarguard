@@ -56,6 +56,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
         this.expenseForm.controls['notes'].setValue(expense.notes);
 
         this.isEditingExpense = true;
+        
       });
 
     this.categories = this.categoryService.getAllCategories();
@@ -104,11 +105,12 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
     if (this.isEditingExpense) {
       this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense);
+      this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Expense updated ' });
       this.stopEditing();
     } else {
       this.expensesService.addExpense(transferedExpense, this.year, this.month).subscribe({
         next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Expense added' });
+          this.messageService.add({ severity: 'success', summary: 'Added', detail: 'Expense added' });
         }
       });
     }

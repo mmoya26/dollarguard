@@ -15,11 +15,9 @@ Personal project to learn Angular and everything involded with it.
 - Enable fourth monthly stat card for which expense has the highest dollar amount
 - Look into moving validations of params to their on validator constraint
 - Sort user expense years from latest to oldest
-- Add year indicator in the expenses page
 - Add comma formatting to the expenses amount displayed in the expenses table
 - Use NestJS HttpExceptions enums instead of using hard coded status codes
 - Use .pipe() and tap() operator instead of suscribing in the expense service
-- Style success message when creating an expense
 - Move validation from NestJS controller to services instead
 - Add create expense for a particular year in the expenses page in the year selection page
 - Create component for error handling when logging in or signing up
@@ -27,6 +25,7 @@ Personal project to learn Angular and everything involded with it.
 - Look into anything security wise before fully finishing the auth process
 - Update auth.guard.ts in server to check if the token has not expired because we are only checking if the token is present or not
 - Look into creating reusable components with input fields with icons on the side
+- Add toast message if adding or updating an expense fails
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
