@@ -20,8 +20,8 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'expense-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule, 
-  InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule,
+    InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
   providers: [MessageService],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
@@ -38,6 +38,8 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
 
   isEditingExpense = false;
+
+  toastType: 'success' | 'error' = 'success';
 
   expenseForm = this.formBuilder.group({
     category: ['', Validators.required],
@@ -56,7 +58,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
         this.expenseForm.controls['notes'].setValue(expense.notes);
 
         this.isEditingExpense = true;
-        
+
       });
 
     this.categories = this.categoryService.getAllCategories();
@@ -104,26 +106,31 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.isEditingExpense) {
+
       this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense).subscribe({
         next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Error', detail: 'Expense updated' });
+          this.toastType = 'success';
+          this.displayToastMessage('Success', 'Update');
         },
         error: (e) => {
+          this.toastType = 'error';
           console.log('Error when updating an expense', e);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Expense was unable to be updated', life: 2000000});
+          this.displayToastMessage('Error', 'Update');
         },
       });
-      
+
       this.stopEditing();
     } else {
       this.expensesService.addExpense(transferedExpense, this.year, this.month).subscribe({
         next: () => {
-          this.messageService.add({ severity: 'success', summary: 'Added', detail: 'Expense added' });
+          this.toastType = 'success';
+          this.displayToastMessage('Success', 'Added');
         },
-        
+
         error: (e) => {
+          this.toastType = 'error';
           console.log('Error when updating an expense', e);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Expense was unable to be added' });
+          this.displayToastMessage('Error', 'Added');
         }
       });
     }
@@ -149,6 +156,26 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   onCategorySelect(categoryName: DropdownChangeEvent) {
     this.expenseForm.controls['category'].setValue(categoryName.value);
     return categoryName.value;
+  }
+
+  displayToastMessage(severity: 'Error' | 'Success', toastTransactionType: 'Delete' | 'Added' | 'Update') {
+
+    const messages = {
+      'Delete': {
+        Error: 'Unable to delete expense',
+        Success: 'Expense deleted successfully'
+      },
+      'Added': {
+        Error: 'Unable to add expense',
+        Success: 'Expense added successfully'
+      },
+      'Update': {
+        Error: 'Unable to update expense',
+        Success: 'Expense updated successfully'
+      }
+    }
+
+    this.messageService.add({ severity: severity.toLocaleLowerCase(), summary: severity, detail: messages[toastTransactionType][severity] });
   }
 
   constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService, private messageService: MessageService) { }
