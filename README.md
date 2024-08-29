@@ -14,7 +14,6 @@ Personal project to learn Angular and everything involded with it.
 ## Todo in general
 - Enable fourth monthly stat card for which expense has the highest dollar amount
 - Look into moving validations of params to their on validator constraint
-- Sort user expense years from latest to oldest
 - Add comma formatting to the expenses amount displayed in the expenses table
 - Use NestJS HttpExceptions enums instead of using hard coded status codes
 - Use .pipe() and tap() operator instead of suscribing in the expense service
