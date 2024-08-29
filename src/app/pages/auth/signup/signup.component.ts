@@ -4,7 +4,6 @@ import { RouterLink, Router} from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -21,10 +20,8 @@ export class SignUpComponent {
   })
 
   submitedForm = false
-
-  userAlreadyExists = false
-  unknownError = false
   signUpLoading = false
+  errorMessage: string | null = null;
 
   signup() {
     this.submitedForm = true
@@ -32,6 +29,8 @@ export class SignUpComponent {
     if (this.signUpForm.invalid) return;
 
     this.clearErrorMessages();
+
+    this.signUpLoading = true
 
     const name = this.signUpForm.get('name')?.value!;
     const email = this.signUpForm.get('email')?.value!
@@ -43,18 +42,15 @@ export class SignUpComponent {
       },
       error: (e) => {
         if (e.status === 400) {
-          this.userAlreadyExists = true;
+          this.errorMessage = 'The email address is already being used, please choose a different email.';
         } else {
-          this.unknownError = true;
+          this.errorMessage = 'There was an in issue when trying to sign you up, please try again later.';
         }
 
         console.error('Error while signing up', e);
         this.signUpLoading = false;
-
       }
     });
-
-    this.signUpLoading = true
   }
 
   get name() {
@@ -75,13 +71,7 @@ export class SignUpComponent {
   }
 
   clearErrorMessages() {
-    this.userAlreadyExists = false;
-    this.unknownError = false;
-  }
-
-  resetPage() {
-    this.userAlreadyExists = false;
-    this.clearForm();
+    this.errorMessage = null;
   }
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }

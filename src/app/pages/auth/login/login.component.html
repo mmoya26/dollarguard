@@ -2,15 +2,10 @@
     <div class="p-5 max-w-lg w-full">
         <h1 class="font-bold text-4xl mb-10 text-center text-slate-900">Log In</h1>
 
-        @if (invalidCredentials) {
+        @if(errorMessage) {
             <div class="bg-rose-200 rounded-lg py-6 mb-4 flex justify-center items-center gap-x-2">
                 <i class="pi pi-exclamation-circle text-rose-800"></i>
-                <p class="text-rose-800">Unable to log in please check your credentials</p>
-            </div>
-        } @else if (unknownError) {
-            <div class="bg-rose-200 rounded-lg py-6 mb-4 flex justify-center items-center gap-x-2">
-                <i class="pi pi-exclamation-circle text-rose-800"></i>
-                <p class="text-rose-800 w-4/5">There was an in issue when trying to log you in, please try again later</p>
+                <p class="text-rose-800 w-4/5">{{errorMessage}}</p>
             </div>
         }
 

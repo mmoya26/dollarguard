@@ -21,9 +21,8 @@ export class LoginComponent {
   });
 
   submitedForm = false
-  invalidCredentials = false
   loginLoading = false
-  unknownError = false
+  errorMessage: string | null = null
 
   get email() {
     return this.loginForm.get('email');
@@ -51,9 +50,9 @@ export class LoginComponent {
 
       error: (e) => {
         if (e.status === 401) {
-          this.invalidCredentials = true
+          this.errorMessage = "Unable to log you in, please check your credentials."
         } else {
-          this.unknownError = true
+          this.errorMessage = "There was an error when trying to log you in, please try again later."
         }
 
         console.error('Error when trying to log in, check your credentials', e);
@@ -63,8 +62,7 @@ export class LoginComponent {
   }
 
   clearErrorMessages() {
-    this.invalidCredentials = false;
-    this.unknownError = false;
+    this.errorMessage = null
   }
 
   clearForm() {
