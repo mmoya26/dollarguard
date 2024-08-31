@@ -5,9 +5,10 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth.interceptor';
+import { MessageService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideHttpClient(
     withInterceptors([authInterceptor])
-  ), provideRouter(routes, withComponentInputBinding()), provideClientHydration(), provideAnimations(),]
+  ), provideRouter(routes, withComponentInputBinding()), provideClientHydration(), provideAnimations(), MessageService]
 };

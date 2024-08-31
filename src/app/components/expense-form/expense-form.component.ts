@@ -14,15 +14,14 @@ import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
 import { skip, Subscription } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'expense-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule,
     InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
-  providers: [MessageService],
   templateUrl: './expense-form.component.html',
   styleUrl: './expense-form.component.css'
 })
@@ -174,9 +173,9 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
         Success: 'Expense updated successfully'
       }
     }
-
-    this.messageService.add({ severity: severity.toLocaleLowerCase(), summary: severity, detail: messages[toastTransactionType][severity] });
+    
+    this.toastService.createToastMessage(severity, severity, messages[toastTransactionType][severity])
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService, private messageService: MessageService) { }
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService, private toastService: ToastService) { }
 }

@@ -3,11 +3,13 @@ import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
 import { Subscription } from 'rxjs';
+import { ToastService } from '../../services/toast.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'expenses-table',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, ToastModule],
   templateUrl: './expenses-table.component.html',
   styleUrl: './expenses-table.component.css'
 })
@@ -36,12 +38,20 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
   }
 
   deleteExpense(id: string) {
-    this.expenseService.deleteExpense(id)
+    this.expenseService.deleteExpense(id).subscribe(
+      {
+        error: (e) => {
+          console.log('Error when deleting an expense: ', e);
+          this.toastService.createToastMessage('error', 'Error', 'Unable to delete expense');
+        }
+      }
+    );
+    
   }
 
   get transactionsCount() {
     return this.expenses.length;
   }
 
-  constructor(private expenseService: ExpensesService) {}
+  constructor(private expenseService: ExpensesService, private toastService: ToastService) {}
 }

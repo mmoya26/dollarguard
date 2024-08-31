@@ -39,3 +39,31 @@ body {
 .auth-inputs {
     @apply border border-l-0 border-gray-200 w-full py-3 px-0 rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg;
 }
+
+
+/* Toast Message CSS */
+
+p-toast .p-toast-message-content {
+    @apply flex items-center text-white;
+}
+
+p-toast .p-toast-message-content svg {
+    @apply text-white;
+}
+
+p-toast .p-toast-icon-close {
+    @apply self-baseline;
+}
+
+p-toast .p-toast-detail {
+    @apply m-0;
+}
+
+/* Toast background colors */
+p-toast .p-toast-message-success .p-toast-message-content {
+    @apply bg-green-600;
+}
+
+p-toast .p-toast-message-error .p-toast-message-content {
+    @apply bg-red-600;
+}

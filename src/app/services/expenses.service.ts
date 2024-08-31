@@ -33,10 +33,12 @@ export class ExpensesService {
   }
 
   deleteExpense(id: string) {
-    return this.http.delete(`${this.API_URL}/${id}`).subscribe((_) => {
-      const filteredList = this._listOfExpenses.value.filter(e => e.id !== id);
-      this._listOfExpenses.next(filteredList);
-    })
+    return this.http.delete(`${this.API_URL}/${id}`).pipe(
+      tap(_ => {
+        const filteredList = this._listOfExpenses.value.filter(e => e.id !== id);
+        this._listOfExpenses.next(filteredList);
+      })
+    )
   }
 
   editExpense(expense: Expense) {
