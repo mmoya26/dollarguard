@@ -25,6 +25,7 @@ Personal project to learn Angular and everything involded with it.
 - Update auth.guard.ts in server to check if the token has not expired because we are only checking if the token is present or not
 - Look into creating reusable components with input fields with icons on the side
 - Create service for toast message to handle expense deletion toast message from the expense table component
+- Add loading state while retrieving user years for year selection component
 
 # Design/create todos
 - Design how expenses table and percentage overview sections will look when there are zero expenses
