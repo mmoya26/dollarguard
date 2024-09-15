@@ -11,9 +11,9 @@ export class UsersService {
   constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
   async createUser(user: UserDto) {
-    const exisitingUser = await this.userModel.findOne({email: user.email});
+    const existingUser = await this.userModel.findOne({lowerCaseEmail: user.email.toLowerCase()});
 
-    if (exisitingUser) { throw new HttpException('Unable to create the user account', HttpStatus.BAD_REQUEST)}
+    if (existingUser) { throw new HttpException('Unable to create the user account', HttpStatus.BAD_REQUEST)}
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
@@ -21,8 +21,11 @@ export class UsersService {
       name: user.name,
       creationDate: new Date(),
       email: user.email,
+      lowerCaseEmail: user.email.toLowerCase(),
       password: hashedPassword
     });
+
+    console.log(newUser);
 
     return await newUser.save()
   }
