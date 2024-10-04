@@ -1,9 +1,10 @@
 <div class="mb-14 mx-auto flex flex-col items-center ">
-    <p class="text-xl font-bold">{{year}}</p>
-    <button (click)="toggleMonthsView()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 flex items-center gap-2 font-bold mb-6 mt-2">
+    <p class="text-lg text-slate-600">Currently viewing</p>
+    <button (click)="toggleMonthsView()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 flex items-center gap-2 font-bold my-2">
         {{nameOfMonth}} <i class="pi pi-chevron-down"></i>
     </button>
-    <div class="flex gap-x-6" [@openMonthsMenu]="displayMonths ? 'open' : 'close'">
+    <p class="text-base text-slate-600">{{year}}</p>
+    <div class="mt-4 flex gap-x-6" [@openMonthsMenu]="displayMonths ? 'open' : 'close'">
         @for (month of months; track month) {
         <a routerLink="/expenses/{{year}}/{{month.index}}" (click)="refreshRoute(year, month.index)" class="hover:bg-slate-900 hover:text-white border cursor-pointer border-slate-900 rounded-[20px] text-slate-900 py-2 px-4 transition-all">
             {{month.name}}
