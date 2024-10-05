@@ -3,12 +3,13 @@ import { Expense } from '@interfaces/expense';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ExpenseDto } from '@interfaces/expense'
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpensesService {
-  private API_URL = `http://localhost:3000/expenses`;
+  private API_URL = `${environment.apiUrl}/expenses`;
 
   private _listOfExpenses: BehaviorSubject<Expense[]> = new BehaviorSubject<Expense[]>([]);
   public listOfExpenses$ = this._listOfExpenses.asObservable();
