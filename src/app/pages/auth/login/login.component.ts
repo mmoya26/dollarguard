@@ -16,7 +16,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 export class LoginComponent {
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   });
 
@@ -24,8 +24,8 @@ export class LoginComponent {
   loginLoading = false
   errorMessage: string | null = null
 
-  get email() {
-    return this.loginForm.get('email');
+  get username() {
+    return this.loginForm.get('username');
   }
 
   get password() {
@@ -40,15 +40,16 @@ export class LoginComponent {
     this.loginLoading = true;
     this.clearErrorMessages();
     
-    const email = this.loginForm.get('email')?.value!
+    const username = this.loginForm.get('username')?.value!
     const password = this.loginForm.get('password')?.value!
 
-    this.authService.login(email, password).subscribe({
+    this.authService.login(username, password).subscribe({
       next: (_) => {
         this.router.navigate(['/expenses']);
       },
 
       error: (e) => {
+        console.log(e)
         if (e.status === 401) {
           this.errorMessage = "Unable to log you in, please check your credentials."
         } else {
@@ -66,7 +67,7 @@ export class LoginComponent {
   }
 
   clearForm() {
-    this.loginForm.reset({ email: '', password: '' });
+    this.loginForm.reset({ username: '', password: '' });
     this.submitedForm = false;
   }
 

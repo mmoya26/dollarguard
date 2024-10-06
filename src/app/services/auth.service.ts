@@ -12,32 +12,34 @@ export class AuthService {
 
   private isUserAuthenticated: boolean | null = null;
 
-  login(email: string, password: string) {
-    return this.http.post(`${this.AUTH_URL_ENDPOINT}/login`, { email, password }).pipe(
-      tap(_ => {
+  login(username: string, password: string) {
+    return this.http.post<{message: string, auth_token: string}>(`${this.AUTH_URL_ENDPOINT}/login`, { username, password }).pipe(
+      tap(response => {
+        localStorage.setItem('auth_token', response.auth_token);
         this.isUserAuthenticated = true
       })
     )
   }
 
   signUp(name: string, email: string, password: string) {
-    return this.http.post(`${this.AUTH_URL_ENDPOINT}/signup`, { name, email, password }).pipe(
-      tap(_ => {
+    return this.http.post<{message: string, access_token: string}>(`${this.AUTH_URL_ENDPOINT}/signup`, { name, email, password }).pipe(
+      tap(response => {
+        localStorage.setItem('auth_token', response.access_token);
         this.isUserAuthenticated = true
       })
     );
   }
 
   logout() {
-    console.log('Login user out...');
-
     this.http.post(`${this.AUTH_URL_ENDPOINT}/logout`, {}).subscribe({
       next: () => {
+        localStorage.removeItem('auth_token');
         this.isUserAuthenticated = false;
         this.router.navigate(['/login']);
       },
       error: (e) => {
-        console.error('Error when logging user out', e)
+        localStorage.removeItem('auth_token');
+        console.error('Error when logging user out', e);
         this.isUserAuthenticated = false;
         this.router.navigate(['/login']);
       }
@@ -46,7 +48,6 @@ export class AuthService {
 
   valiteUserSession() {
     if (this.isUserAuthenticated) {
-      
       return of(true);
     }
 

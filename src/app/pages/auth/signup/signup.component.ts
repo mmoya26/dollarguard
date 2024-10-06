@@ -15,7 +15,7 @@ export class SignUpComponent {
 
   signUpForm = this.fb.group({
     name: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   })
 
@@ -33,10 +33,10 @@ export class SignUpComponent {
     this.signUpLoading = true
 
     const name = this.signUpForm.get('name')?.value!;
-    const email = this.signUpForm.get('email')?.value!
+    const username = this.signUpForm.get('username')?.value!
     const password = this.signUpForm.get('password')?.value!
 
-    this.authService.signUp(name, email, password).subscribe({
+    this.authService.signUp(name, username, password).subscribe({
       next: (_) => {
         this.router.navigate(['/expenses']);
       },
@@ -57,8 +57,8 @@ export class SignUpComponent {
     return this.signUpForm.get('name')
   }
 
-  get email() {
-    return this.signUpForm.get('email')
+  get username() {
+    return this.signUpForm.get('username')
   }
 
   get password() {
@@ -66,7 +66,7 @@ export class SignUpComponent {
   }
 
   clearForm() {
-    this.signUpForm.reset({name: '', email: '', password: ''});
+    this.signUpForm.reset({name: '', username: '', password: ''});
     this.submitedForm = false;
   }
 

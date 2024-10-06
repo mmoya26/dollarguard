@@ -17,10 +17,10 @@
                     <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                         <i class="pi pi-envelope"></i>
                     </p-inputGroupAddon>
-                    <input class="auth-inputs" type="email" name="email" id="email" formControlName="email">
+                    <input class="auth-inputs" type="email" name="email" id="email" formControlName="username">
                 </div>
                 
-                @if (email?.invalid && submitedForm) {
+                @if (username?.invalid && submitedForm) {
                 <div class="mt-2 text-red-500">Please enter your email</div>
                 }
 
