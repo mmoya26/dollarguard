@@ -10,7 +10,7 @@
         }
     </div>
 
-    <div class="mt-5 flex gap-[2px]">
+    <div class="mt-3 flex gap-[2px]">
         @for (category of activeCategories; track category; let idx = $index) {
             @if(idx === 0 && activeCategories.length > 1) {
                 <div [style]="'width:' + category.percentage + '%;'" class="flex flex-col items-center  gap-1">

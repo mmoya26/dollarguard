@@ -6,7 +6,7 @@
 
     @if(expenses.length > 0) {
         <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">
-            <table class="w-full border-separate border-spacing-0 bg-white">
+            <table class="min-w-[600px] w-full border-separate border-spacing-0 bg-white">
                 <thead class="bg-transparent rounded-lg">
                     <tr class="border-none text-slate-600 ">
                         <th class="py-5">#</th>
@@ -20,7 +20,7 @@
                 <tbody>
                     @for (expense of expenses; track expense.id; let idx = $index;) {
                         <tr class="group row text-center text-slate-700 text-base">
-                            <td class="py-7">{{expenses.length - idx}}</td>
+                            <td class="py-7 px-4">{{expenses.length - idx}}</td>
                             <td>${{expense.amount}}</td>
                             <td>{{expense.date| date}}</td>
                             <td>
