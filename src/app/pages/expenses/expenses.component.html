@@ -1,25 +1,23 @@
 <div class="content-container">
 
-    <div class="flex justify-between p-3">
-        <a routerLink="/expenses" class="text-slate-900"><i class="pi pi-chevron-left text-slate-900 text-base pr-1"></i>Years Selection</a>
-        <a (click)="logout()" class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Log out</a>
+    <div class="flex justify-between items-center">
+        <a routerLink="/expenses" class="text-slate-900"><i
+                class="pi pi-chevron-left text-slate-900 text-base pr-1"></i>Years Selection</a>
+        <a (click)="logout()"
+            class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Log out</a>
     </div>
 
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
     @if (!isDataLoading) {
-        <div class="flex justify-between items-center flex-wrap gap-y-20">
-            <expense-form
-                [month]="month"
-                [year]="year"
-                class="block w-fit"
-            ></expense-form>
-            <monthly-stats></monthly-stats>
-        </div>
+    <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
+        <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"></expense-form>
+        <monthly-stats class="w-full xl:w-initial"></monthly-stats>
+    </div>
 
-        <percentage-overview />
-        <expenses-table [month]="month" [year]="year" />
+    <percentage-overview />
+    <expenses-table [month]="month" [year]="year" />
     } @else {
-        <div>Page is loading...</div>
+    <div>Page is loading...</div>
     }
 </div>

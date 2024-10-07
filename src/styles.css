@@ -6,6 +6,17 @@
 @tailwind base;
 
 @layer reset, primeng;
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+}
 
 :root {
     --border-color: #e5e7eb;
@@ -31,9 +42,9 @@ body {
 }
 
 .content-container {
+    @apply mx-auto my-5 px-6 2xl:px-0;
     width: 100%;
     max-width: 1400px;
-    margin: 2.5rem auto;
 }
 
 .auth-inputs {
