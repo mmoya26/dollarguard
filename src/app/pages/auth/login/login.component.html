@@ -1,4 +1,4 @@
-<div class="h-screen flex items-center justify-center">
+<div class="flex items-center justify-center">
     <div class="p-5 max-w-lg w-full">
         <h1 class="font-bold text-4xl mb-10 text-center text-slate-900">Log In</h1>
 
@@ -17,7 +17,7 @@
                     <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                         <i class="pi pi-envelope"></i>
                     </p-inputGroupAddon>
-                    <input class="auth-inputs" type="email" name="email" id="email" formControlName="username">
+                    <input class="auth-inputs" type="email" name="email" id="email" formControlName="username" autocomplete="on">
                 </div>
                 
                 @if (username?.invalid && submitedForm) {
