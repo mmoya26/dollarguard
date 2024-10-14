@@ -17,3 +17,7 @@ table tbody tr td {
 table tbody tr:last-child td {
     border-bottom: none;
 }
+
+::ng-deep .expenses-skeleton > div {
+    @apply mt-5;
+}
