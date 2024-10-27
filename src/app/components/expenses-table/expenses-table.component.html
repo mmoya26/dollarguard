@@ -23,7 +23,7 @@
                             <tr class="group row text-center text-slate-700 text-base">
                                 <td class="py-7 px-4">{{expenses.length - idx}}</td>
                                 <td>${{expense.amount}}</td>
-                                <td>{{expense.date| date}}</td>
+                                <td>{{expense.date| date:'mediumDate':'UTC' }}</td>
                                 <td>
                                     <div [style]="'color: ' + expense.category.hexColor + ';' + 
                                     'border-color: ' + expense.category.hexColor + ';' "
