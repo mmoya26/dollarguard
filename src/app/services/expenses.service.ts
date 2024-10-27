@@ -20,6 +20,7 @@ export class ExpensesService {
   getExpenses(year: string, month: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(`${this.API_URL}/${year}/${month}`).pipe(
       tap(expenses => {
+        console.log(expenses)
         this._listOfExpenses.next(expenses);
       })
     );
@@ -27,8 +28,12 @@ export class ExpensesService {
 
   addExpense(expense: ExpenseDto, year: string, month: string) {
     return this.http.post<Expense>(`${this.API_URL}/${year}/${month}`, expense).pipe(
-      tap((expense: Expense) => {
-        this._listOfExpenses.next([...this._listOfExpenses.value, expense]);
+      tap((returnedExpense: Expense) => {
+
+        const newExpense: Expense = { amount: expense.amount, category: expense.category, date: new Date(`${month}/${expense.monthDay}/${year}`), 
+        id: returnedExpense.id, userId: returnedExpense.userId, notes: expense.notes }
+
+        this._listOfExpenses.next([...this._listOfExpenses.value, newExpense]);
       })
     );
   }
@@ -50,7 +55,7 @@ export class ExpensesService {
     this._currentExpenseBeingEdited.next({ id: expense.id, amount: expense.amount, category: expense.category.name, date: formattedDate, notes: expense.notes || "" })
   }
 
-  updateExpense(id: string, expense: ExpenseDto) {
+  updateExpense(id: string, expense: ExpenseDto, year: string, month: string) {
     return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).pipe(
       tap((_) => {
         // Update local expenses list
@@ -59,8 +64,8 @@ export class ExpensesService {
         expenseBeingEdited.category = expense.category
         expenseBeingEdited.notes = expense.notes ?? ""
 
-        const newDate = new Date(expenseBeingEdited.date);
-        newDate.setDate(Number(expense.monthDay));
+        const newDate = new Date(`${month}/${expense.monthDay}/${year}`);
+        console.log(newDate);
 
         expenseBeingEdited.date = newDate;
 
