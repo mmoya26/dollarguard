@@ -20,7 +20,6 @@ export class ExpensesService {
   getExpenses(year: string, month: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(`${this.API_URL}/${year}/${month}`).pipe(
       tap(expenses => {
-        console.log(expenses)
         this._listOfExpenses.next(expenses);
       })
     );
@@ -29,11 +28,7 @@ export class ExpensesService {
   addExpense(expense: ExpenseDto, year: string, month: string) {
     return this.http.post<Expense>(`${this.API_URL}/${year}/${month}`, expense).pipe(
       tap((returnedExpense: Expense) => {
-
-        const newExpense: Expense = { amount: expense.amount, category: expense.category, date: new Date(`${month}/${expense.monthDay}/${year}`), 
-        id: returnedExpense.id, userId: returnedExpense.userId, notes: expense.notes }
-
-        this._listOfExpenses.next([...this._listOfExpenses.value, newExpense]);
+        this._listOfExpenses.next([...this._listOfExpenses.value, returnedExpense]);
       })
     );
   }
@@ -57,21 +52,9 @@ export class ExpensesService {
 
   updateExpense(id: string, expense: ExpenseDto, year: string, month: string) {
     return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).pipe(
-      tap((_) => {
-        // Update local expenses list
-        let expenseBeingEdited: Expense = this._listOfExpenses.value.find(e => e.id === id)!;
-        expenseBeingEdited.amount = expense.amount
-        expenseBeingEdited.category = expense.category
-        expenseBeingEdited.notes = expense.notes ?? ""
-
-        const newDate = new Date(`${month}/${expense.monthDay}/${year}`);
-        console.log(newDate);
-
-        expenseBeingEdited.date = newDate;
-
+      tap((updatedExpense: Expense) => {
         const filteredListOfExpenses = this._listOfExpenses.value.filter(e => e.id !== id);
-
-        this._listOfExpenses.next([...filteredListOfExpenses, expenseBeingEdited]);
+        this._listOfExpenses.next([...filteredListOfExpenses, updatedExpense]);
       })
     );
   }
