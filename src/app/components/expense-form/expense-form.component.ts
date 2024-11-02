@@ -16,6 +16,7 @@ import { skip, Subscription } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../services/toast.service';
+import { UserPreferencesService } from '../../services/user-preferences.service';
 
 @Component({
   selector: 'expense-form',
@@ -60,7 +61,10 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
       });
 
-    this.categories = this.categoryService.getAllCategories();
+    this.userPreferencesService.currentuserCategories$.subscribe(categories => {
+      this.categories = categories;
+    })
+    
     this.setMinAndMaxCalendarDates(this.month, this.year);
   }
 
@@ -98,7 +102,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
       amount: Number(this.expenseForm.value.amount)!,
       category: {
         name: this.expenseForm.value.category!,
-        hexColor: this.categoryService.getCategoryColor(this.expenseForm.value.category!)!
+        hexColor: this.categoryService.getCategoryColor(this.categories, this.expenseForm.value.category!)!
       },
       monthDay: String(new Date(this.expenseForm.value.date!).getDate()),
       notes: this.expenseForm.value.notes || ''
@@ -177,5 +181,11 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     this.toastService.createToastMessage(severity, severity, messages[toastTransactionType][severity])
   }
 
-  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, private expensesService: ExpensesService, private toastService: ToastService) { }
+  constructor(
+    private formBuilder: FormBuilder, 
+    private categoryService: CategoryService, 
+    private expensesService: ExpensesService, 
+    private toastService: ToastService,
+    private userPreferencesService: UserPreferencesService
+  ) { }
 }

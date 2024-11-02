@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { Expense } from '@interfaces/expense';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { UserPreferencesService } from '../../services/user-preferences.service';
 
 @Component({
   selector: 'app-expenses',
@@ -18,6 +19,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  private subscriptionTwo: Subscription = new Subscription();
 
   @Input() year = ''
   @Input() month = ''
@@ -36,17 +38,23 @@ export class ExpensesComponent implements OnInit, OnDestroy {
         console.error('Unable to fetch expenses', e);
       }
     });
+
+    this.subscriptionTwo = this.userPreferenceService.getUserCategories().subscribe();
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+
+    if (this.subscriptionTwo) {
+      this.subscriptionTwo.unsubscribe();
+    }    
   }
 
   logout() {
     this.authService.logout();
   }
 
-  constructor(private expensesService: ExpensesService, private authService: AuthService) { }
+  constructor(private expensesService: ExpensesService, private authService: AuthService, private userPreferenceService: UserPreferencesService) { }
 }

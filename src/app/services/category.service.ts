@@ -6,39 +6,12 @@ import { Category } from '@interfaces/category';
 })
 export class CategoryService {
 
-  private categories: Category[] = [
-    {
-      name: "Miscellaneous",
-      hexColor: "#475569",
-    },
-    {
-      name: "Gas",
-      hexColor: "#DC2626",
-    },
-    {
-      name: "Utilities",
-      hexColor: "#0891B2",
-    },
-    {
-      name: "Groceries",
-      hexColor: "#D97706",
-    },
-    {
-      name: "Phone Bill",
-      hexColor: "#4F46E5",
-    }
-  ]
-
   // Find the category who's name equals the name of the category about to be displayed
-  getCategoryColor(name: string): string | undefined {
-    const category = this.categories.find(c => c.name === name);
+  getCategoryColor(categories: Category[], name: string): string {
+    const hexColor = categories.find(c => c.name === name)!.hexColor;
 
-    return category?.hexColor
+    return hexColor;
   }
-
-  getAllCategories(): Category[] {
-    return this.categories;
-  }
-
+  
   constructor() { }
 }
