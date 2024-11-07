@@ -18,8 +18,9 @@ import { UserPreferencesService } from '../../services/user-preferences.service'
   templateUrl: './expenses.component.html',
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription();
-  private subscriptionTwo: Subscription = new Subscription();
+  private subscriptions = new Subscription();
+  private userExpensesSubscription: Subscription = new Subscription();
+  private userCategoriesSubscription: Subscription = new Subscription();
 
   @Input() year = ''
   @Input() month = ''
@@ -28,7 +29,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   expenses: Expense[] = []
 
   ngOnInit(): void {
-    this.subscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
+    this.userExpensesSubscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
       next: (_) => {
         this.isDataLoading = false
       },
@@ -39,17 +40,14 @@ export class ExpensesComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.subscriptionTwo = this.userPreferenceService.getUserCategories().subscribe();
+    this.userCategoriesSubscription = this.userPreferenceService.getUserCategories().subscribe();
+
+    this.subscriptions.add(this.userExpensesSubscription);
+    this.subscriptions.add(this.userCategoriesSubscription);
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-
-    if (this.subscriptionTwo) {
-      this.subscriptionTwo.unsubscribe();
-    }    
+    this.subscriptions.unsubscribe();
   }
 
   logout() {
