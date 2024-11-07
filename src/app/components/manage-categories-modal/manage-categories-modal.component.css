@@ -1,0 +1,13 @@
+::ng-deep .manage-categories-modal .p-dialog {
+    @apply  w-[500px];
+}
+
+
+/* Color picker styles */
+::ng-deep .color-picker .p-colorpicker {
+    @apply w-full mb-5 h-10;
+}
+
+::ng-deep .color-picker .p-colorpicker-preview {
+    @apply w-full h-full;
+}

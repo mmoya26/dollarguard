@@ -1,0 +1,42 @@
+<button class="bg-slate-900 text-white px-5 py-2 rounded-[20px] mb-4" (click)="openModal()">Manage Categories</button>
+
+<p-dialog header="Manage Categories" [modal]="true" [(visible)]="isModalOpen" class="manage-categories-modal" draggable="false">
+    <!-- {{this.manageCategoriesForm.value | json}} -->
+    <form [formGroup]="manageCategoriesForm" (ngSubmit)="onFormSubmit()">
+        <div class="flex flex-col gap-1">
+            <label for="categoryName">Category name</label>
+            <input id="categoryName" type="text" formControlName="name" class="border border-gray-200 rounded-lg p-3 w-full mb-3" placeholder="e.g: Fast Food">
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="hexColor">Choose color</label>
+            <p-colorPicker id="hexColor" formControlName="hexColor" class="color-picker" />
+        </div>
+        <button type="submit"
+            class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer">Add
+            Category</button>
+    </form>
+
+    <div class="mt-5">
+        <h4 class="text-lg font-bold">Existing categories</h4>
+
+
+        <div class="flex gap-2 flex-wrap mt-3">
+            @for (category of currentUserCategories; track category.id) {
+                <span [ngStyle]="{
+                    backgroundColor: category.hexColor,
+                    color: 'white',
+                    padding: '8px 20px',
+                    borderRadius: '20px',
+                    display: 'flex',
+                    gap: '8px',
+                    alignItems: 'center'
+
+                  }">{{category.name}}
+                    <i class="pi pi-times text-xs cursor-pointer" (click)="deleteCategory(category.id!)"></i>
+  
+                </span>
+            }
+        </div>
+    </div>
+</p-dialog>

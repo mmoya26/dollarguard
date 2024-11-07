@@ -10,11 +10,12 @@ import { Expense } from '@interfaces/expense';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserPreferencesService } from '../../services/user-preferences.service';
+import { ManageCategoriesModalComponent } from '@components/manage-categories-modal/manage-categories-modal.component';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [RouterLink, ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent],
+  imports: [RouterLink, ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent, ManageCategoriesModalComponent],
   templateUrl: './expenses.component.html',
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
