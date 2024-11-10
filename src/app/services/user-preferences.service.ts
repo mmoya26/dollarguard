@@ -29,9 +29,16 @@ export class UserPreferencesService {
     return this.http.post<Category[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/categories`, category).pipe(
       tap(categories => {
         this._currentUserCategories.next([...categories]);
-        console.log(categories);
       })
     )
+  }
+
+  deleteUserCategory(id: string): Observable<Category[]> {
+    return this.http.delete<Category[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/categories/${id}`).pipe(
+      tap(categories => {
+        this._currentUserCategories.next([...categories]);
+      })
+    );
   }
 
   constructor(private http: HttpClient) { }

@@ -36,7 +36,6 @@ export class ManageCategoriesModalComponent implements OnInit {
 
   onFormSubmit() {
     if (this.manageCategoriesForm.invalid) {
-      console.log('here')
       this.isFormValid = false;
       return;
     }
@@ -47,7 +46,7 @@ export class ManageCategoriesModalComponent implements OnInit {
   }
 
   deleteCategory(id: string) {
-    console.log(`deleting category: ${id}`);
+    this.userPreferencesService.deleteUserCategory(id).subscribe();
   }
 
   closeModal() {

@@ -3,23 +3,11 @@
 Personal project to learn Angular and back-end development.
 
 :fire: [Live site](https://dollarguard.pages.dev/login)
-##  Currently working on: Responsiveness & UI Updates
-
-
-##  Todo: Expense Form (not high priority)
-
-- Add character count to notes text input field
-
-- Remove outline from date field when clicking away
-
-- Remove the ability to click in the month title to navigate the calendar
-
-- Fix bug where if user leaves category option clicked error message displays
-
-- Allow cents expenses
-
+##  Currently working on: Integrating custom categories for each user
 
 ##  Todo in general
+
+- Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
 
 - Add loading state while retrieving user years for year selection component
 
@@ -45,13 +33,23 @@ Personal project to learn Angular and back-end development.
 
 - Update toast messages service to contain list of options for parameters
 
+##  Todo: Expense Form (not high priority)
+
+- Add character count to notes text input field
+
+- Remove outline from date field when clicking away
+
+- Remove the ability to click in the month title to navigate the calendar
+
+- Fix bug where if user leaves category option clicked error message displays
+
+- Allow cents expenses
 
 ##  Design/create todos
 
 - Design how expenses table and percentage overview sections will look when there are zero expenses
 
 - Design how years selection page will look like when there is zero years for the user's account
-
 
 ##  Known defects
 
