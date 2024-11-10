@@ -43,7 +43,7 @@ export class ManageCategoriesModalComponent implements OnInit {
 
     this.isFormValid = true;
 
-    this.userPreferencesService.addNewUserCategory({name: this.manageCategoriesForm.value.name!, hexColor: this.manageCategoriesForm.value.hexColor!})
+    this.userPreferencesService.addNewUserCategory({name: this.manageCategoriesForm.value.name!, hexColor: this.manageCategoriesForm.value.hexColor!}).subscribe();
   }
 
   deleteCategory(id: string) {
