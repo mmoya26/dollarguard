@@ -16,7 +16,7 @@ import { Category } from '@interfaces/category';
 export class ManageCategoriesModalComponent implements OnInit {
 
   @Input({ required: true }) isModalOpen = true
-  @Output() closeModalEvent = new EventEmitter<boolean>();
+  @Output() closeModalEvent = new EventEmitter<void>();
 
   currentUserCategories: Category[] = [];
 
@@ -50,7 +50,7 @@ export class ManageCategoriesModalComponent implements OnInit {
   }
 
   closeModal() {
-    this.closeModalEvent.emit(true);
+    this.closeModalEvent.emit();
   }
 
   get category() {
