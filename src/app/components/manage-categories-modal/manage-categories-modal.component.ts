@@ -20,9 +20,11 @@ export class ManageCategoriesModalComponent implements OnInit {
 
   currentUserCategories: Category[] = [];
 
+  readonly DEFAULT_COLOR_PICKER_COLOR = '#574444';
+
   manageCategoriesForm = this.formBuilder.group({
     name: ['', Validators.required],
-    hexColor: ['#574444', Validators.required],
+    hexColor: [this.DEFAULT_COLOR_PICKER_COLOR, Validators.required],
   });
 
   isFormValid = true;
@@ -43,6 +45,7 @@ export class ManageCategoriesModalComponent implements OnInit {
     this.isFormValid = true;
 
     this.userPreferencesService.addNewUserCategory({name: this.manageCategoriesForm.value.name!, hexColor: this.manageCategoriesForm.value.hexColor!}).subscribe();
+    this.manageCategoriesForm.reset({ name:"", hexColor: this.DEFAULT_COLOR_PICKER_COLOR});
   }
 
   deleteCategory(id: string) {
@@ -51,6 +54,7 @@ export class ManageCategoriesModalComponent implements OnInit {
 
   closeModal() {
     this.closeModalEvent.emit();
+    this.manageCategoriesForm.reset({ name:"", hexColor: this.DEFAULT_COLOR_PICKER_COLOR});
   }
 
   get category() {
