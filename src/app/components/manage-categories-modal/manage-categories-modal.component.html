@@ -1,25 +1,25 @@
-<button class="bg-slate-900 text-white px-5 py-2 rounded-[20px] mb-4" (click)="openModal()">Manage Categories</button>
-
-<p-dialog header="Manage Categories" [modal]="true" [(visible)]="isModalOpen" class="manage-categories-modal" draggable="false">
-    <!-- {{this.manageCategoriesForm.value | json}} -->
+<p-dialog header="Manage Categories" [modal]="true" [(visible)]="isModalOpen" class="manage-categories-modal" draggable="false" (onHide)="closeModal()">
     <form [formGroup]="manageCategoriesForm" (ngSubmit)="onFormSubmit()">
         <div class="flex flex-col gap-1">
             <label for="categoryName">Category name</label>
             <input id="categoryName" type="text" formControlName="name" class="border border-gray-200 rounded-lg p-3 w-full mb-3" placeholder="e.g: Fast Food">
+            @if (category?.invalid && !isFormValid ) {
+                <p class="mb-3 text-red-500">Please enter a category name</p>
+            }
         </div>
 
         <div class="flex flex-col gap-1">
             <label for="hexColor">Choose color</label>
-            <p-colorPicker id="hexColor" formControlName="hexColor" class="color-picker" />
+            <div class="flex items-stretch gap-2">
+                <p-colorPicker id="hexColor" formControlName="hexColor" class="color-picker" />
+                <button type="submit" class="border-0 bg-slate-900 text-white rounded-lg py-3 font-bold cursor-pointer w-[75%]">Add Category</button>
+            </div>
         </div>
-        <button type="submit"
-            class="w-full border-0 bg-slate-900 text-white rounded-lg py-3 font-bold ml-auto cursor-pointer">Add
-            Category</button>
+        
     </form>
 
     <div class="mt-5">
         <h4 class="text-lg font-bold">Existing categories</h4>
-
 
         <div class="flex gap-2 flex-wrap mt-3">
             @for (category of currentUserCategories; track category.id) {

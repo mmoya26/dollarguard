@@ -10,6 +10,12 @@ module.exports = {
       },
       width: {
         'initial': 'initial'
+      },
+      flexGrow: {
+        2: '2'
+      },
+      flex: {
+        '2': '2 2 0%'
       }
     },
   },

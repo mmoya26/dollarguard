@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ColorPickerModule } from 'primeng/colorpicker';
@@ -15,7 +15,8 @@ import { Category } from '@interfaces/category';
 })
 export class ManageCategoriesModalComponent implements OnInit {
 
-  isModalOpen = true
+  @Input({ required: true }) isModalOpen = true
+  @Output() closeModalEvent = new EventEmitter<boolean>();
 
   currentUserCategories: Category[] = [];
 
@@ -24,27 +25,39 @@ export class ManageCategoriesModalComponent implements OnInit {
     hexColor: ['#574444', Validators.required],
   });
 
+  isFormValid = true;
 
   ngOnInit(): void {
     this.userPreferencesService.currentuserCategories$.subscribe(categories => {
+      
       this.currentUserCategories = categories;
     })
   }
 
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  
   onFormSubmit() {
-    console.log('form submitteddd!!!');
+    if (this.manageCategoriesForm.invalid) {
+      console.log('here')
+      this.isFormValid = false;
+      return;
+    }
+
+    this.isFormValid = true;
+
+    this.userPreferencesService.addNewUserCategory({name: this.manageCategoriesForm.value.name!, hexColor: this.manageCategoriesForm.value.hexColor!})
   }
 
   deleteCategory(id: string) {
     console.log(`deleting category: ${id}`);
   }
 
-  
+  closeModal() {
+    this.closeModalEvent.emit(true);
+  }
 
-  constructor(private formBuilder: FormBuilder, private userPreferencesService: UserPreferencesService) {}
+  get category() {
+    return this.manageCategoriesForm.get('name');
+  }
+
+
+  constructor(private formBuilder: FormBuilder, private userPreferencesService: UserPreferencesService) { }
 }

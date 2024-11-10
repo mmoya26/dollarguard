@@ -26,6 +26,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   @Input() year = ''
   @Input() month = ''
 
+
+  isCategoryModalOpen = false;
   isDataLoading = true
   expenses: Expense[] = []
 
@@ -49,6 +51,10 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  toggleCategoryModal() {
+    this.isCategoryModalOpen = !this.isCategoryModalOpen;
   }
 
   logout() {

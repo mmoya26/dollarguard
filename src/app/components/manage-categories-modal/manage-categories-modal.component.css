@@ -2,10 +2,14 @@
     @apply  w-[500px];
 }
 
-
 /* Color picker styles */
+
+::ng-deep .color-picker {
+    @apply w-1/4
+}
+
 ::ng-deep .color-picker .p-colorpicker {
-    @apply w-full mb-5 h-10;
+    @apply w-full h-full;
 }
 
 ::ng-deep .color-picker .p-colorpicker-preview {

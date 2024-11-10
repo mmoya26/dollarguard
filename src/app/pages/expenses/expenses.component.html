@@ -9,7 +9,8 @@
 
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
-    <app-manage-categories-modal />
+    <button class="bg-slate-900 text-white px-5 py-2 rounded-[20px] mb-4" (click)="toggleCategoryModal()">Manage Categories</button>
+
 
     @if (!isDataLoading) {
     <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
@@ -23,3 +24,5 @@
     <div>Page is loading...</div>
     }
 </div>
+
+<app-manage-categories-modal [isModalOpen]="isCategoryModalOpen" (closeModalEvent)="toggleCategoryModal()" />
