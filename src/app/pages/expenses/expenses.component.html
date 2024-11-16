@@ -9,11 +9,9 @@
 
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
-    <button class="bg-slate-900 text-white px-5 py-2 rounded-[20px] mb-4" (click)="toggleCategoryModal()">Manage Categories</button>
-
     @if (!isDataLoading) {
     <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
-        <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"></expense-form>
+        <expense-form class="w-full xl:w-initial" [month]="month" [year]="year" (addNewCategoryEvent)="toggleCategoryModal()"></expense-form>
         <monthly-stats class="w-full xl:w-initial"></monthly-stats>
     </div>
 

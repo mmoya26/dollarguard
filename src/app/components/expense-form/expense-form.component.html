@@ -10,7 +10,10 @@
 
     <div class="flex flex-col gap-3">
         <p-inputGroup class="inputgroup-container">
-            <label for="category" class="mb-2 text-slate-900">Category</label>
+            <div class="mb-2 flex justify-between">
+                <label for="category" class=" text-slate-900">Category</label>
+                <button type="button" class="text-slate-500 text-xs" (click)="fireAddNewCategoryEvent()">Add new category</button>
+            </div>
             <div class="flex">
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-list"></i>
@@ -30,9 +33,9 @@
                         <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                             <i class="pi pi-dollar"></i>
                         </p-inputGroupAddon>
-                        <p-inputNumber formControlName="amount" (paste)="(false)" id="amount"
-                            placeholder="Amount" inputId="minmaxfraction" [minFractionDigits]="0"
-                            [maxFractionDigits]="2" class="normal-input" [maxlength]="7"/>
+                        <p-inputNumber formControlName="amount" (paste)="(false)" id="amount" placeholder="Amount"
+                            inputId="minmaxfraction" [minFractionDigits]="0" [maxFractionDigits]="2"
+                            class="normal-input" [maxlength]="7" />
                     </div>
                     <div *ngIf="amount?.touched && amount?.errors?.['required']" class="mt-2 text-red-500">Please enter
                         an amount</div>

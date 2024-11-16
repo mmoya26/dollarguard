@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -29,6 +29,8 @@ import { UserPreferencesService } from '../../services/user-preferences.service'
 export class ExpenseFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) month = ''
   @Input({ required: true }) year = ''
+
+  @Output() addNewCategoryEvent = new EventEmitter<void>();
 
   currentExpenseSubscription: Subscription = new Subscription();
 
@@ -179,6 +181,10 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     }
     
     this.toastService.createToastMessage(severity, severity, messages[toastTransactionType][severity])
+  }
+
+  fireAddNewCategoryEvent() {
+    this.addNewCategoryEvent.emit();
   }
 
   constructor(
