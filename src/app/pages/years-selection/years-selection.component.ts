@@ -12,13 +12,17 @@ import { ExpensesService } from '../../services/expenses.service';
 })
 export class YearsSelectionComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
+
   currentMonth = new Date().getMonth() + 1;
   currentYear = new Date().getFullYear();
   years: String[] = [];
 
+  yearsLoading = true;
+
   ngOnInit(): void {
     this.subscription = this.expensesService.getUsersYearsForExpenses().subscribe(years => {
       this.years = years;
+      this.yearsLoading = false;
     });
   }
 

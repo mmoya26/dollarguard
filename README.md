@@ -9,8 +9,6 @@ Personal project to learn Angular and back-end development.
 
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
 
-- Add loading state while retrieving user years for year selection component
-
 - Add loading state while expenses are being added and table is loading
 
 - Allow users to add their own categories
