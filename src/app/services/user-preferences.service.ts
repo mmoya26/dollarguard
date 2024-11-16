@@ -33,8 +33,8 @@ export class UserPreferencesService {
     )
   }
 
-  deleteUserCategory(id: string): Observable<Category[]> {
-    return this.http.delete<Category[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/categories/${id}`).pipe(
+  deleteUserCategory(name: string): Observable<Category[]> {
+    return this.http.delete<Category[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/categories/${name}`).pipe(
       tap(categories => {
         this._currentUserCategories.next([...categories]);
       })

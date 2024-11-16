@@ -22,7 +22,7 @@
         <h4 class="text-lg font-bold">Existing categories</h4>
 
         <div class="flex gap-2 flex-wrap mt-3">
-            @for (category of currentUserCategories; track category.id) {
+            @for (category of currentUserCategories; track category.name) {
                 <span [ngStyle]="{
                     backgroundColor: category.hexColor,
                     color: 'white',
@@ -33,7 +33,7 @@
                     alignItems: 'center'
 
                   }">{{category.name}}
-                    <i class="pi pi-times text-xs cursor-pointer" (click)="deleteCategory(category.id!)"></i>
+                    <i class="pi pi-times text-xs cursor-pointer" (click)="deleteCategory(category.name!)"></i>
   
                 </span>
             }

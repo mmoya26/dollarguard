@@ -48,8 +48,8 @@ export class ManageCategoriesModalComponent implements OnInit {
     this.manageCategoriesForm.reset({ name:"", hexColor: this.DEFAULT_COLOR_PICKER_COLOR});
   }
 
-  deleteCategory(id: string) {
-    this.userPreferencesService.deleteUserCategory(id).subscribe();
+  deleteCategory(name: string) {
+    this.userPreferencesService.deleteUserCategory(name).subscribe();
   }
 
   closeModal() {
