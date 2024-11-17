@@ -1,5 +1,5 @@
 ::ng-deep .manage-categories-modal .p-dialog {
-    @apply  w-[500px];
+    @apply  w-[500px] h-[450px];
 }
 
 /* Color picker styles */

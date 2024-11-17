@@ -22,20 +22,27 @@
         <h4 class="text-lg font-bold">Existing categories</h4>
 
         <div class="flex gap-2 flex-wrap mt-3">
-            @for (category of currentUserCategories; track category.name) {
-                <span [ngStyle]="{
-                    backgroundColor: category.hexColor,
-                    color: 'white',
-                    padding: '8px 20px',
-                    borderRadius: '20px',
-                    display: 'flex',
-                    gap: '8px',
-                    alignItems: 'center'
-
-                  }">{{category.name}}
-                    <i class="pi pi-times text-xs cursor-pointer" (click)="deleteCategory(category.name!)"></i>
-  
-                </span>
+            @if (currentUserCategories.length > 0) {
+                @for (category of currentUserCategories; track category.name) {
+                    <span [ngStyle]="{
+                        backgroundColor: category.hexColor,
+                        color: 'white',
+                        padding: '8px 20px',
+                        borderRadius: '20px',
+                        display: 'flex',
+                        gap: '8px',
+                        alignItems: 'center'
+    
+                      }">{{category.name}}
+                        <i class="pi pi-times text-xs cursor-pointer" (click)="deleteCategory(category.name!)"></i>
+                    </span>
+                }
+            } @else {
+                <div class="text-center w-full h-full gap-2 text-slate-500">
+                    <p>
+                        No categories found. Create a new category to get started <i class="pi pi-sparkles"></i></p>
+                    
+                </div>
             }
         </div>
     </div>
