@@ -88,6 +88,10 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     return this.expenseForm.get('date');
   }
 
+  get notesLength() {
+    return this.expenseForm.get('notes')?.value?.length ?? 0;
+  }
+
   setMinAndMaxCalendarDates(m: string, y: string) {
     this.minDate = new Date(Number(this.year), Number(this.month) - 1, 1);
     this.maxDate = new Date(Number(this.year), Number(this.month), 0);
@@ -95,9 +99,8 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.expenseForm.invalid) {
-      console.log("Form is invalid");
       this.expenseForm.markAllAsTouched();
-      return
+      return;
     }
 
     let transferedExpense: ExpenseDto = {

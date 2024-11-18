@@ -61,12 +61,12 @@
 
         <p-inputGroup class="inputgroup-container">
             <label for="notes" class="mb-2 text-slate-900">Notes</label>
-            <div class="flex">
+            <div class="flex relative">
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-comments"></i>
                 </p-inputGroupAddon>
-                <input pInputText formControlName="notes" id="notes" placeholder="Notes" [value]=""
-                    class="normal-input" />
+                <input pInputText formControlName="notes" id="notes" placeholder="Notes" class="normal-input h-full pr-0" maxlength="30"/>
+                <span class="ml-[-60px] text-gray-400 absolute right-3 top-3">{{notesLength}}/30</span>
             </div>
         </p-inputGroup>
     </div>

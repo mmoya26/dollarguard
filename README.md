@@ -3,7 +3,7 @@
 Personal project to learn Angular and back-end development.
 
 :fire: [Live site](https://dollarguard.pages.dev/login)
-##  Currently working on: Integrating custom categories for each user
+##  Currently working on: Allow users to set custom budgets for each month for each year
 
 ##  Todo in general
 
@@ -11,15 +11,11 @@ Personal project to learn Angular and back-end development.
 
 - Add loading state while expenses are being added and table is loading
 
-- Allow users to add their own categories
-
 - Allow users to adjust their monthly budget
 
 - Enable fourth monthly stat card for which expense has the highest dollar amount
 
 - Add comma formatting to the expenses amount displayed in the expenses table
-
-- Use .pipe() and tap() operator instead of subscribing in the expense service
 
 - Add create expense for a particular year in the expenses page in the year selection page
 
@@ -27,13 +23,11 @@ Personal project to learn Angular and back-end development.
 
 - Look into preventing user from making too many login & sign up requests with invalid credentials or duplicate email for sign up
 
-- Look into creating reusable components with input fields with icons on the side
-
 - Update toast messages service to contain list of options for parameters
 
 ##  Todo: Expense Form (not high priority)
 
-- Add character count to notes text input field
+- Look into creating reusable components with input fields with icons on the side
 
 - Remove outline from date field when clicking away
 
