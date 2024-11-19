@@ -1,10 +1,22 @@
 <div class="flex flex-col gap-2">
     <div class="flex flex-col md:flex-row gap-2">
-        <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
-            <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthlyBudget}}</h3>
-            <p class="my-0 text-slate-600 text-base ">Monthly budget</p>
-        </div>
-    
+
+        @if (!editingBudget) {
+            <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer" (click)="editBudget()">
+                <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthlyBudget}}</h3>
+                <p class="my-0 text-slate-600 text-base ">Monthly budget</p>
+            </div>
+        } @else {
+            <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer">
+                <div class="flex justify-center">
+                    <span class="text-slate-900 text-xl font-semibold">$</span>
+                    <p-inputNumber inputId="integeronly" class="budget-input" (onBlur)="stopEditingBudget()"/> 
+                </div>
+                <!-- <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthlyBudget}}</h3> -->
+                <p class="my-0 text-slate-600 text-base ">Adjusting budget</p>
+            </div>
+        }
+
         <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
             <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthExpenses}}</h3>
             <p class="my-0 text-slate-600 text-base ">Expenses this month</p>

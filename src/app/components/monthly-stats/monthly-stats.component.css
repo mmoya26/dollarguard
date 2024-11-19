@@ -1,0 +1,3 @@
+::ng-deep .budget-input .p-inputnumber-input {
+    @apply my-0 text-slate-900 text-xl font-semibold size-28 h-auto p-0 text-center;
+}
