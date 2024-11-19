@@ -15,8 +15,6 @@ Personal project to learn Angular and back-end development.
 
 - Enable fourth monthly stat card for which expense has the highest dollar amount
 
-- Add comma formatting to the expenses amount displayed in the expenses table
-
 - Add create expense for a particular year in the expenses page in the year selection page
 
 - Create component for error handling when logging in or signing up
