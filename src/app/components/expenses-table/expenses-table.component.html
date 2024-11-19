@@ -22,7 +22,7 @@
                         @for (expense of expenses; track expense.id; let idx = $index;) {
                             <tr class="group row text-center text-slate-700 text-base">
                                 <td class="py-7 px-4">{{expenses.length - idx}}</td>
-                                <td>${{expense.amount}}</td>
+                                <td>${{formatAmount(expense.amount)}}</td>
                                 <td>{{expense.date | date:'mediumDate':'UTC' }}</td>
                                 <td>
                                     <div [style]="'color: ' + expense.category.hexColor + ';' + 
@@ -41,7 +41,7 @@
             </div>
         } @else {
             <div class="mt-5">
-                <h3 class="text-xl font-bold text-slate-400">No transactions found yet...</h3>
+                <h3 class="text-xl font-bold text-slate-400">No expenses created yet, create one to start tracking!</h3>
             </div>
         }
     } @else {

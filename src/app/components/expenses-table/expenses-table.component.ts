@@ -53,6 +53,10 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     
   }
 
+  formatAmount(amount: number) {
+    return new Intl.NumberFormat('en-US').format(amount);
+  }
+
   get transactionsCount() {
     return this.expenses.length;
   }
