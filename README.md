@@ -7,6 +7,8 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
+- Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
+
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
 
 - Add loading state while expenses are being added and table is loading
