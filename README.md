@@ -7,6 +7,10 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
+- Prevent user from pasting values in amount and budget inputs
+
+- Figure out how to focus budget input when entering edit mode
+
 - Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
 
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
