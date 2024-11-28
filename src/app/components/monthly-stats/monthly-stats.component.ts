@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
-import { Expense } from '@interfaces/expense';
 
 @Component({
   selector: 'monthly-stats',
@@ -17,7 +16,8 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   // highestExpense: {name: string, amount: number} | null = null;
 
   get runningTotal() {
-    return Math.round(this.monthlyBudget - this.monthExpenses * 100) / 100;
+    const total = this.monthlyBudget - this.monthExpenses
+    return total.toFixed(2);
   }
 
   ngOnInit(): void {
