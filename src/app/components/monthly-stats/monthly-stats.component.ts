@@ -31,7 +31,8 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   }
 
   get runningTotal() {
-    return Math.round(this.monthlyBudget - this.monthExpenses * 100) / 100;
+    const total = this.monthlyBudget - this.monthExpenses
+    return total.toFixed(2);
   }
 
   get formattedBudget() {

@@ -68,7 +68,8 @@ export class ExpensesService {
   }
 
   get expensesTotalAmount() {
-    return Math.round(this._listOfExpenses.value.reduce((acc, current) => acc + current.amount, 0) * 100) / 100;
+    const expensesTotalAmount = this._listOfExpenses.value.reduce((acc, current) => acc + current.amount, 0);
+    return Number(expensesTotalAmount.toFixed(2));
   }
 
   get expenseBeingEditedId() {
