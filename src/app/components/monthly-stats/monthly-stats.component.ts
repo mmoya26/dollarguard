@@ -14,15 +14,15 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
   monthlyBudget = 4000.00;
   monthExpenses = 0;
-  highestExpense: {name: string, amount: number} | null = null;
+  // highestExpense: {name: string, amount: number} | null = null;
 
   get runningTotal() {
-    return this.monthlyBudget - this.monthExpenses;
+    return Math.round(this.monthlyBudget - this.monthExpenses * 100) / 100;
   }
 
   ngOnInit(): void {
     this.subscription = this.expensesService.listOfExpenses$.subscribe((expenses) => {
-      this.highestExpense = this.calculateHighestExpense(expenses);
+      // this.highestExpense = this.calculateHighestExpense(expenses);
       this.monthExpenses = this.expensesService.expensesTotalAmount;
     });
   }
@@ -33,14 +33,14 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateHighestExpense(expenses: Expense[]) {
-    if (expenses.length === 0) return null;
+  // calculateHighestExpense(expenses: Expense[]) {
+  //   if (expenses.length === 0) return null;
 
-    const amounts = expenses.map(e => e.amount);
-    const categoryHighestAmount = Math.max(...amounts);
-    const category = expenses.find(e => e.amount === categoryHighestAmount)!;
-    return {name: category.category.name, amount: categoryHighestAmount};
-  }
+  //   const amounts = expenses.map(e => e.amount);
+  //   const categoryHighestAmount = Math.max(...amounts);
+  //   const category = expenses.find(e => e.amount === categoryHighestAmount)!;
+  //   return {name: category.category.name, amount: categoryHighestAmount};
+  // }
 
   constructor(private expensesService: ExpensesService) {}
 }
