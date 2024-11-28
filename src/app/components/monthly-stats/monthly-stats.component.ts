@@ -17,11 +17,12 @@ import { CommonModule } from '@angular/common';
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
-  monthlyBudget = 0;
+  monthlyBudget: number | null = null;
   monthExpenses = 0;
-  // highestExpense: {name: string, amount: number} | null = null;
   editingBudget = false;
   newBudgetAmount = 0;
+
+  // highestExpense: {name: string, amount: number} | null = null;
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -31,12 +32,12 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   }
 
   get runningTotal() {
-    const total = this.monthlyBudget - this.monthExpenses
+    const total = this.monthlyBudget ?? 0 - this.monthExpenses
     return total.toFixed(2);
   }
 
   get formattedBudget() {
-    return new Intl.NumberFormat('en-US').format(this.monthlyBudget);
+    return new Intl.NumberFormat('en-US').format(this.monthlyBudget ?? 0);
   }
 
   ngOnInit(): void {

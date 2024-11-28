@@ -7,6 +7,8 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
+- Add fomatting to the rest of the monthly stats cards
+
 - Fix rounding issue in monthly stats card
 
 - Prevent user from pasting values in amount and budget inputs

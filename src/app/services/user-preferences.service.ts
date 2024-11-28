@@ -15,7 +15,7 @@ export class UserPreferencesService {
   private _currentUserCategories = new BehaviorSubject<Category[]>([]);
   public currentuserCategories$ = this._currentUserCategories.asObservable();
 
-  private _currentUserBudget = new BehaviorSubject<number>(0);
+  private _currentUserBudget = new BehaviorSubject<number>(4000);
   public currentUserBudget = this._currentUserBudget.asObservable();
 
 
