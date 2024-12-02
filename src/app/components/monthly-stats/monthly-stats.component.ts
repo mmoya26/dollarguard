@@ -21,6 +21,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   monthExpenses = 0;
   editingBudget = false;
   newBudgetAmount = 0;
+  runningTotal = 0;
 
   // highestExpense: {name: string, amount: number} | null = null;
 
@@ -31,11 +32,6 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  get runningTotal() {
-    const total = this.monthlyBudget ?? 0 - this.monthExpenses
-    return total.toFixed(2);
-  }
-
   get formattedBudget() {
     return new Intl.NumberFormat('en-US').format(this.monthlyBudget ?? 0);
   }
@@ -44,12 +40,14 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     this.subscription = this.expensesService.listOfExpenses$.subscribe((expenses) => {
       // this.highestExpense = this.calculateHighestExpense(expenses);
       this.monthExpenses = this.expensesService.expensesTotalAmount;
+      this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
     });
 
     this.subscription = this.userPreferencesService.currentUserBudget.subscribe(budget => {
       console.log('Updating budget', budget);
       this.monthlyBudget = budget;
       this.newBudgetAmount = budget;
+      this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
     })
   }
 
