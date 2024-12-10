@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
@@ -20,6 +20,8 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
   @Input({required: true}) year!: string;
   @Input({required: true}) month!: string;
 
+  @Output() editExpenseEvent = new EventEmitter<void>(); 
+
   expenses: Expense[] = [];
 
   isLoading = true;
@@ -39,6 +41,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   editExpense(expense: Expense) {
     this.expenseService.editExpense(expense);
+    this.editExpenseEvent.emit();
   }
 
   deleteExpense(id: string) {
@@ -61,5 +64,5 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     return this.expenses.length;
   }
 
-  constructor(private expenseService: ExpensesService, private toastService: ToastService) {}
+  constructor(private expenseService: ExpensesService, private toastService: ToastService, private el: ElementRef) {}
 }
