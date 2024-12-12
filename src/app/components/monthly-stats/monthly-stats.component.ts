@@ -1,7 +1,6 @@
-import { Component, HostListener, OnDestroy, OnInit, } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
-import { Expense } from '@interfaces/expense';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { UserPreferencesService } from '../../services/user-preferences.service';
@@ -17,9 +16,14 @@ import { CommonModule } from '@angular/common';
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
+  @Input({required: true}) isUserEditingBudget!: boolean;
+
+  @Output() toggleUserEditingBudgetEvent: EventEmitter<void> = new EventEmitter();
+
+  @ViewChild('budgetInput') budgetInput!: ElementRef;
+
   monthlyBudget: number | null = null;
   monthExpenses = 0;
-  editingBudget = false;
   newBudgetAmount = 0;
   runningTotal = 0;
 
@@ -27,8 +31,8 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'Escape' && this.editingBudget) {
-      this.toggleEditBudget();
+    if (event.key === 'Escape' && this.isUserEditingBudget) {
+      this.toggleUserEditingBudgetEvent.emit();
     }
   }
 
@@ -66,18 +70,18 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   //   return {name: category.category.name, amount: categoryHighestAmount};
   // }
 
-  toggleEditBudget() {
-    this.editingBudget = !this.editingBudget;
+  triggerBudgetEditingEvent() {
+    this.toggleUserEditingBudgetEvent.emit();
+
+    // TODO: figure out how to focus primeng nested input when toggling the editing budget event
   }
 
   adjustUserBudget() {
     if (this.newBudgetAmount !== this.monthlyBudget) {
-      this.userPreferencesService.updateUserBudget(this.newBudgetAmount);
-      this.toggleEditBudget();
-    } else {
-      console.log("Budget is the same no need to update...");
-      this.toggleEditBudget();
+      this.userPreferencesService.updateUserBudget(this.newBudgetAmount); 
     }
+
+    this.toggleUserEditingBudgetEvent.emit();
   }
 
   constructor(private expensesService: ExpensesService, private userPreferencesService: UserPreferencesService) {}
