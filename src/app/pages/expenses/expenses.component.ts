@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
 import { MonthlyStatsComponent } from '@components/monthly-stats/monthly-stats.component';
 import { PercentageOverviewComponent } from '@components/percentage-overview/percentage-overview.component';
@@ -23,9 +23,10 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   private userExpensesSubscription: Subscription = new Subscription();
   private userCategoriesSubscription: Subscription = new Subscription();
 
+  @ViewChild('expenseFormComponent') expenseFormComponent!: ExpenseFormComponent;
+
   @Input() year = ''
   @Input() month = ''
-
 
   isCategoryModalOpen = false;
   isDataLoading = true
@@ -55,6 +56,10 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   toggleCategoryModal() {
     this.isCategoryModalOpen = !this.isCategoryModalOpen;
+  }
+
+  triggerFocusExpensesForm() {
+    this.expenseFormComponent.focusForm();
   }
 
   logout() {

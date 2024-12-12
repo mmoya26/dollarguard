@@ -1,9 +1,9 @@
-<form [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit()">
+<form #expenseFormElement [formGroup]="expenseForm" class="expense-form flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
     @if (isEditingExpense) {
-    <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
+        <h2 class="text-xl text-slate-900 my-0 font-medium">Editing expense</h2>
     } @else {
-    <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
+        <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
     }
 
     <p-toast />

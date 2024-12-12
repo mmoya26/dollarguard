@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -31,6 +31,8 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) year = ''
 
   @Output() addNewCategoryEvent = new EventEmitter<void>();
+
+  @ViewChild('expenseFormElement') expenseFormElement!: ElementRef;
 
   currentExpenseSubscription: Subscription = new Subscription();
 
@@ -184,6 +186,15 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     }
     
     this.toastService.createToastMessage(severity, severity, messages[toastTransactionType][severity])
+  }
+
+  focusForm() {
+    setTimeout(() => {
+      this.expenseFormElement.nativeElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 100);
   }
 
   fireAddNewCategoryEvent() {

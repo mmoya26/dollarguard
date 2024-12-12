@@ -12,12 +12,12 @@
     @if (!isDataLoading) {
         <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
             <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"
-                (addNewCategoryEvent)="toggleCategoryModal()"></expense-form>
+                (addNewCategoryEvent)="toggleCategoryModal()" #expenseFormComponent ></expense-form>
             <monthly-stats class="w-full xl:w-initial"></monthly-stats>
         </div>
 
         <percentage-overview />
-        <expenses-table [month]="month" [year]="year" />
+        <expenses-table [month]="month" [year]="year" (editExpenseEvent)="triggerFocusExpensesForm()" />
     } @else {
         <div>Page is loading...</div>
     }

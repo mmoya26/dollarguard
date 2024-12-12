@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ElementRef, Renderer2, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ExpenseFormComponent } from '@components/expense-form/expense-form.component';
 
 @Component({
   selector: 'expenses-table',
@@ -16,6 +17,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+
+  
 
   @Input({required: true}) year!: string;
   @Input({required: true}) month!: string;
@@ -64,5 +67,5 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     return this.expenses.length;
   }
 
-  constructor(private expenseService: ExpensesService, private toastService: ToastService, private el: ElementRef) {}
+  constructor(private expenseService: ExpensesService, private toastService: ToastService) {}
 }
