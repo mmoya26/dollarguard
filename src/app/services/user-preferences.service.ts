@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '@interfaces/category';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { NewCategoryDto } from '@interfaces/user-preferences';
+import { NewCategoryDto, UpdateBudgetDto } from '@interfaces/user-preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserPreferencesService {
   private _currentUserCategories = new BehaviorSubject<Category[]>([]);
   public currentuserCategories$ = this._currentUserCategories.asObservable();
 
-  private _currentUserBudget = new BehaviorSubject<number>(4000);
+  private _currentUserBudget = new BehaviorSubject<number>(0);
   public currentUserBudget = this._currentUserBudget.asObservable();
 
 
@@ -43,11 +43,21 @@ export class UserPreferencesService {
     );
   }
 
-  updateUserBudget(newAmount: number) { 
-    this._currentUserBudget.next(newAmount);
+  updateUserBudget(updateBudgetDto: UpdateBudgetDto) { 
+    return this.http.patch(`${this.USER_PREFERENCES_BASE_END_POINT}/budgets`, updateBudgetDto).pipe(
+      tap(_ => {
+        this._currentUserBudget.next(updateBudgetDto.newAmount);    
+      })
+    );
   }
 
-
+  getUserBudget(year: string, month: string) {
+    return this.http.get<number | null>(`${this.USER_PREFERENCES_BASE_END_POINT}/budgets/${year}/${month}`).pipe(
+      tap(amount => {
+        this._currentUserBudget.next(amount ?? 0);
+      })
+    );
+  }
 
   constructor(private http: HttpClient) { }
 }

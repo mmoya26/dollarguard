@@ -14,7 +14,7 @@
             <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"
                 (addNewCategoryEvent)="toggleCategoryModal()" #expenseFormComponent ></expense-form>
 
-            <monthly-stats class="w-full xl:w-initial" [isUserEditingBudget]="isUserEditingBudget" 
+            <monthly-stats [month]="month" [year]="year" class="w-full xl:w-initial" [isUserEditingBudget]="isUserEditingBudget" 
             (toggleUserEditingBudgetEvent)="this.isUserEditingBudget = !this.isUserEditingBudget">
             </monthly-stats>
         </div>
