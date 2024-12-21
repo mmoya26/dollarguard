@@ -12,7 +12,7 @@
             <form (ngSubmit)="adjustUserBudget()" class="flex justify-center" id="editBudgetBoxForm">
                 <span class="text-slate-900 text-xl font-semibold" id="editBudgetDollarSign">$</span>
                 <p-inputNumber autofocus="true" [(ngModel)]="newBudgetAmount" name="newBudget"
-                maxlength="7" inputId="integeronly" class="budget-input" id="editBudgetInput"/>
+                maxlength="7" inputId="editBudgetInputChild" class="budget-input" id="editBudgetInput"/>
             </form>
             <p class="my-0 text-slate-600 text-base" id="editBudgetBoxLabel">Adjusting budget</p>
         </div>

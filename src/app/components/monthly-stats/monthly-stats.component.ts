@@ -24,7 +24,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
   @Output() toggleUserEditingBudgetEvent: EventEmitter<void> = new EventEmitter();
 
-  @ViewChild('budgetInput') budgetInput!: ElementRef;
+  @ViewChild('editBudgetInputChild') editBudgetInputChild!: ElementRef;
 
   monthlyBudget: number | null = null;
   monthExpenses = 0;
@@ -83,7 +83,16 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
     // set the new budget to be the current budget in case the user starts typing and doesn't save 
     this.newBudgetAmount = this.monthlyBudget ?? 0;
-    // TODO: figure out how to focus primeng nested input when toggling the editing budget event
+
+    // Focus the budget input field when the user starts editing
+    setTimeout(() => {
+      const input = document.querySelector('#editBudgetInputChild') as HTMLInputElement;
+
+      if (input) {
+        input.focus();
+      }
+
+    }, 100);
   }
 
   adjustUserBudget() {

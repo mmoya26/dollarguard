@@ -3,31 +3,20 @@
 Personal project to learn Angular and back-end development.
 
 :fire: [Live site](https://dollarguard.pages.dev/login)
-##  Currently working on: Allow users to set custom budgets for each month for each year
+
+##  Currently working on: small tweaks and bug fixes
 
 ##  Todo in general
 
 - Add fomatting to the rest of the monthly stats cards
 
-- Fix rounding issue in monthly stats card
-
 - Prevent user from pasting values in amount and budget inputs
-
-- Figure out how to focus budget input when entering edit mode
-
-- Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
-
-- Focus expense form area when the edit button is clicked in an expense
 
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
 
 - Add loading state while expenses are being added and table is loading
 
-- Allow users to adjust their monthly budget
-
 - Enable fourth monthly stat card for which expense has the highest dollar amount
-
-- Add create expense for a particular year in the expenses page in the year selection page
 
 - Create component for error handling when logging in or signing up
 
@@ -59,9 +48,15 @@ Personal project to learn Angular and back-end development.
 
 - Users can start editing an expense and then delete the expense before updating it (causing a 400 bad request error)
 
+- Users can paste values bigger than the max in the budget input field
+
+- If the user creates two categories with the same name both categories get deleted when one is deleted
+
 
 ##  Maybe future features
 
 - Add support for different types of currencies
 
-- Add in the future maybe query params to tell the user they have been logged out for a reason
+- Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
+
+- Add create expense for a particular year in the expenses page in the year selection page

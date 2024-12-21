@@ -30,7 +30,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   onClick(event: MouseEvent): void {
     if (this.isUserEditingBudget) {
       const clickedElement = event.target as HTMLElement;
-      const validIds = ['editBudgetBox','editBudgetBoxForm', 'editBudgetBoxHeading', 'editBudgetBoxLabel', 'integeronly', 'editBudgetDollarSign'];
+      const validIds = ['editBudgetBox','editBudgetBoxForm', 'editBudgetBoxHeading', 'editBudgetBoxLabel', 'editBudgetInputChild', 'editBudgetDollarSign'];
       const invalidIds = ['staleBudgetBox', 'staleBudgetHeader', 'staleBudgetLabel'];
 
       /* 
