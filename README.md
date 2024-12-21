@@ -7,6 +7,7 @@ Personal project to learn Angular and back-end development.
 ##  Currently working on: small tweaks and bug fixes
 
 ##  Todo in general
+- Add loading state for monthly cards when editing and fetching data
 
 - Add fomatting to the rest of the monthly stats cards
 
