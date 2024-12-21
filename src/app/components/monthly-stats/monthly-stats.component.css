@@ -1,0 +1,15 @@
+::ng-deep .budget-input .p-inputnumber-input {
+    @apply my-0 text-slate-900 text-xl font-semibold size-28 h-auto p-0;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
+.active-border { 
+    @apply border border-purple-600;
+}

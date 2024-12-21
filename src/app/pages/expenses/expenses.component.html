@@ -10,15 +10,19 @@
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
     @if (!isDataLoading) {
-    <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
-        <expense-form class="w-full xl:w-initial" [month]="month" [year]="year" (addNewCategoryEvent)="toggleCategoryModal()"></expense-form>
-        <monthly-stats class="w-full xl:w-initial"></monthly-stats>
-    </div>
+        <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
+            <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"
+                (addNewCategoryEvent)="toggleCategoryModal()" #expenseFormComponent ></expense-form>
 
-    <percentage-overview />
-    <expenses-table [month]="month" [year]="year" />
+            <monthly-stats [month]="month" [year]="year" class="w-full xl:w-initial" [isUserEditingBudget]="isUserEditingBudget" 
+            (toggleUserEditingBudgetEvent)="this.isUserEditingBudget = !this.isUserEditingBudget">
+            </monthly-stats>
+        </div>
+
+        <percentage-overview />
+        <expenses-table [month]="month" [year]="year" (editExpenseEvent)="triggerFocusExpensesForm()" />
     } @else {
-    <div>Page is loading...</div>
+        <div>Page is loading...</div>
     }
 </div>
 

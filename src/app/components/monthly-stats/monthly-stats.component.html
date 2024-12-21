@@ -1,10 +1,22 @@
 <div class="flex flex-col gap-2">
     <div class="flex flex-col md:flex-row gap-2">
-        <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
-            <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthlyBudget}}</h3>
-            <p class="my-0 text-slate-600 text-base ">Monthly budget</p>
+
+        <!-- Card that will display when not editing -->
+        <div [ngClass]="!isUserEditingBudget ? 'visible' : 'hidden'" class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer" (click)="triggerBudgetEditingEvent()" id="staleBudgetBox">
+            <h3 id="staleBudgetHeader" class="my-0 text-slate-900 text-xl font-semibold">${{formattedBudget}}</h3>
+            <p id="staleBudgetLabel" class="my-0 text-slate-600 text-base ">Monthly budget</p>
         </div>
-    
+
+        <!-- Card that will display when editing -->
+        <div [ngClass]="isUserEditingBudget ? 'visible active-border' : 'hidden'" class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer" id="editBudgetBox">
+            <form (ngSubmit)="adjustUserBudget()" class="flex justify-center" id="editBudgetBoxForm">
+                <span class="text-slate-900 text-xl font-semibold" id="editBudgetDollarSign">$</span>
+                <p-inputNumber autofocus="true" [(ngModel)]="newBudgetAmount" name="newBudget"
+                maxlength="7" inputId="editBudgetInputChild" class="budget-input" id="editBudgetInput"/>
+            </form>
+            <p class="my-0 text-slate-600 text-base" id="editBudgetBoxLabel">Adjusting budget</p>
+        </div>
+
         <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
             <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthExpenses}}</h3>
             <p class="my-0 text-slate-600 text-base ">Expenses this month</p>
