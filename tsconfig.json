@@ -2,8 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

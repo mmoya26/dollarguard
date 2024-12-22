@@ -117,7 +117,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
     if (this.isEditingExpense) {
 
-      this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense, this.year, this.month).subscribe({
+      this.expensesService.updateExpense(this.expensesService.expenseBeingEditedId, transferedExpense).subscribe({
         next: () => {
           this.toastType = 'success';
           this.displayToastMessage('Success', 'Update');

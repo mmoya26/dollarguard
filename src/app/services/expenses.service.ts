@@ -50,7 +50,7 @@ export class ExpensesService {
     this._currentExpenseBeingEdited.next({ id: expense.id, amount: expense.amount, category: expense.category.name, date: formattedDate, notes: expense.notes || "" })
   }
 
-  updateExpense(id: string, expense: ExpenseDto, year: string, month: string) {
+  updateExpense(id: string, expense: ExpenseDto) {
     return this.http.patch<Expense>(`${this.API_URL}/${id}`, expense).pipe(
       tap((updatedExpense: Expense) => {
         const filteredListOfExpenses = this._listOfExpenses.value.filter(e => e.id !== id);
