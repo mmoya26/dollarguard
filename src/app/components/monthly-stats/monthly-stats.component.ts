@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild, } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -17,26 +17,21 @@ import { UpdateBudgetDto } from '@interfaces/user-preferences';
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  @Input({ required: true }) isUserEditingBudget!: boolean;
-
   @Input({ required: true }) year!: string;
   @Input({ required: true }) month!: string;
-
-  @Output() toggleUserEditingBudgetEvent: EventEmitter<void> = new EventEmitter();
-
-  @ViewChild('editBudgetInputChild') editBudgetInputChild!: ElementRef;
 
   monthlyBudget: number | null = null;
   monthExpenses = 0;
   newBudgetAmount = 0;
   runningTotal = 0;
+  isUserEditingBudget = false;
 
   // highestExpense: {name: string, amount: number} | null = null;
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.key === 'Escape' && this.isUserEditingBudget) {
-      this.toggleUserEditingBudgetEvent.emit();
+      this.isUserEditingBudget = false;
     }
   }
 
@@ -46,7 +41,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.expensesService.listOfExpenses$.subscribe((expenses) => {
+      this.expensesService.listOfExpenses$.subscribe((_) => {
         // this.highestExpense = this.calculateHighestExpense(expenses);
         this.monthExpenses = this.expensesService.expensesTotalAmount;
         this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
@@ -78,8 +73,8 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   //   return {name: category.category.name, amount: categoryHighestAmount};
   // }
 
-  triggerBudgetEditingEvent() {
-    this.toggleUserEditingBudgetEvent.emit();
+  editBudget() {
+    this.isUserEditingBudget = true;
 
     // set the new budget to be the current budget in case the user starts typing and doesn't save 
     this.newBudgetAmount = this.monthlyBudget ?? 0;
@@ -95,7 +90,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
-  adjustUserBudget() {
+  handleBudgetChanges() {
     if (this.newBudgetAmount !== this.monthlyBudget) {
 
       const updateBudgetDto: UpdateBudgetDto = {
@@ -107,7 +102,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
       this.userPreferencesService.updateUserBudget(updateBudgetDto).subscribe();
     }
 
-    this.toggleUserEditingBudgetEvent.emit();
+    this.isUserEditingBudget = false;
   }
 
   constructor(private expensesService: ExpensesService, private userPreferencesService: UserPreferencesService) { }

@@ -69,7 +69,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
       this.categories = categories;
     })
     
-    this.setMinAndMaxCalendarDates(this.month, this.year);
+    this.setMinAndMaxCalendarDates();
   }
 
   ngOnDestroy(): void {
@@ -94,7 +94,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     return this.expenseForm.get('notes')?.value?.length ?? 0;
   }
 
-  setMinAndMaxCalendarDates(m: string, y: string) {
+  setMinAndMaxCalendarDates() {
     this.minDate = new Date(Number(this.year), Number(this.month) - 1, 1);
     this.maxDate = new Date(Number(this.year), Number(this.month), 0);
   }
