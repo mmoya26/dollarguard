@@ -79,12 +79,14 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     // set the new budget to be the current budget in case the user starts typing and doesn't save 
     this.newBudgetAmount = this.monthlyBudget ?? 0;
 
-    // Focus the budget input field when the user starts editing
+    // Focus and click the budget input field when the user starts editing
+    // We click the input to open the number keyboard on mobile
     setTimeout(() => {
       const input = document.querySelector('#editBudgetInputChild') as HTMLInputElement;
 
       if (input) {
         input.focus();
+        input.click();
       }
 
     }, 100);
