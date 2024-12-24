@@ -83,20 +83,26 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     // We click the input to open the number keyboard on mobile
     setTimeout(() => {
       const input = document.querySelector('#editBudgetInputChild') as HTMLInputElement;
-
+      
       if (input) {
+        // Initial focus
         input.focus();
-        input.click();
+        
+        // Multiple attempts to trigger keyboard
+        const attempts = 3;
+        let attempt = 0;
+        
+        const triggerInterval = setInterval(() => {
+          input.focus();
+          input.click();
+          
+          attempt++;
+          if (attempt >= attempts) {
+            clearInterval(triggerInterval);
+          }
+        }, 300);
       }
-
-      const event = new TouchEvent('touchstart', {
-        bubbles: true,
-        cancelable: true,
-        view: window
-      });
-
-      input.dispatchEvent(event);
-    }, 300);
+    }, 100);
   }
 
   handleBudgetChanges() {
