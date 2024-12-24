@@ -15,30 +15,28 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrl: './expenses-table.component.css'
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription();
+  private subscriptions: Subscription[] = [];
 
-  
+  @Input({ required: true }) year!: string;
+  @Input({ required: true }) month!: string;
 
-  @Input({required: true}) year!: string;
-  @Input({required: true}) month!: string;
-
-  @Output() editExpenseEvent = new EventEmitter<void>(); 
+  @Output() editExpenseEvent = new EventEmitter<void>();
 
   expenses: Expense[] = [];
 
-  isLoading = true;
+  expensesLoading = true;
 
   ngOnInit(): void {
-    this.subscription = this.expenseService.listOfExpenses$.subscribe(expenses => {
+    this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
+
+    this.subscriptions.push(this.expenseService.listOfExpenses$.subscribe(expenses => {
       this.expenses = expenses.reverse();
-      this.isLoading = false;
-    });
+      this.expensesLoading = false;
+    }));
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   editExpense(expense: Expense) {
@@ -55,7 +53,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
         }
       }
     );
-    
+
   }
 
   formatAmount(amount: number) {
@@ -66,5 +64,5 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     return this.expenses.length;
   }
 
-  constructor(private expenseService: ExpensesService, private toastService: ToastService) {}
+  constructor(private expenseService: ExpensesService, private toastService: ToastService) { }
 }
