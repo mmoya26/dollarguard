@@ -89,7 +89,14 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
         input.click();
       }
 
-    }, 100);
+      const event = new TouchEvent('touchstart', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      });
+
+      input.dispatchEvent(event);
+    }, 300);
   }
 
   handleBudgetChanges() {
