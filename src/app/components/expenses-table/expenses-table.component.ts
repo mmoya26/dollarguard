@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angu
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -15,30 +15,29 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrl: './expenses-table.component.css'
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy {
-  private subscription: Subscription = new Subscription();
+  private subscriptions: Subscription[] = [];
 
-  
+  @Input({ required: true }) year!: string;
+  @Input({ required: true }) month!: string;
 
-  @Input({required: true}) year!: string;
-  @Input({required: true}) month!: string;
-
-  @Output() editExpenseEvent = new EventEmitter<void>(); 
+  @Output() editExpenseEvent = new EventEmitter<void>();
 
   expenses: Expense[] = [];
 
-  isLoading = true;
+  expensesLoading = true;
 
   ngOnInit(): void {
-    this.subscription = this.expenseService.listOfExpenses$.subscribe(expenses => {
+    this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
+
+    // Skip the first event, because it's the initial value from the behavior subject being initialized
+    this.subscriptions.push(this.expenseService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
       this.expenses = expenses.reverse();
-      this.isLoading = false;
-    });
+      this.expensesLoading = false;
+    }));
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   editExpense(expense: Expense) {
@@ -55,7 +54,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
         }
       }
     );
-    
+
   }
 
   formatAmount(amount: number) {
@@ -66,5 +65,5 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
     return this.expenses.length;
   }
 
-  constructor(private expenseService: ExpensesService, private toastService: ToastService) {}
+  constructor(private expenseService: ExpensesService, private toastService: ToastService) { }
 }

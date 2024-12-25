@@ -18,8 +18,7 @@ import { ManageCategoriesModalComponent } from '@components/manage-categories-mo
   templateUrl: './expenses.component.html',
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
-  private subscriptions = new Subscription();
-  private userExpensesSubscription: Subscription = new Subscription();
+  private subscriptions: Subscription[] = [];
   private userCategoriesSubscription: Subscription = new Subscription();
 
   @ViewChild('expenseFormComponent') expenseFormComponent!: ExpenseFormComponent;
@@ -28,28 +27,14 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   @Input() month = ''
 
   isCategoryModalOpen = false;
-  isDataLoading = true;
 
   ngOnInit(): void {
-    this.userExpensesSubscription = this.expensesService.getExpenses(this.year, this.month).subscribe({
-      next: (_) => {
-        this.isDataLoading = false
-      },
-
-      error: (e) => {
-        this.isDataLoading = false
-        console.error('Unable to fetch expenses', e);
-      }
-    });
-
     this.userCategoriesSubscription = this.userPreferenceService.getUserCategories().subscribe();
-
-    this.subscriptions.add(this.userExpensesSubscription);
-    this.subscriptions.add(this.userCategoriesSubscription);
+    this.subscriptions.push(this.userCategoriesSubscription);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   toggleCategoryModal() {

@@ -6,11 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 import { CommonModule } from '@angular/common';
 import { UpdateBudgetDto } from '@interfaces/user-preferences';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'monthly-stats',
   standalone: true,
-  imports: [InputNumberModule, FormsModule, CommonModule],
+  imports: [InputNumberModule, FormsModule, CommonModule, SkeletonModule],
   templateUrl: './monthly-stats.component.html',
   styleUrl: './monthly-stats.component.css'
 })
@@ -24,7 +25,10 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   monthExpenses = 0;
   newBudgetAmount = 0;
   runningTotal = 0;
+
+  // Loading states
   isUserEditingBudget = false;
+  loadingBudget = true;
 
   // highestExpense: {name: string, amount: number} | null = null;
 
@@ -54,6 +58,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
         this.monthlyBudget = budget;
         this.newBudgetAmount = budget;
         this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
+        this.loadingBudget = false;
       })
     );
 
@@ -83,24 +88,10 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     // We click the input to open the number keyboard on mobile
     setTimeout(() => {
       const input = document.querySelector('#editBudgetInputChild') as HTMLInputElement;
-      
+
       if (input) {
-        // Initial focus
         input.focus();
-        
-        // Multiple attempts to trigger keyboard
-        const attempts = 3;
-        let attempt = 0;
-        
-        const triggerInterval = setInterval(() => {
-          input.focus();
-          input.click();
-          
-          attempt++;
-          if (attempt >= attempts) {
-            clearInterval(triggerInterval);
-          }
-        }, 300);
+        input.click();
       }
     }, 100);
   }
@@ -115,6 +106,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
       }
       
       this.userPreferencesService.updateUserBudget(updateBudgetDto).subscribe();
+      this.loadingBudget = true;
     }
 
     this.isUserEditingBudget = false;
