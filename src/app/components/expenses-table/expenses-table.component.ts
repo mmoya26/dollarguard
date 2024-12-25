@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angu
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -29,7 +29,8 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
 
-    this.subscriptions.push(this.expenseService.listOfExpenses$.subscribe(expenses => {
+    // Skip the first event, because it's the initial value from the behavior subject being initialized
+    this.subscriptions.push(this.expenseService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
       this.expenses = expenses.reverse();
       this.expensesLoading = false;
     }));
