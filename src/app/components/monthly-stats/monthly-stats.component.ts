@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
@@ -53,9 +53,8 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.userPreferencesService.currentUserBudget.subscribe(budget => {
-        console.log('Updating budget', budget);
-      
+      // Skip the first emitted value because it will always be 0 (because of the behavior subject being initialized) or the previous month's budget. 
+      this.userPreferencesService.currentUserBudget$.pipe(skip(1)).subscribe(budget => {
         this.monthlyBudget = budget;
         this.newBudgetAmount = budget;
         this.budgetLeft = (this.monthlyBudget || 0) - this.monthExpenses;

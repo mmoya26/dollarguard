@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { ExpensesService } from '../../services/expenses.service';
 import { Category } from '@interfaces/category';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
+import { SkeletonModule } from 'primeng/skeleton';
 
 interface ActiveCategory extends Category {
   percentage: string
@@ -11,7 +12,7 @@ interface ActiveCategory extends Category {
 @Component({
   selector: 'percentage-overview',
   standalone: true,
-  imports: [],
+  imports: [SkeletonModule],
   templateUrl: './percentage-overview.component.html',
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
@@ -22,12 +23,16 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   activeCategories: ActiveCategory[] = [];
 
   expensesTotalAmount = 0;
+
+  calculatingPercentages = true;
   
   ngOnInit(): void {
-    this.subscription = this.expensesService.listOfExpenses$.subscribe(expenses => {
+    this.subscription = this.expensesService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
+      console.log('lol')
       this.expenses = expenses;
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
+      this.calculatingPercentages = false;
     });
   }
 
