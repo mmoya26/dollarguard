@@ -60,7 +60,6 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
         this.newBudgetAmount = budget;
         this.budgetLeft = (this.monthlyBudget || 0) - this.monthExpenses;
         this.loadingBudget = false;
-
       })
     );
 

@@ -35,7 +35,7 @@ Personal project to learn Angular and back-end development.
 
 - Fix bug where if user leaves category option clicked error message displays
 
-- Allow cents expenses
+- Fix rounding issue with budget left card (and problably the rest of the cards)
 
 ##  Design/create todos
 

@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-2">
 
     @if (!loadingBudget) {
-        <div class="flex flex-col md:flex-row gap-2">
+        <div class="flex flex-col xl:flex-row gap-2">
             <!-- Card that will display when not editing -->
             <div [ngClass]="!isUserEditingBudget ? 'visible' : 'hidden'"
                 class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer"
@@ -30,7 +30,7 @@
             </div>
         </div>
     
-        <div class="flex flex-col md:flex-row gap-2">
+        <div class="flex flex-col xl:flex-row gap-2">
             <div
                 class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
                 <h3 class="my-0 text-slate-900 text-xl font-semibold" [ngClass]="budgetLeft < 0 ? 'negative-budget' : ''">${{this.budgetLeft}}</h3>
@@ -43,13 +43,13 @@
             </div> -->
         </div>
     } @else {
-        <div class="flex flex-col md:flex-row gap-2">
-            <p-skeleton width="15.75rem" height="8rem" />
-            <p-skeleton width="15.75rem" height="8rem" />
+        <div class="flex flex-col xl:flex-row gap-2">
+            <p-skeleton class="xl:flex-1" width="100%" height="7rem"/>
+            <p-skeleton class="xl:flex-1" width="100%" height="7rem"/>
         </div>
     
-        <div class="flex flex-col md:flex-row gap-2">
-            <p-skeleton width="32rem" height="8rem" />
+        <div class="flex flex-col xl:flex-row gap-2">
+            <p-skeleton class="xl:w-[32rem]" width="100%" height="7rem" />
         </div>
     }
 </div>
