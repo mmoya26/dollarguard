@@ -24,7 +24,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   monthlyBudget: number | null = null;
   monthExpenses = 0;
   newBudgetAmount = 0;
-  runningTotal = 0;
+  budgetLeft = 0;
 
   // Loading states
   isUserEditingBudget = false;
@@ -48,17 +48,19 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
       this.expensesService.listOfExpenses$.subscribe((_) => {
         // this.highestExpense = this.calculateHighestExpense(expenses);
         this.monthExpenses = this.expensesService.expensesTotalAmount;
-        this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
+        this.budgetLeft = (this.monthlyBudget || 0) - this.monthExpenses;
       })
     );
 
     this.subscriptions.push(
       this.userPreferencesService.currentUserBudget.subscribe(budget => {
         console.log('Updating budget', budget);
+      
         this.monthlyBudget = budget;
         this.newBudgetAmount = budget;
-        this.runningTotal = (this.monthlyBudget || 0) - this.monthExpenses;
+        this.budgetLeft = (this.monthlyBudget || 0) - this.monthExpenses;
         this.loadingBudget = false;
+
       })
     );
 

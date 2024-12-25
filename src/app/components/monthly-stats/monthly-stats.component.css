@@ -13,3 +13,7 @@
 .active-border { 
     @apply border border-purple-600;
 }
+
+.negative-budget { 
+    @apply text-red-600;
+}   
