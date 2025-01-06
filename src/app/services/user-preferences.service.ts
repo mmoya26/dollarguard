@@ -59,5 +59,9 @@ export class UserPreferencesService {
     );
   }
 
+  getUserActiveYears(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`);
+  }
+
   constructor(private http: HttpClient) { }
 }

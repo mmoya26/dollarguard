@@ -63,10 +63,6 @@ export class ExpensesService {
     this._currentExpenseBeingEdited.next({ id: '', amount: 0, category: '', date: '', notes: '' });
   }
 
-  getUsersYearsForExpenses() {
-    return this.http.get<String[]>(`${this.API_URL}`);
-  }
-
   get expensesTotalAmount() {
     const expensesTotalAmount = this._listOfExpenses.value.reduce((acc, current) => acc + current.amount, 0);
     return Number(expensesTotalAmount.toFixed(2));
