@@ -18,6 +18,10 @@ table tbody tr:last-child td {
     border-bottom: none;
 }
 
-::ng-deep .expenses-skeleton > div {
+::ng-deep .expenses-skeleton>div {
     @apply mt-5;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
