@@ -1,9 +1,9 @@
 ::ng-deep .manage-categories-modal .p-component-overlay {
-    @apply  p-5;
+    @apply p-5;
 }
 
 ::ng-deep .manage-categories-modal .p-dialog {
-    @apply  w-[500px] h-[450px];
+    @apply w-[500px] h-[450px];
 }
 
 /* Color picker styles */

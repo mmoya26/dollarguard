@@ -1,0 +1,20 @@
+::ng-deep #newActiveYearModal .p-inputnumber {
+    @apply w-full;
+}
+
+::ng-deep #newActiveYearModal .p-dialog-header {
+    @apply pb-0 gap-2;
+}
+
+::ng-deep #newActiveYearModal input {
+    @apply mt-4 py-1 px-2 border w-full;
+}
+
+::ng-deep #newActiveYearModal .p-component-overlay {
+    @apply p-5;
+}
+
+
+::ng-deep #newActiveYearModal .p-dialog {
+    /* @apply w-[500px];    */
+}

@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Category } from '@interfaces/category';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { NewCategoryDto, UpdateBudgetDto } from '@interfaces/user-preferences';
+import { NewCategoryDto, UpdateBudgetDto, UserPreferences } from '@interfaces/user-preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +43,10 @@ export class UserPreferencesService {
     );
   }
 
-  updateUserBudget(updateBudgetDto: UpdateBudgetDto) { 
+  updateUserBudget(updateBudgetDto: UpdateBudgetDto) {
     return this.http.patch(`${this.USER_PREFERENCES_BASE_END_POINT}/budgets`, updateBudgetDto).pipe(
       tap(_ => {
-        this._currentUserBudget.next(updateBudgetDto.newAmount);    
+        this._currentUserBudget.next(updateBudgetDto.newAmount);
       })
     );
   }
@@ -61,6 +61,10 @@ export class UserPreferencesService {
 
   getUserActiveYears(): Observable<string[]> {
     return this.http.get<string[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`);
+  }
+
+  patchActiveYears(year: string): Observable<UserPreferences> {
+    return this.http.patch<UserPreferences>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`, { year });
   }
 
   constructor(private http: HttpClient) { }
