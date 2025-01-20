@@ -1,0 +1,7 @@
+::ng-deep #newActiveYearModal .p-inputnumber {
+    @apply w-full;
+}
+
+::ng-deep #newActiveYearModal input {
+    @apply mt-4 py-1 px-2 border w-full;
+}

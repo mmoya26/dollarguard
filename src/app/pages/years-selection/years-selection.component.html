@@ -24,15 +24,4 @@
     }
 </div>
 
-
-<p-dialog header="Add year for tracking" [modal]="true" [(visible)]="isNewYearModalOpen" draggable="false" id="newActiveYearModal" (onHide)="this.yearAlreadyExistsError = false">
-    <p-inputNumber (onInput)="test()" class="w-full block" inputId="integeronly" [useGrouping]="false" maxlength="4" [(ngModel)]="newYearFormValue" placeholder="e.g: 2025"/>
-    
-    @if (yearAlreadyExistsError) {
-        <p class="text-xs mt-2 text-red-500">You're already tracking the year {{newYearFormValue}}</p>        
-    }
-
-    <br>
-
-    <button (click)="patchActiveYears()" class="bg-slate-900 rounded-[20px] text-white py-2 px-4 block w-full">Start tracking <span class="font-bold">{{newYearFormValue}}</span></button>
-</p-dialog>
+<app-new-active-year-modal [activeYears]="activeYears" [isOpen]="isNewActiveYearModalOpen" (onModalClose)="this.isNewActiveYearModalOpen = false"></app-new-active-year-modal>

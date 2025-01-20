@@ -1,0 +1,11 @@
+::ng-deep .base-modal .p-component-overlay {
+    @apply p-5;
+}
+
+::ng-deep .base-modal .p-dialog-header {
+    @apply pb-0 gap-2;
+}
+
+::ng-deep .base-modal .p-dialog-content {
+    @apply pt-2;
+}
