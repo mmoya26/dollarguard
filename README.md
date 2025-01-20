@@ -4,14 +4,17 @@ Personal project to learn Angular and back-end development.
 
 :fire: [Live site](https://dollarguard.pages.dev/login)
 
-##  Currently working on: small tweaks and bug fixes
+##  Currently working on: allowing users to delete years that they are tracking
 
 ##  Todo in general
+
+- Add delete option for specific year (in case user enters the wrong year in the new active year form)
+
 - Add loading state for monthly cards when editing and fetching data
 
 - Add fomatting to the rest of the monthly stats cards
 
-- Prevent user from pasting values in amount and budget inputs
+- Prevent user from pasting values in any of the p-inputNumber elements
 
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
 
@@ -60,4 +63,4 @@ Personal project to learn Angular and back-end development.
 
 - Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
 
-- Add create expense for a particular year in the expenses page in the year selection page
+- Add filtering by category for the expenses table
