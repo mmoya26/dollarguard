@@ -102,7 +102,7 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
       const updateBudgetDto: UpdateBudgetDto = {
         year: this.year,
         month: this.month,
-        newAmount: this.newBudgetAmount  
+        newAmount: this.newBudgetAmount ? this.newBudgetAmount : 0
       }
       
       this.userPreferencesService.updateUserBudget(updateBudgetDto).subscribe();
