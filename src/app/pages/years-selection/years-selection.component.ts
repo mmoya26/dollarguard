@@ -19,8 +19,8 @@ export class YearsSelectionComponent implements OnInit {
   currentMonth = new Date().getMonth() + 1;
   currentYear = new Date().getFullYear();
 
-  activeYears$!: Observable<string[]>;
-  activeYears: string[] = [];
+  activeYears$!: Observable<number[]>;
+  activeYears: number[] = [];
 
   isNewActiveYearModalOpen = false;
 

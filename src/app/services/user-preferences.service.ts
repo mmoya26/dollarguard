@@ -59,11 +59,11 @@ export class UserPreferencesService {
     );
   }
 
-  getUserActiveYears(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`);
+  getUserActiveYears(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`);
   }
 
-  patchActiveYears(year: string): Observable<UserPreferences> {
+  patchActiveYears(year: number): Observable<UserPreferences> {
     return this.http.patch<UserPreferences>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`, { year });
   }
 

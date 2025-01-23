@@ -14,9 +14,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-active-year-modal.component.css'
 })
 export class NewActiveYearModalComponent {
-
-  @Input({ required: true }) activeYears: string[] = [];
-  @Input({required: true}) isOpen: boolean = false;
+  @Input({ required: true }) activeYears: number[] = [];
+  @Input({ required: true }) isOpen: boolean = false;
 
   @Output() onModalClose: EventEmitter<void> = new EventEmitter<void>();
 
@@ -24,27 +23,24 @@ export class NewActiveYearModalComponent {
   newYearFormValue: number | null = null;
 
   isYearTracked() {
-    return this.activeYears.includes(String(this.newYearFormValue));
+    return this.activeYears.includes(this.newYearFormValue!);
   }
 
-  patchActiveYears() {
+  patchActiveYears(event: Event) {
+    event.preventDefault();
+
+    if (this.newYearFormValue === null) {
+      return;
+    }
+
     if (this.isYearTracked()) {
       this.yearAlreadyExistsError = true;
       return;
     }
 
-    this.userPreferences.patchActiveYears(String(this.newYearFormValue)).subscribe({
-      next: (_) => {
+    this.userPreferences.patchActiveYears(this.newYearFormValue).subscribe({
+      next: () => {
         this.router.navigateByUrl(`${this.router.url}/${this.newYearFormValue}/${new Date().getMonth() + 1}`);
-      },
-
-      error: (err) => {
-        console.log('Error attempting to add active year', err);
-
-        // If 409 it means that the year already exists
-        if (err.status === 409) {
-          this.yearAlreadyExistsError = true;
-        }
       }
     });
   }
@@ -55,5 +51,5 @@ export class NewActiveYearModalComponent {
     this.onModalClose.emit();
   }
 
-  constructor(private userPreferences: UserPreferencesService, private router: Router) {}
+  constructor(private userPreferences: UserPreferencesService, private router: Router) { }
 }
