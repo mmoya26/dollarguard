@@ -28,6 +28,8 @@ Personal project to learn Angular and back-end development.
 
 - Update toast messages service to contain list of options for parameters
 
+- Make month selector draggable certain viewport
+
 ##  Todo: Expense Form (not high priority)
 
 - Look into creating reusable components with input fields with icons on the side
