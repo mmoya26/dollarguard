@@ -8,6 +8,12 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
+- Do different view for mobile users for the expenses table
+
+- Do different view for mobile users for the percentage overview section
+
+- Update header
+
 - Add delete option for specific year (in case user enters the wrong year in the new active year form)
 
 - Add loading state for monthly cards when editing and fetching data
