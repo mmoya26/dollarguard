@@ -12,7 +12,7 @@ import { Category } from '@interfaces/category';
 import { CategoryService } from '../../services/category.service';
 import { ExpensesService } from '../../services/expenses.service';
 import { ExpenseDto } from '@interfaces/expense';
-import { skip, Subscription } from 'rxjs';
+import { map, skip, Subscription } from 'rxjs';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../services/toast.service';
@@ -54,8 +54,16 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.currentExpenseSubscription = this.expensesService.currentExpenseBeingEdited$
-      .pipe(skip(1)) // Skip the first suscribe to no have to set the fields to empty again
-      .subscribe(expense => {
+      .pipe(
+        skip(1), // Skip the first suscribe to no have to set the fields to empty again
+        map(expense => {
+          if (this.categories.some(c => c.name === expense.category)) {
+            return expense;
+          }
+
+          return { ...expense, category: null};
+        })
+      ).subscribe(expense => {
         this.expenseForm.controls['category'].setValue(expense.category);
         this.expenseForm.controls['amount'].setValue(expense.amount);
         this.expenseForm.controls['date'].setValue(expense.date);
@@ -68,7 +76,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     this.userPreferencesService.currentuserCategories$.subscribe(categories => {
       this.categories = categories;
     })
-    
+
     this.setMinAndMaxCalendarDates();
   }
 
@@ -184,15 +192,15 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
         Success: 'Expense updated successfully'
       }
     }
-    
+
     this.toastService.createToastMessage(severity, severity, messages[toastTransactionType][severity])
   }
 
   focusForm() {
     setTimeout(() => {
-      this.expenseFormElement.nativeElement.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center' 
+      this.expenseFormElement.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
       });
     }, 100);
   }
@@ -202,9 +210,9 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private categoryService: CategoryService, 
-    private expensesService: ExpensesService, 
+    private formBuilder: FormBuilder,
+    private categoryService: CategoryService,
+    private expensesService: ExpensesService,
     private toastService: ToastService,
     private userPreferencesService: UserPreferencesService
   ) { }
