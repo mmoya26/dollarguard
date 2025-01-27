@@ -12,7 +12,6 @@
         <p-inputGroup class="inputgroup-container">
             <div class="mb-2 flex justify-between">
                 <label for="category" class=" text-slate-900">Category</label>
-                <button type="button" class="text-slate-500 text-xs" (click)="fireAddNewCategoryEvent()">Add new category</button>
             </div>
             <div class="flex">
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
@@ -22,7 +21,10 @@
                     optionValue="name" placeholder="Select a category" styleClass="inputgroup-input"
                     (onChange)="onCategorySelect($event)" />
             </div>
-            <div *ngIf="category?.invalid && category?.touched" class="mt-2 text-red-500">Please select a category</div>
+            <div class="flex">
+                <div *ngIf="category?.invalid && category?.touched" class="mt-2 text-red-500">Please select a category</div>
+                <button type="button" class="text-slate-500 text-xs ml-auto mt-2" (click)="fireAddNewCategoryEvent()">Add new category</button>
+            </div>
         </p-inputGroup>
 
         <div class="flex flex-col xl:flex-row gap-3">
