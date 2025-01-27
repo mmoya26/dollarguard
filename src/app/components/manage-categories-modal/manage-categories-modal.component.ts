@@ -5,6 +5,7 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { CommonModule } from '@angular/common';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 import { Category } from '@interfaces/category';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-manage-categories-modal',
@@ -15,7 +16,7 @@ import { Category } from '@interfaces/category';
 })
 export class ManageCategoriesModalComponent implements OnInit {
 
-  @Input({ required: true }) isModalOpen = true
+  @Input({ required: true }) isModalOpen = false;
   @Output() closeModalEvent = new EventEmitter<void>();
 
   currentUserCategories: Category[] = [];
@@ -29,16 +30,35 @@ export class ManageCategoriesModalComponent implements OnInit {
 
   isFormValid = true;
 
+  categoryExistError = false;
+
   ngOnInit(): void {
     this.userPreferencesService.currentuserCategories$.subscribe(categories => {
       
       this.currentUserCategories = categories;
+    });
+
+
+    this.manageCategoriesForm.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      if (this.doesCategoryExist(value.name ?? '')) {
+        this.categoryExistError = true;
+      } else {
+        this.categoryExistError = false;
+      }
     })
   }
 
   onFormSubmit() {
     if (this.manageCategoriesForm.invalid) {
       this.isFormValid = false;
+      return;
+    }
+
+    if (this.doesCategoryExist(this.manageCategoriesForm.value.name!)) {
+      this.categoryExistError = true;
       return;
     }
 
@@ -55,6 +75,11 @@ export class ManageCategoriesModalComponent implements OnInit {
   closeModal() {
     this.closeModalEvent.emit();
     this.manageCategoriesForm.reset({ name:"", hexColor: this.DEFAULT_COLOR_PICKER_COLOR});
+  }
+
+  doesCategoryExist(name: string) {
+    if (name === '') return false;
+    return this.currentUserCategories.some(category => category.name.toLowerCase() === name.toLowerCase());
   }
 
   get category() {

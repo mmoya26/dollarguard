@@ -6,6 +6,10 @@
             @if (category?.invalid && !isFormValid ) {
                 <p class="mb-3 text-red-500">Please enter a category name</p>
             }
+
+            @if (categoryExistError) {
+                <p class="mb-3 text-red-500">Category <span class="underline font-bold">{{manageCategoriesForm.value.name}}</span> already exists!</p>
+            }
         </div>
 
         <div class="flex flex-col gap-1">
@@ -41,7 +45,6 @@
                 <div class="text-center w-full h-full gap-2 text-slate-500">
                     <p>
                         No categories found. Create a new category to get started <i class="pi pi-sparkles"></i></p>
-                    
                 </div>
             }
         </div>
