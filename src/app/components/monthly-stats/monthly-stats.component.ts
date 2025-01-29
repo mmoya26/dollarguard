@@ -30,6 +30,9 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
   isUserEditingBudget = false;
   loadingBudget = true;
 
+  // Stats cards
+  showStatsCardsInformation = false;
+
   // highestExpense: {name: string, amount: number} | null = null;
 
   @HostListener('document:keydown', ['$event'])
@@ -110,6 +113,10 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     }
 
     this.isUserEditingBudget = false;
+  }
+
+  toggleStatsCards() {
+    this.showStatsCardsInformation = !this.showStatsCardsInformation;
   }
 
   constructor(private expensesService: ExpensesService, private userPreferencesService: UserPreferencesService) { }

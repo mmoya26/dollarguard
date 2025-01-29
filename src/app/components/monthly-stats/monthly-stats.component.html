@@ -6,7 +6,13 @@
             <div [ngClass]="!isUserEditingBudget ? 'visible' : 'hidden'"
                 class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer"
                 (click)="editBudget()" id="staleBudgetBox">
-                <h3 id="staleBudgetHeader" class="my-0 text-slate-900 text-xl font-semibold">${{formattedBudget}}</h3>
+
+                @if (this.showStatsCardsInformation) {
+                    <h3 id="staleBudgetHeader" class="my-0 text-slate-900 text-xl font-semibold">${{formattedBudget}}</h3>
+                } @else {
+                    <h3 id="staleBudgetHeader" class="my-0 text-slate-900 text-xl font-semibold">******</h3>
+                }
+
                 <p id="staleBudgetLabel" class="my-0 text-slate-600 text-base ">Monthly budget</p>
             </div>
     
@@ -25,7 +31,13 @@
     
             <div
                 class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
-                <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthExpenses}}</h3>
+                
+                @if (this.showStatsCardsInformation) {
+                    <h3 class="my-0 text-slate-900 text-xl font-semibold">${{monthExpenses}}</h3>
+                } @else {
+                    <h3 class="my-0 text-slate-900 text-xl font-semibold">******</h3>
+                }
+
                 <p class="my-0 text-slate-600 text-base ">Expenses this month</p>
             </div>
         </div>
@@ -33,7 +45,13 @@
         <div class="flex flex-col xl:flex-row gap-2">
             <div
                 class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
-                <h3 class="my-0 text-slate-900 text-xl font-semibold" [ngClass]="budgetLeft < 0 ? 'negative-budget' : ''">${{this.budgetLeft}}</h3>
+
+                @if (this.showStatsCardsInformation) {
+                    <h3 class="my-0 text-slate-900 text-xl font-semibold" [ngClass]="budgetLeft < 0 ? 'negative-budget' : ''">${{this.budgetLeft}}</h3>
+                } @else {
+                    <h3 class="my-0 text-slate-900 text-xl font-semibold">******</h3>
+                }
+                
                 <p class="my-0 text-slate-600 text-base">Budget left</p>
             </div>
     
@@ -42,6 +60,17 @@
                 <p class="my-0 text-slate-600 text-base ">Highest amount: <br> {{this.highestExpense?.name}}</p>  
             </div> -->
         </div>
+
+        <button class="flex items-center justify-end gap-1" (click)="toggleStatsCards()">
+            @if (this.showStatsCardsInformation) {
+                <i class="pi pi-eye text-slate-500 text-xs"></i>
+                <span class="text-slate-500 text-xs">Hide stats</span>
+            } @else {
+                <i class="pi pi-eye-slash text-slate-500 text-xs"></i>
+                <span class="text-slate-500 text-xs">Show stats</span>
+            }
+        </button>
+        
     } @else {
         <div class="flex flex-col xl:flex-row gap-2">
             <p-skeleton class="xl:flex-1" width="100%" height="7rem"/>

@@ -8,8 +8,6 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
-- Add hide and show option for hiding or showing numbers in the monthly card stats 
-
 - Do different view for mobile users for the expenses table
 
 - Do different view for mobile users for the percentage overview section
