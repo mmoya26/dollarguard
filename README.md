@@ -8,6 +8,8 @@ Personal project to learn Angular and back-end development.
 
 ##  Todo in general
 
+- Add hide and show option for hiding or showing numbers in the monthly card stats 
+
 - Do different view for mobile users for the expenses table
 
 - Do different view for mobile users for the percentage overview section
@@ -35,6 +37,16 @@ Personal project to learn Angular and back-end development.
 - Update toast messages service to contain list of options for parameters
 
 - Make month selector draggable certain viewport
+
+- Sort year selection page from oldest to most current year
+
+- On mobile switch date component to use native input date instead of Primeng datepicker
+
+- When filtering is implemented add the total current expenses for the active category being filtered
+
+- Update expenses table with new category if the new category already existed. It should include the new color
+
+- Create button in login screen to be able to login with test account (so setup isn’t required to test the app)
 
 ##  Todo: Expense Form (not high priority)
 
