@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { Expense } from '@interfaces/expense';;
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
@@ -26,6 +26,8 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   expensesLoading = true;
 
+  deviceType: 'Desktop' | 'Tablet' | 'Mobile' = 'Desktop'; 
+
   ngOnInit(): void {
     this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
 
@@ -34,10 +36,32 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
       this.expenses = expenses.reverse();
       this.expensesLoading = false;
     }));
+
+    this.checkDeviceType();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.checkDeviceType();
+  }
+
+  checkDeviceType() {
+    const width = window.innerWidth;
+
+    if (width <= 600) {
+      this.deviceType = 'Mobile';
+      console.log('Mobile');
+    } else if (width > 600 && width <= 1024) {
+      this.deviceType = 'Tablet';
+      console.log('Table');
+    } else {
+      this.deviceType = 'Desktop';
+      console.log('Desktop');
+    }
   }
 
   editExpense(expense: Expense) {
