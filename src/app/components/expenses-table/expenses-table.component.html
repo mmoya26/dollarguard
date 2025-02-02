@@ -55,7 +55,7 @@
     <p-toast />
 </div>
 
-
+<!-- Mobile view -->
 <div class="mt-14 md:hidden">
     <div class="flex items-center justify-between">
         <h2 class="text-xl text-slate-900 font-medium">Expenses</h2>
@@ -81,7 +81,7 @@
                         <div class="flex flex-col justify-between items-end">
                             <div [style]="'color: ' + expense.category.hexColor + ';' + 
                                 'border-color: ' + expense.category.hexColor + ';' "
-                                class=" border w-fit mx-auto px-2 py-1 rounded-full text-sm">
+                                class=" border w-fit px-2 py-1 rounded-full text-sm">
                                 {{expense.category.name}}
                             </div>
 
