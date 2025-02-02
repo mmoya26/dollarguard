@@ -26,7 +26,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   expensesLoading = true;
 
-  deviceType: 'Desktop' | 'Tablet' | 'Mobile' = 'Desktop'; 
+  deviceType: 'Desktop' | 'Tablet' | 'Mobile' = 'Mobile'; 
 
   ngOnInit(): void {
     this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
