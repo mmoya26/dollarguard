@@ -65,7 +65,3 @@ p-toast .p-toast-message-success .p-toast-message-content {
 p-toast .p-toast-message-error .p-toast-message-content {
     @apply bg-red-600;
 }
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-}
