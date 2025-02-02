@@ -33,6 +33,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
   @Output() addNewCategoryEvent = new EventEmitter<void>();
 
   @ViewChild('expenseFormElement') expenseFormElement!: ElementRef;
+  @ViewChild('mobileDateInput', { static: true }) mobileDateInput!: ElementRef<HTMLInputElement>;
 
   currentExpenseSubscription: Subscription = new Subscription();
 
@@ -207,6 +208,10 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
 
   fireAddNewCategoryEvent() {
     this.addNewCategoryEvent.emit();
+  }
+
+  openMobileCalendar() {
+    this.mobileDateInput.nativeElement.showPicker();
   }
 
   constructor(
