@@ -26,8 +26,6 @@ export class ExpensesTableComponent implements OnInit, OnDestroy{
 
   expensesLoading = true;
 
-  currentDate = new Date();
-
   ngOnInit(): void {
     this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
 

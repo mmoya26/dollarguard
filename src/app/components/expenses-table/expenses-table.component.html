@@ -65,12 +65,15 @@
             <div>
                 <h3 class="text-xl font-bold">${{expense.amount}}</h3>
                 <p class="text-slate-500 text-sm mt-1"> <i class="pi pi-calendar text-slate-500 text-sm"></i>
-                    {{this.currentDate| date: 'longDate' : 'UTC'}}</p>
-                <p class="mt-1 text-slate-700 text-sm">test note</p>
+                    {{expense.date| date: 'longDate' : 'UTC'}}</p>
+                <p class="mt-1 text-slate-700 text-sm">{{expense.notes}}</p>
             </div>
             <div class="flex flex-col justify-between items-end">
-                <div class=" border w-fit px-2 py-1 rounded-full text-sm">
-                    {{expense.category.name}}
+                <div class="flex flex-col justify-between items-center">
+                    <div [style]="'color: ' + expense.category.hexColor + ';' + 'border-color: ' + expense.category.hexColor + ';'" 
+                    class=" border w-fit mx-auto px-2 py-1 rounded-full text-sm">
+                        {{expense.category.name}}
+                    </div>
                 </div>
                 <div class="flex gap-4">
                     <i class="pi pi-pencil bg-slate-900 py-1 px-2 rounded-full text-white cursor-pointer text-base"
