@@ -17,8 +17,8 @@
                     <i class="pi pi-list"></i>
                 </p-inputGroupAddon>
 
-                <select formControlName="category" name="categories" id="category" class="inputgroup-input rounded-md appearance-none">
-                    <option value="" disabled selected class="text-gray-400">Select a category</option>
+                <select formControlName="category" name="categories" id="category" class="inputgroup-input rounded-md appearance-none" [style.color]="this.expenseForm.value.category === '' ? '#9ca3af' : 'black'">
+                    <option value="" disabled selected >Select a category</option>
 
                     @for (category of categories; track category.name) {
                         <option [value]="category.name">{{category.name}}</option>
@@ -82,16 +82,16 @@
     </div>
 
     @if (isEditingExpense) {
-    <div class="flex justify-end gap-3">
-        <button type="button" class="w-fit border-0 text-slate-900 rounded-[20px] px-5 py-2 cursor-pointer"
-            (click)="stopEditing()">Cancel</button>
-        <button type="submit"
-            class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Update</button>
-    </div>
+        <div class="flex justify-end gap-3">
+            <button type="button" class="w-fit border-0 text-slate-900 rounded-[20px] px-5 py-2 cursor-pointer"
+                (click)="stopEditing()">Cancel</button>
+            <button type="submit"
+                class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold cursor-pointer">Update</button>
+        </div>
 
     } @else {
-    <button type="submit"
-        class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
+        <button type="submit"
+            class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
     }
 
     <p-toast />

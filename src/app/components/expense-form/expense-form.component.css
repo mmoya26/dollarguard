@@ -57,6 +57,11 @@
     @apply flex gap-2;
 }
 
-#category {
-    position: relative;
+#category option {
+    color: black;
 }
+
+#category option:nth-child(1) {
+    color: #6c757d;
+}
+

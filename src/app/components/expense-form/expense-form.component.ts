@@ -171,12 +171,6 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     this.expenseForm.controls['date'].setValue(date.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric', }));
   }
 
-  // Format the category so that is able to be set to the form group
-  onCategorySelect(categoryName: DropdownChangeEvent) {
-    this.expenseForm.controls['category'].setValue(categoryName.value);
-    return categoryName.value;
-  }
-
   displayToastMessage(severity: 'Error' | 'Success', toastTransactionType: 'Delete' | 'Added' | 'Update') {
 
     const messages = {
