@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
-import { Expense } from '@interfaces/expense';;
+import { Expense } from '@interfaces/expense';
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
 import { skip, Subscription } from 'rxjs';
@@ -12,9 +12,9 @@ import { SkeletonModule } from 'primeng/skeleton';
   standalone: true,
   imports: [DatePipe, ToastModule, SkeletonModule],
   templateUrl: './expenses-table.component.html',
-  styleUrl: './expenses-table.component.css'
+  styleUrl: './expenses-table.component.css',
 })
-export class ExpensesTableComponent implements OnInit, OnDestroy {
+export class ExpensesTableComponent implements OnInit, OnDestroy{
   private subscriptions: Subscription[] = [];
 
   @Input({ required: true }) year!: string;
