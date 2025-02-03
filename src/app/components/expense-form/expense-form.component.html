@@ -6,21 +6,26 @@
         <h2 class="text-xl text-slate-900 my-0 font-medium">Add a new expense</h2>
     }
 
-    <p-toast />
-
     <div class="flex flex-col gap-3">
         <p-inputGroup class="inputgroup-container">
             <div class="mb-2 flex justify-between">
                 <label for="category" class=" text-slate-900">Category</label>
                 <button type="button" class="text-slate-500 text-xs ml-auto mt-2" (click)="fireAddNewCategoryEvent()">Add new category</button>
             </div>
-            <div class="flex">
+            <div class="flex relative">
                 <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                     <i class="pi pi-list"></i>
                 </p-inputGroupAddon>
-                <p-dropdown id="category" formControlName="category" [options]="categories" optionLabel="name"
-                    optionValue="name" placeholder="Select a category" styleClass="inputgroup-input"
-                    (onChange)="onCategorySelect($event)" />
+
+                <select formControlName="category" name="categories" id="category" class="inputgroup-input rounded-md appearance-none">
+                    <option value="" disabled selected class="text-gray-400">Select a category</option>
+
+                    @for (category of categories; track category.name) {
+                        <option [value]="category.name">{{category.name}}</option>
+                    }
+
+                </select>
+                <i class="pi pi-chevron-down absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"></i>
             </div>
             <div class="flex">
                 <div *ngIf="category?.invalid && category?.touched" class="mt-2 text-red-500">Please select a category</div>
@@ -88,5 +93,7 @@
     <button type="submit"
         class="w-fit border-0 bg-slate-900 text-white rounded-[20px] px-5 py-2 font-bold ml-auto cursor-pointer">Add</button>
     }
+
+    <p-toast />
 
 </form>

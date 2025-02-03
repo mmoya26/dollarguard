@@ -56,3 +56,7 @@
 ::ng-deep .expense-form .p-datepicker-title {
     @apply flex gap-2;
 }
+
+#category {
+    position: relative;
+}
