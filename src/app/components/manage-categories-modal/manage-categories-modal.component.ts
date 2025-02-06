@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 import { Category } from '@interfaces/category';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { startsOrEndsWithWhitespace } from '@helpers/startsOrEndsWithWhitespace';
+import { hasMultipleSpaces } from '@helpers/hasMultipleSpaces';
 
 @Component({
   selector: 'app-manage-categories-modal',
@@ -29,15 +31,14 @@ export class ManageCategoriesModalComponent implements OnInit {
   });
 
   isFormValid = true;
-
   categoryExistError = false;
+  categoryNameFormatError = false;
 
   ngOnInit(): void {
     this.userPreferencesService.currentuserCategories$.subscribe(categories => {
       
       this.currentUserCategories = categories;
     });
-
 
     this.manageCategoriesForm.valueChanges.pipe(
       debounceTime(500),
@@ -62,7 +63,12 @@ export class ManageCategoriesModalComponent implements OnInit {
       return;
     }
 
-    this.isFormValid = true;
+    if (startsOrEndsWithWhitespace(this.manageCategoriesForm.value.name!) || hasMultipleSpaces(this.manageCategoriesForm.value.name!)) {
+      this.categoryNameFormatError = true;
+      return;
+    }
+
+    this.resetErrors();
 
     this.userPreferencesService.addNewUserCategory({name: this.manageCategoriesForm.value.name!, hexColor: this.manageCategoriesForm.value.hexColor!}).subscribe();
     this.manageCategoriesForm.reset({ name:"", hexColor: this.DEFAULT_COLOR_PICKER_COLOR});
@@ -80,6 +86,12 @@ export class ManageCategoriesModalComponent implements OnInit {
   doesCategoryExist(name: string) {
     if (name === '') return false;
     return this.currentUserCategories.some(category => category.name.toLowerCase() === name.toLowerCase());
+  }
+
+  resetErrors() {
+    this.categoryExistError = false;
+    this.categoryNameFormatError = false;
+    this.isFormValid = true;
   }
 
   get category() {

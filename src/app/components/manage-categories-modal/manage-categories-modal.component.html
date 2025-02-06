@@ -10,6 +10,10 @@
             @if (categoryExistError) {
                 <p class="mb-3 text-red-500">Category <span class="underline font-bold">{{manageCategoriesForm.value.name}}</span> already exists!</p>
             }
+
+            @if (categoryNameFormatError) {
+                <p class="mb-3 text-red-500">The category name must not contain leading or trailing spaces, nor multiple consecutive spaces.</p>
+            }
         </div>
 
         <div class="flex flex-col gap-1">
