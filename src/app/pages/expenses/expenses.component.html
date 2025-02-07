@@ -9,7 +9,7 @@
 
     <app-month-selector [month]="month" [year]="year"></app-month-selector>
 
-    <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-20">
+    <div class="flex flex-col xl:flex-row justify-between items-center flex-wrap gap-y-14">
         <expense-form class="w-full xl:w-initial" [month]="month" [year]="year"
             (addNewCategoryEvent)="toggleCategoryModal()" #expenseFormComponent ></expense-form>
 
