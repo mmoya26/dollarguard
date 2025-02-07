@@ -62,13 +62,17 @@
 <div class="mt-5 flex flex-col gap-5 md:hidden">
     @for (expense of expenses; track expense.id; let idx = $index;) {
         <div class="p-4 flex justify-between bg-white border border-gray-200 drop-shadow-sm rounded-lg">
-            <div>
+            <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-bold">${{expense.amount}}</h3>
-                <p class="text-slate-500 text-sm mt-1"> <i class="pi pi-calendar text-slate-500 text-sm"></i>
+                <p class="text-slate-500 text-sm"> <i class="pi pi-calendar text-slate-500 text-sm"></i>
                     {{expense.date| date: 'longDate' : 'UTC'}}</p>
-                <p class="mt-1 text-slate-700 text-sm">{{expense.notes}}</p>
+
+                @if (expense.notes) {
+                    <p class="text-slate-700 text-sm">{{expense.notes}}</p>
+                }
+
             </div>
-            <div class="flex flex-col justify-between items-end">
+            <div class="flex flex-col justify-between items-end gap-4">
                 <div class="flex flex-col justify-between items-center">
                     <div [style]="'color: ' + expense.category.hexColor + ';' + 'border-color: ' + expense.category.hexColor + ';'" 
                     class=" border w-fit mx-auto px-2 py-1 rounded-full text-sm">

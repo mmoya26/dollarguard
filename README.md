@@ -14,7 +14,7 @@ Personal project to learn Angular and back-end development.
 
 - Add loading state for monthly cards when editing and fetching data
 
-- Add fomatting to the rest of the monthly stats cards
+- Add formatting to the rest of the monthly stats cards
 
 - Prevent user from pasting values in any of the p-inputNumber elements
 
@@ -43,14 +43,6 @@ Personal project to learn Angular and back-end development.
 - Create button in login screen to be able to login with test account (so setup isn’t required to test the app)
 
 ##  Todo: Expense Form (not high priority)
-
-- Look into creating reusable components with input fields with icons on the side
-
-- Remove outline from date field when clicking away
-
-- Remove the ability to click in the month title to navigate the calendar
-
-- Fix bug where if user leaves category option clicked error message displays
 
 - Fix rounding issue with budget left card (and problably the rest of the cards)
 
