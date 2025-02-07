@@ -67,6 +67,4 @@ Personal project to learn Angular and back-end development.
 
 - Add support for different types of currencies
 
-- Give users option for the percentages overview section to toggle between percentages and total dollar amount per category
-
 - Add filtering by category for the expenses table

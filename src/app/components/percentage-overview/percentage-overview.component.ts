@@ -6,7 +6,8 @@ import { skip, Subscription } from 'rxjs';
 import { SkeletonModule } from 'primeng/skeleton';
 
 interface ActiveCategory extends Category {
-  percentage: string
+  percentage: number,
+  expensesAmount: number
 }
 
 @Component({
@@ -25,6 +26,8 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   expensesTotalAmount = 0;
 
   calculatingPercentages = true;
+
+  showPercentages = true;
   
   ngOnInit(): void {
     this.subscription = this.expensesService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
@@ -32,6 +35,8 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
       this.calculatingPercentages = false;
+
+      console.log(this.activeCategories);
     });
   }
 
@@ -42,47 +47,47 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   }
 
   updateActiveCategories(): ActiveCategory[] {
-    // We create a need array instead of referencing the one in memory because if we don't create a new one
-    // we will be changing but the reference and the original array which will trigger multiple rerenders
-    let currentActiveCategories: ActiveCategory[] = [];
+    if (this.expenses.length === 0) {
+      return [];
+    }
+
+    let tempActiveCategories: ActiveCategory[] = [...this.activeCategories];
 
     this.expenses.forEach(e => {
-      if (!this.isCategoryActive(e.category, currentActiveCategories)) {
-        currentActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: '0' });
+      if (!this.isCategoryActive(e.category, tempActiveCategories)) {
+        tempActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: 0, expensesAmount: 0 });
       }
     })
 
-    return this.calculateActiveCategoriesPercentages(currentActiveCategories);;
+    return this.calculatePercentagesAndAmount(tempActiveCategories);;
   }
 
-  isCategoryActive(category: Category, currentActiveCategories: Category[]): boolean {
-    return currentActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
+  isCategoryActive(category: Category, tempActiveCategories: ActiveCategory[]): boolean {
+    return tempActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
   }
 
-  calculateActiveCategoriesPercentages(currentActiveCategories: ActiveCategory[]): ActiveCategory[] {
-    const newCalculatedCategories: ActiveCategory[] = currentActiveCategories.map(c => {
-      let newActiveCategory: ActiveCategory = { ...c, percentage: String(this.categoryBarWidth(c.name)) }
+  calculatePercentagesAndAmount(tempActiveCategories: ActiveCategory[]): ActiveCategory[] {
+    const newCalculatedCategories: ActiveCategory[] = tempActiveCategories.map(c => {
+      const { categoryExpenseAmount, categoryPercentage } = this.calculateCategoryStats(c);
+      let newActiveCategory: ActiveCategory = { ...c, percentage: categoryPercentage, expensesAmount: categoryExpenseAmount};
       return newActiveCategory
     });
 
     return newCalculatedCategories;
   }
 
-  categoryBarWidth(category: string) {
-    return Math.round((this.getExpensesTotalAmountByCategory(category) / this.expensesTotalAmount) * 100);
-  }
-
-
-  getExpensesTotalAmountByCategory(category: string): number {
-    let amount = 0;
+  calculateCategoryStats(category: Category): {categoryExpenseAmount: number, categoryPercentage: number } {
+    let percentageAmount = 0;
+    let expensesAmount = 0;
 
     this.expenses.forEach(expense => {
-      if (expense.category.name === category) {
-        amount += Number(expense.amount);
+      if (expense.category.name === category.name) {
+        percentageAmount += Number(expense.amount);
+        expensesAmount += expense.amount;
       }
     });
 
-    return amount;
+    return {categoryExpenseAmount: expensesAmount, categoryPercentage: Math.round((percentageAmount / this.expensesTotalAmount) * 100)};
   }
 
   constructor(private expensesService: ExpensesService) { }

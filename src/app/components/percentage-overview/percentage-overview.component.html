@@ -8,7 +8,12 @@
                     <div class="flex gap-2 items-center">
                         <div [style]="'background-color: ' + category.hexColor" class="w-3 h-3 rounded-full"></div>
                         <p class="text-slate-600 font-medium">{{category.name}}</p>
-                        <p class="text-slate-600 text-sm">{{category.percentage}}%</p>
+
+                        @if (showPercentages) {
+                            <p class="text-slate-600 text-sm">{{category.percentage}}%</p>
+                        } @else {
+                            <p class="text-slate-600 text-sm">${{category.expensesAmount}}</p>
+                        }
                     </div>
                 }
             </div>
@@ -34,6 +39,16 @@
                     }
                 }
             </div>
+
+            <button class="flex items-center justify-end gap-1 mt-2 ml-auto" (click)="this.showPercentages = !this.showPercentages">
+                @if (showPercentages) {
+                    <i class="pi pi-dollar text-slate-500 text-xs"></i>
+                    <span class="text-slate-500 text-xs">Show dollars</span>
+                } @else {
+                    <i class="pi pi-percentage text-slate-500 text-xs"></i>
+                    <span class="text-slate-500 text-xs">Show percentages</span>
+                }
+            </button>
         } @else {
             <div class="flex flex-col gap-2 w-full mt-3">
                 <div class="flex items-center gap-2">
