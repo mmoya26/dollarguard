@@ -7,11 +7,12 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Router } from '@angular/router';
 import { NewActiveYearModalComponent } from '@components/new-active-year-modal/new-active-year-modal.component';
+import { FooterComponent } from '@components/shared/footer/footer.component';
 
 @Component({
   selector: 'app-years-selection',
   standalone: true,
-  imports: [RouterLink, AsyncPipe, DialogModule, InputNumberModule, NewActiveYearModalComponent],
+  imports: [RouterLink, AsyncPipe, DialogModule, InputNumberModule, NewActiveYearModalComponent, FooterComponent],
   templateUrl: './years-selection.component.html',
   styleUrl: './years-selection.component.css'
 })
