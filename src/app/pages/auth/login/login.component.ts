@@ -5,7 +5,6 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -32,11 +31,16 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  login() {
+  login(asGuest?: boolean) {
     this.submitedForm = true;
 
-    if (this.loginForm.invalid) return;
-
+    if (!asGuest) {
+      if (this.loginForm.invalid) return;
+    } else {
+      this.loginForm.controls['username'].setValue('example@example.com');
+      this.loginForm.controls['password'].setValue('guess');
+    }
+    
     this.loginLoading = true;
     this.clearErrorMessages();
     
