@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angu
 import { Expense } from '@interfaces/expense';
 import { DatePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
-import { skip, Subscription } from 'rxjs';
+import { map, skip, Subscription } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -30,7 +30,10 @@ export class ExpensesTableComponent implements OnInit, OnDestroy{
     this.subscriptions.push(this.expenseService.getExpenses(this.year, this.month).subscribe());
 
     // Skip the first event, because it's the initial value from the behavior subject being initialized
-    this.subscriptions.push(this.expenseService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
+    this.subscriptions.push(this.expenseService.listOfExpenses$.pipe(
+      skip(1),
+      map(expenses => this.sortExpenses(expenses))
+    ).subscribe(expenses => {
       this.expenses = expenses.reverse();
       this.expensesLoading = false;
     }));
@@ -54,7 +57,12 @@ export class ExpensesTableComponent implements OnInit, OnDestroy{
         }
       }
     );
+  }
 
+  sortExpenses(expenses: Expense[]) {
+    return expenses.sort((a, b) => {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
   }
 
   formatAmount(amount: number) {

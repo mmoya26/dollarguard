@@ -40,6 +40,8 @@ Personal project to learn Angular and back-end development.
 
 - Update expenses table with new category if the new category already existed. It should include the new color
 
+- Add filtering by category for the expenses table
+
 ##  Todo: Expense Form (not high priority)
 
 - Fix rounding issue with budget left card (and problably the rest of the cards)
@@ -52,17 +54,12 @@ Personal project to learn Angular and back-end development.
 
 ##  Known defects
 
-- If a category has a big expense it will occupy 100% of the percentage overview area
-
 - Users can start editing an expense and then delete the expense before updating it (causing a 400 bad request error)
 
 - Users can paste values bigger than the max in the budget input field
 
 - If the user creates two categories with the same name both categories get deleted when one is deleted
 
-
 ##  Maybe future features
 
 - Add support for different types of currencies
-
-- Add filtering by category for the expenses table
