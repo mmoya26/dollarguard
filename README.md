@@ -40,8 +40,6 @@ Personal project to learn Angular and back-end development.
 
 - Update expenses table with new category if the new category already existed. It should include the new color
 
-- Create button in login screen to be able to login with test account (so setup isn’t required to test the app)
-
 ##  Todo: Expense Form (not high priority)
 
 - Fix rounding issue with budget left card (and problably the rest of the cards)
