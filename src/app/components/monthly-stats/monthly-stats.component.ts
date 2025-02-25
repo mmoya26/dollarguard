@@ -42,10 +42,6 @@ export class MonthlyStatsComponent implements OnInit, OnDestroy {
     }
   }
 
-  get formattedBudget() {
-    return new Intl.NumberFormat('en-US').format(this.monthlyBudget ?? 0);
-  }
-
   ngOnInit(): void {
     this.subscriptions.push(
       this.expensesService.listOfExpenses$.subscribe((_) => {

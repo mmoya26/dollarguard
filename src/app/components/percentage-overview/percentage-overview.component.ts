@@ -4,6 +4,7 @@ import { ExpensesService } from '../../services/expenses.service';
 import { Category } from '@interfaces/category';
 import { skip, Subscription } from 'rxjs';
 import { SkeletonModule } from 'primeng/skeleton';
+import { CurrencyPipe } from '@angular/common';
 
 interface ActiveCategory extends Category {
   percentage: number,
@@ -13,7 +14,7 @@ interface ActiveCategory extends Category {
 @Component({
   selector: 'percentage-overview',
   standalone: true,
-  imports: [SkeletonModule],
+  imports: [SkeletonModule, CurrencyPipe],
   templateUrl: './percentage-overview.component.html',
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {

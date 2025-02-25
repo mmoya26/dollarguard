@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { Expense } from '@interfaces/expense';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CurrencyPipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
 import { map, skip, Subscription } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
@@ -10,7 +10,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   selector: 'expenses-table',
   standalone: true,
-  imports: [DatePipe, ToastModule, SkeletonModule],
+  imports: [DatePipe, ToastModule, SkeletonModule, CurrencyPipe],
   templateUrl: './expenses-table.component.html',
   styleUrl: './expenses-table.component.css',
 })
@@ -63,10 +63,6 @@ export class ExpensesTableComponent implements OnInit, OnDestroy{
     return expenses.sort((a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
     });
-  }
-
-  formatAmount(amount: number) {
-    return new Intl.NumberFormat('en-US').format(amount);
   }
 
   get transactionsCount() {

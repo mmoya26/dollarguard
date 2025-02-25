@@ -28,7 +28,7 @@
                         @for (expense of expenses; track expense.id; let idx = $index;) {
                         <tr class="group row text-center text-slate-700 text-base">
                             <td class="py-7 px-4">{{expenses.length - idx}}</td>
-                            <td>${{formatAmount(expense.amount)}}</td>
+                            <td>{{expense.amount | currency}}</td>
                             <td>{{expense.date | date:'mediumDate':'UTC' }}</td>
                             <td>
                                 <div [style]="'color: ' + expense.category.hexColor + ';' + 

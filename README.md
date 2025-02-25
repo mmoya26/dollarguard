@@ -14,8 +14,6 @@ Personal project to learn Angular and back-end development.
 
 - Add loading state for monthly cards when editing and fetching data
 
-- Add formatting to the rest of the monthly stats cards
-
 - Prevent user from pasting values in any of the p-inputNumber elements
 
 - Figure out how to handle when users delete a category that have exisiting expenses tied to the deleted category
@@ -41,10 +39,6 @@ Personal project to learn Angular and back-end development.
 - Update expenses table with new category if the new category already existed. It should include the new color
 
 - Add filtering by category for the expenses table
-
-##  Todo: Expense Form (not high priority)
-
-- Fix rounding issue with budget left card (and problably the rest of the cards)
 
 ##  Design/create todos
 
