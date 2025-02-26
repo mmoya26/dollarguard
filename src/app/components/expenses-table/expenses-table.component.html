@@ -16,18 +16,19 @@
                 <table class="min-w-[600px] w-full border-separate border-spacing-0 bg-white">
                     <thead class="bg-transparent rounded-lg">
                         <tr class="border-none text-slate-600 ">
-                            <th class="py-5">#</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th class="w-1/4">Category</th>
-                            <th class="text-transparent">Missing</th>
+                            <th class="py-5 w-[10%]">#</th>
+                            <th class="w-1/6">Amount</th>
+                            <th class="w-1/6">Date</th>
+                            <th class="w-1/6">Category</th>
+                            <th class="w-1/6">Notes</th>
+                            <th class="text-transparent w-1/12">Missing</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         @for (expense of expenses; track expense.id; let idx = $index;) {
                         <tr class="group row text-center text-slate-700 text-base">
-                            <td class="py-7 px-4">{{expenses.length - idx}}</td>
+                            <td class="py-7">{{expenses.length - idx}}</td>
                             <td>{{expense.amount | currency}}</td>
                             <td>{{expense.date | date:'mediumDate':'UTC' }}</td>
                             <td>
@@ -35,6 +36,7 @@
                                                         'border-color: ' + expense.category.hexColor + ';' "
                                     class=" border w-fit mx-auto px-3 py-2 rounded-full">{{expense.category.name}}</div>
                             </td>
+                            <td>{{expense.notes}}</td>
                             <td class="w-1/5">
                                 <i class="pi pi-pencil bg-slate-900 p-3 rounded-full text-white cursor-pointer"
                                     (click)="editExpense(expense)"></i>
