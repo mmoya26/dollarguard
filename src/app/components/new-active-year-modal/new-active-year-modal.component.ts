@@ -7,11 +7,11 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-new-active-year-modal',
-  standalone: true,
-  imports: [ModalComponent, InputNumberModule, FormsModule],
-  templateUrl: './new-active-year-modal.component.html',
-  styleUrl: './new-active-year-modal.component.css'
+    selector: 'app-new-active-year-modal',
+    imports: [ModalComponent, InputNumberModule, FormsModule],
+    standalone: true,
+    templateUrl: './new-active-year-modal.component.html',
+    styleUrl: './new-active-year-modal.component.css'
 })
 export class NewActiveYearModalComponent {
   @Input({ required: true }) activeYears: number[] = [];

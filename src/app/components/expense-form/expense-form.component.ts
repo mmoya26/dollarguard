@@ -19,12 +19,12 @@ import { ToastService } from '../../services/toast.service';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 
 @Component({
-  selector: 'expense-form',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule,
-    InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
-  templateUrl: './expense-form.component.html',
-  styleUrl: './expense-form.component.css'
+    selector: 'expense-form',
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule,
+        InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
+    templateUrl: './expense-form.component.html',
+    styleUrl: './expense-form.component.css'
 })
 export class ExpenseFormComponent implements OnInit, OnDestroy {
   @Input({ required: true }) month = ''

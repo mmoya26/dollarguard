@@ -10,11 +10,11 @@ import { startsOrEndsWithWhitespace } from '@helpers/startsOrEndsWithWhitespace'
 import { hasMultipleSpaces } from '@helpers/hasMultipleSpaces';
 
 @Component({
-  selector: 'app-manage-categories-modal',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, DialogModule, CommonModule, ColorPickerModule],
-  templateUrl: './manage-categories-modal.component.html',
-  styleUrl: './manage-categories-modal.component.css'
+    selector: 'app-manage-categories-modal',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, DialogModule, CommonModule, ColorPickerModule],
+    templateUrl: './manage-categories-modal.component.html',
+    styleUrl: './manage-categories-modal.component.css'
 })
 export class ManageCategoriesModalComponent implements OnInit {
 

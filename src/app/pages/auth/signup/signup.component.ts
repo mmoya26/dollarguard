@@ -5,11 +5,11 @@ import { AuthService } from '../../../services/auth.service';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, InputGroupAddonModule],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+    selector: 'app-register',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, InputGroupAddonModule],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.css'
 })
 export class SignUpComponent {
 

@@ -8,11 +8,11 @@ import { ToastModule } from 'primeng/toast';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-  selector: 'expenses-table',
-  standalone: true,
-  imports: [DatePipe, ToastModule, SkeletonModule, CurrencyPipe],
-  templateUrl: './expenses-table.component.html',
-  styleUrl: './expenses-table.component.css',
+    selector: 'expenses-table',
+    standalone: true,
+    imports: [DatePipe, ToastModule, SkeletonModule, CurrencyPipe],
+    templateUrl: './expenses-table.component.html',
+    styleUrl: './expenses-table.component.css'
 })
 export class ExpensesTableComponent implements OnInit, OnDestroy{
   private subscriptions: Subscription[] = [];

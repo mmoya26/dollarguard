@@ -12,10 +12,10 @@ import { UserPreferencesService } from '../../services/user-preferences.service'
 import { ManageCategoriesModalComponent } from '@components/manage-categories-modal/manage-categories-modal.component';
 
 @Component({
-  selector: 'app-expenses',
-  standalone: true,
-  imports: [RouterLink, ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent, ManageCategoriesModalComponent],
-  templateUrl: './expenses.component.html',
+    selector: 'app-expenses',
+    standalone: true,
+    imports: [RouterLink, ExpenseFormComponent, MonthlyStatsComponent, PercentageOverviewComponent, ExpensesTableComponent, MonthSelectorComponent, ManageCategoriesModalComponent],
+    templateUrl: './expenses.component.html'
 })
 export class ExpensesComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];

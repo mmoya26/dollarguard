@@ -12,10 +12,10 @@ interface ActiveCategory extends Category {
 }
 
 @Component({
-  selector: 'percentage-overview',
-  standalone: true,
-  imports: [SkeletonModule, CurrencyPipe],
-  templateUrl: './percentage-overview.component.html',
+    selector: 'percentage-overview',
+    standalone: true,
+    imports: [SkeletonModule, CurrencyPipe],
+    templateUrl: './percentage-overview.component.html'
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();

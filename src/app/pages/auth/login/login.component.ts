@@ -6,11 +6,11 @@ import { Router } from '@angular/router';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterLink, InputGroupAddonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+    selector: 'app-login',
+    standalone: true,
+    imports: [ReactiveFormsModule, FormsModule, RouterLink, InputGroupAddonModule],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css'
 })
 export class LoginComponent {
 

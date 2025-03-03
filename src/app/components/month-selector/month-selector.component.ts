@@ -4,26 +4,24 @@ import { RouterLink, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
-  selector: 'app-month-selector',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './month-selector.component.html',
-  animations: [
-    trigger('openMonthsMenu', [
-      state('open', style({
-        opacity: 1,
-        visibility: 'visible'
-      })),
-
-      state('close', style({
-        opacity: 0,
-        visibility: 'hidden'
-      })),
-
-      // From open to close & from close to open animate in 0.2s
-      transition('open <=> close', [animate('0.2s')]),
-    ])
-  ]
+    selector: 'app-month-selector',
+    standalone: true,
+    imports: [RouterLink],
+    templateUrl: './month-selector.component.html',
+    animations: [
+        trigger('openMonthsMenu', [
+            state('open', style({
+                opacity: 1,
+                visibility: 'visible'
+            })),
+            state('close', style({
+                opacity: 0,
+                visibility: 'hidden'
+            })),
+            // From open to close & from close to open animate in 0.2s
+            transition('open <=> close', [animate('0.2s')]),
+        ])
+    ]
 })
 export class MonthSelectorComponent implements OnInit {
   @Input({ required: true }) month = ''

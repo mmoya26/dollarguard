@@ -9,11 +9,11 @@ import { UpdateBudgetDto } from '@interfaces/user-preferences';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-  selector: 'monthly-stats',
-  standalone: true,
-  imports: [InputNumberModule, FormsModule, CommonModule, SkeletonModule],
-  templateUrl: './monthly-stats.component.html',
-  styleUrl: './monthly-stats.component.css'
+    selector: 'monthly-stats',
+    standalone: true,
+    imports: [InputNumberModule, FormsModule, CommonModule, SkeletonModule],
+    templateUrl: './monthly-stats.component.html',
+    styleUrl: './monthly-stats.component.css'
 })
 export class MonthlyStatsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
