@@ -26,8 +26,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "primeicons/primeicons.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -96,8 +95,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "primeicons/primeicons.css"
             ],
             "scripts": []
           }
