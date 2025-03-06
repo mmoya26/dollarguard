@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 ::ng-deep .expense-input input {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-input);

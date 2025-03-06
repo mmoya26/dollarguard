@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 ::ng-deep .base-modal .p-component-overlay {
     @apply p-5;
 }

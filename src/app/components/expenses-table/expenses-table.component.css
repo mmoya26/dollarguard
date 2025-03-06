@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 table thead tr th {
     @apply bg-gray-100 sticky top-0;
 }
