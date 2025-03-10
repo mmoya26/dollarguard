@@ -53,16 +53,12 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
     let tempActiveCategories: ActiveCategory[] = [];
 
     this.expenses.forEach(e => {
-      if (!this.isCategoryActive(e.category, tempActiveCategories)) {
-        tempActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: 0, expensesAmount: 0 });
+      if (!tempActiveCategories.some(c => c.name === e.category.name)) {
+        tempActiveCategories.push({ ...e.category, percentage: 0, expensesAmount: 0 });
       }
     })
 
     return this.calculatePercentagesAndAmount(tempActiveCategories);;
-  }
-
-  isCategoryActive(category: Category, tempActiveCategories: ActiveCategory[]): boolean {
-    return tempActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
   }
 
   calculatePercentagesAndAmount(tempActiveCategories: ActiveCategory[]): ActiveCategory[] {
