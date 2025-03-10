@@ -21,7 +21,7 @@
                 </div>
                 
                 @if (username?.invalid && submitedForm) {
-                <div class="mt-2 text-red-500">Please enter your email</div>
+                    <div class="mt-2 text-red-500">Please enter your email</div>
                 }
 
             </div>
@@ -37,7 +37,7 @@
                 
 
                 @if (password?.invalid && submitedForm) {
-                <div class="mt-2 text-red-500">Please enter your password</div>
+                    <div class="mt-2 text-red-500">Please enter your password</div>
                 }
             </div>
 
@@ -50,7 +50,7 @@
             }
 
             <p class="text-center mt-3 text-slate-600">Don't have an account? <a routerLink="/signup" class="text-indigo-600 hover:underline">Sign up now</a></p>
-            <button type="button" class="text-slate-600 " (click)="login(true)">Login as a guest</button>
+            <button type="button" class="text-slate-600 cursor-pointer" (click)="login(true)">Login as a guest</button>
         </form>
     </div>
 </div>

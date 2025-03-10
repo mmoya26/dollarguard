@@ -3,8 +3,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
-import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,12 +16,13 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from '../../services/toast.service';
 import { UserPreferencesService } from '../../services/user-preferences.service';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     selector: 'expense-form',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, FormsModule, KeyFilterModule, FloatLabelModule,
-        InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, CalendarModule, InputNumberModule, ToastModule],
+        InputGroupModule, InputGroupAddonModule, InputTextModule, DropdownModule, DatePickerModule, InputNumberModule, ToastModule],
     templateUrl: './expense-form.component.html',
     styleUrl: './expense-form.component.css'
 })

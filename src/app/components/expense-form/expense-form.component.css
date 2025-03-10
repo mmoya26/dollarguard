@@ -28,8 +28,7 @@
     width: 100%;
 }
 
-::ng-deep .expense-form .p-inputtext.normal-input,
-::ng-deep .expense-form .normal-input>span>input.p-inputtext {
+::ng-deep .expense-form input {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: 1px solid #e5e7eb;
@@ -38,12 +37,6 @@
     background-color: white;
     padding-left: 0;
     padding-right: 20px;
-}
-
-
-::ng-deep .expense-form .inputgroup-container>div {
-    display: flex;
-    flex-direction: column;
 }
 
 ::ng-deep .expense-form p-calendar>span {

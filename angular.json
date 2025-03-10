@@ -28,6 +28,7 @@
               "src/styles.css",
               "primeicons/primeicons.css"
             ],
+            
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": false,

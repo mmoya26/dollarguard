@@ -36,8 +36,6 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
       this.calculatingPercentages = false;
-
-      console.log(this.activeCategories);
     });
   }
 
