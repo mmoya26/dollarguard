@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [ReactiveFormsModule, FormsModule, RouterLink, InputGroupAddonModule],
+    imports: [ReactiveFormsModule, FormsModule, RouterLink, InputGroupAddonModule, InputGroupModule],
     templateUrl: './login.component.html',
     styleUrl: './login.component.css'
 })

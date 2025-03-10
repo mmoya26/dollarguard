@@ -32,6 +32,7 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.subscription = this.expensesService.listOfExpenses$.pipe(skip(1)).subscribe(expenses => {
+      debugger;
       this.expenses = expenses;
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
