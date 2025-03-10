@@ -51,7 +51,7 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       return [];
     }
 
-    let tempActiveCategories: ActiveCategory[] = [...this.activeCategories];
+    let tempActiveCategories: ActiveCategory[] = [];
 
     this.expenses.forEach(e => {
       if (!this.isCategoryActive(e.category, tempActiveCategories)) {
