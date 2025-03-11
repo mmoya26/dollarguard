@@ -12,7 +12,7 @@
 
     @if (!expensesLoading) {
         @if (expenses.length > 0) {
-            <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-sm">
+            <div class="mt-5 max-h-[500px] overflow-y-scroll border border-gray-200 rounded-lg drop-shadow-xs">
                 <table class="min-w-[600px] w-full border-separate border-spacing-0 bg-white">
                     <thead class="bg-transparent rounded-lg">
                         <tr class="border-none text-slate-600 ">
@@ -72,7 +72,7 @@
     </div>
 
     @for (expense of expenses; track expense.id; let idx = $index;) {
-        <div class="p-4 flex justify-between bg-white border border-gray-200 drop-shadow-sm rounded-lg">
+        <div class="p-4 flex justify-between bg-white border border-gray-200 drop-shadow-xs rounded-lg">
             <div class="flex flex-col gap-2">
                 <h3 class="text-xl font-bold">${{expense.amount}}</h3>
                 <p class="text-slate-500 text-sm"> <i class="pi pi-calendar text-slate-500 text-sm"></i>

@@ -1,9 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import "primeicons/primeicons.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap') layer(base);
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@source './**/*.{html,ts,css}';
+
+@theme {
+    --spacing-initial: "initial";
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
 
 :root {
     --border-color: #e5e7eb;
@@ -21,7 +34,7 @@ body {
 
 html,
 body {
-    @apply w-full h-full p-0 m-0 overflow-x-hidden
+    @apply w-full h-full p-0 m-0 overflow-x-hidden;
 }
 
 *:focus-visible {
@@ -35,7 +48,7 @@ body {
 }
 
 .auth-inputs {
-    @apply border border-l-0 border-gray-200 w-full py-3 px-0 rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg;
+    @apply border border-l-0 border-gray-200 w-full py-3 px-0 rounded-tl-none rounded-bl-none rounded-tr-lg rounded-br-lg bg-white;
 }
 
 
@@ -64,6 +77,10 @@ p-toast .p-toast-message-success .p-toast-message-content {
 
 p-toast .p-toast-message-error .p-toast-message-content {
     @apply bg-red-600;
+}
+
+.p-toast-detail {
+    @apply text-white;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {

@@ -1,7 +1,4 @@
-::ng-deep .expense-input input {
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-input);
-}
+@reference "tailwindcss";
 
 ::ng-deep .expense-form .inputgroup-input {
     border-top-left-radius: 0px;
@@ -21,31 +18,23 @@
     background-color: transparent;
 }
 
-::ng-deep .expense-form .p-inputtext.normal-input,
-::ng-deep .expense-form .normal-input>span {
-    width: 100%;
-}
-
-::ng-deep .expense-form .p-inputtext.normal-input,
-::ng-deep .expense-form .normal-input>span>input.p-inputtext {
+::ng-deep .expense-form input {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border: 1px solid #e5e7eb;
     border-left-width: 0;
     width: 100%;
     background-color: white;
-    padding-left: 0;
-    padding-right: 20px;
-}
-
-
-::ng-deep .expense-form .inputgroup-container>div {
-    display: flex;
-    flex-direction: column;
+    padding: 12px 20px 12px 0;
+    min-height: 50px;
 }
 
 ::ng-deep .expense-form p-calendar>span {
     height: 100%;
+}
+
+::ng-deep .expense-form .expense-datepicker span.p-datepicker {
+    @apply w-full;
 }
 
 ::ng-deep .expense-form .p-inputtext:enabled:focus,
@@ -64,4 +53,3 @@
 #category option:nth-child(1) {
     color: #6c757d;
 }
-

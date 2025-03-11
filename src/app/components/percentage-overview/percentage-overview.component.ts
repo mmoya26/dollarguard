@@ -12,10 +12,10 @@ interface ActiveCategory extends Category {
 }
 
 @Component({
-  selector: 'percentage-overview',
-  standalone: true,
-  imports: [SkeletonModule, CurrencyPipe],
-  templateUrl: './percentage-overview.component.html',
+    selector: 'percentage-overview',
+    standalone: true,
+    imports: [SkeletonModule, CurrencyPipe],
+    templateUrl: './percentage-overview.component.html'
 })
 export class PercentageOverviewComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
@@ -36,8 +36,6 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
       this.expensesTotalAmount = this.expensesService.expensesTotalAmount;
       this.activeCategories = this.updateActiveCategories();
       this.calculatingPercentages = false;
-
-      console.log(this.activeCategories);
     });
   }
 
@@ -55,16 +53,12 @@ export class PercentageOverviewComponent implements OnInit, OnDestroy {
     let tempActiveCategories: ActiveCategory[] = [];
 
     this.expenses.forEach(e => {
-      if (!this.isCategoryActive(e.category, tempActiveCategories)) {
-        tempActiveCategories.push({ name: e.category.name, hexColor: e.category.hexColor, percentage: 0, expensesAmount: 0 });
+      if (!tempActiveCategories.some(c => c.name === e.category.name)) {
+        tempActiveCategories.push({ ...e.category, percentage: 0, expensesAmount: 0 });
       }
     })
 
     return this.calculatePercentagesAndAmount(tempActiveCategories);;
-  }
-
-  isCategoryActive(category: Category, tempActiveCategories: ActiveCategory[]): boolean {
-    return tempActiveCategories.findIndex(ac => ac.name === category.name) === -1 ? false : true;
   }
 
   calculatePercentagesAndAmount(tempActiveCategories: ActiveCategory[]): ActiveCategory[] {

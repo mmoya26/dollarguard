@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 ::ng-deep #newActiveYearModal .p-inputnumber {
     @apply w-full;
 }

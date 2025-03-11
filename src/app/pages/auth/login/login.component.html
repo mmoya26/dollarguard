@@ -13,31 +13,31 @@
             <div class="flex flex-col gap-y-1">
                 <label for="email">Email</label>
 
-                <div class="flex">
+                <p-inputGroup class="flex">
                     <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                         <i class="pi pi-envelope"></i>
                     </p-inputGroupAddon>
                     <input class="auth-inputs" type="email" name="email" id="email" formControlName="username" autocomplete="on">
-                </div>
+                </p-inputGroup>
                 
                 @if (username?.invalid && submitedForm) {
-                <div class="mt-2 text-red-500">Please enter your email</div>
+                    <div class="mt-2 text-red-500">Please enter your email</div>
                 }
 
             </div>
 
             <div class="flex flex-col gap-y-1">
                 <label for="password">Password</label>
-                <div class="flex">
+                <p-inputGroup class="flex">
                     <p-inputGroupAddon class="border border-r-0 border-gray-200 bg-white">
                         <i class="pi pi-lock"></i>
                     </p-inputGroupAddon>
                     <input class="auth-inputs" type="password" name="password" id="password" formControlName="password">
-                </div>
+                </p-inputGroup>
                 
 
                 @if (password?.invalid && submitedForm) {
-                <div class="mt-2 text-red-500">Please enter your password</div>
+                    <div class="mt-2 text-red-500">Please enter your password</div>
                 }
             </div>
 
@@ -50,7 +50,7 @@
             }
 
             <p class="text-center mt-3 text-slate-600">Don't have an account? <a routerLink="/signup" class="text-indigo-600 hover:underline">Sign up now</a></p>
-            <button type="button" class="text-slate-600 " (click)="login(true)">Login as a guest</button>
+            <button type="button" class="text-slate-600 cursor-pointer" (click)="login(true)">Login as a guest</button>
         </form>
     </div>
 </div>

@@ -3,13 +3,14 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { RouterLink, Router} from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, InputGroupAddonModule],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+    selector: 'app-register',
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, InputGroupAddonModule, InputGroupModule],
+    templateUrl: './signup.component.html',
+    styleUrl: './signup.component.css'
 })
 export class SignUpComponent {
 

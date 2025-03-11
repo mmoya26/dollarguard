@@ -4,7 +4,7 @@
         <div class="flex flex-col xl:flex-row gap-2">
             <!-- Card that will display when not editing -->
             <div [ngClass]="!isUserEditingBudget ? 'visible' : 'hidden'"
-                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer"
+                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-xs flex-1 justify-center cursor-pointer"
                 (click)="editBudget()" id="staleBudgetBox">
 
                 @if (this.showStatsCardsInformation) {
@@ -18,7 +18,7 @@
     
             <!-- Card that will display when editing -->
             <div [ngClass]="isUserEditingBudget ? 'visible active-border' : 'hidden'"
-                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center cursor-pointer"
+                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-xs flex-1 justify-center cursor-pointer"
                 id="editBudgetBox">
                 <form (ngSubmit)="handleBudgetChanges()" class="flex justify-center" id="editBudgetBoxForm">
                     <span class="text-slate-900 text-xl font-semibold" id="editBudgetDollarSign">$</span>
@@ -30,7 +30,7 @@
             </div>
     
             <div
-                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
+                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-xs flex-1 justify-center">
                 
                 @if (this.showStatsCardsInformation) {
                     <h3 class="my-0 text-slate-900 text-xl font-semibold">{{monthExpenses | currency}}</h3>
@@ -44,7 +44,7 @@
     
         <div class="flex flex-col xl:flex-row gap-2">
             <div
-                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
+                class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-xs flex-1 justify-center">
 
                 @if (this.showStatsCardsInformation) {
                     <h3 class="my-0 text-slate-900 text-xl font-semibold" [ngClass]="budgetLeft < 0 ? 'negative-budget' : ''">{{this.budgetLeft | currency}}</h3>
@@ -55,7 +55,7 @@
                 <p class="my-0 text-slate-600 text-base">Budget left</p>
             </div>
     
-            <!-- <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-sm flex-1 justify-center">
+            <!-- <div class="flex flex-col text-center bg-white border border-gray-200 h-32 py-5 px-14 rounded-lg drop-shadow-xs flex-1 justify-center">
                 <h3 class="my-0 text-slate-900 text-xl font-semibold">${{this.highestExpense?.amount || 0}}</h3>
                 <p class="my-0 text-slate-600 text-base ">Highest amount: <br> {{this.highestExpense?.name}}</p>  
             </div> -->

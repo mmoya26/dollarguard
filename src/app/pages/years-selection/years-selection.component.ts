@@ -10,11 +10,11 @@ import { NewActiveYearModalComponent } from '@components/new-active-year-modal/n
 import { FooterComponent } from '@components/shared/footer/footer.component';
 
 @Component({
-  selector: 'app-years-selection',
-  standalone: true,
-  imports: [RouterLink, AsyncPipe, DialogModule, InputNumberModule, NewActiveYearModalComponent, FooterComponent],
-  templateUrl: './years-selection.component.html',
-  styleUrl: './years-selection.component.css'
+    selector: 'app-years-selection',
+    standalone: true,
+    imports: [RouterLink, AsyncPipe, DialogModule, InputNumberModule, NewActiveYearModalComponent, FooterComponent],
+    templateUrl: './years-selection.component.html',
+    styleUrl: './years-selection.component.css'
 })
 export class YearsSelectionComponent implements OnInit {
   currentMonth = new Date().getMonth() + 1;

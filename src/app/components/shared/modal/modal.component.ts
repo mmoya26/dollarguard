@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
-  selector: 'app-modal',
-  standalone: true,
-  imports: [DialogModule],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+    selector: 'app-modal',
+    standalone: true,
+    imports: [DialogModule],
+    templateUrl: './modal.component.html',
+    styleUrl: './modal.component.css'
 })
 export class ModalComponent {
   @Input({required: true}) headerTitle!: string;
