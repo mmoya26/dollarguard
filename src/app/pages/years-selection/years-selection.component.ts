@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -25,6 +25,8 @@ export class YearsSelectionComponent implements OnInit {
 
   isNewActiveYearModalOpen = false;
 
+  removeMode = signal(true);
+
   ngOnInit(): void {
     this.activeYears$ = this.userPreferences.getUserActiveYears();
 
@@ -36,6 +38,15 @@ export class YearsSelectionComponent implements OnInit {
   openNewYearModal() {
     this.isNewActiveYearModalOpen = true;
   }
-  
+
+  fireRemoveMode() {
+    console.log('toggle remove mode');
+    this.removeMode.set(!this.removeMode());
+  }
+
+  removeYear(year: number) {
+    console.log('remove year', year);
+  }
+
   constructor(private userPreferences: UserPreferencesService, private router: Router) {}
 }
