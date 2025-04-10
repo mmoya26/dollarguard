@@ -25,7 +25,7 @@ export class YearsSelectionComponent implements OnInit {
 
   isNewActiveYearModalOpen = false;
 
-  removeMode = signal(true);
+  removeMode = signal(false);
 
   ngOnInit(): void {
     this.activeYears$ = this.userPreferences.getUserActiveYears();
@@ -39,8 +39,7 @@ export class YearsSelectionComponent implements OnInit {
     this.isNewActiveYearModalOpen = true;
   }
 
-  fireRemoveMode() {
-    console.log('toggle remove mode');
+  toggleRemoveMode() {
     this.removeMode.set(!this.removeMode());
   }
 

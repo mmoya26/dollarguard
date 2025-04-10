@@ -1,6 +1,10 @@
 <div class="h-screen flex flex-col justify-between">
     <div class="content-container relative">
-        <button class="text-slate-500 ml-auto block cursor-pointer" (click)="fireRemoveMode()"><i class="pi pi-cog font-medium mr-1 mb-6"></i>Edit Years</button>
+        @if(removeMode()) {
+            <button class="text-slate-500 ml-auto block cursor-pointer" (click)="toggleRemoveMode()"><i class="pi pi-cog font-medium mr-1 mb-6"></i>Finish Editing</button>
+        } @else {
+            <button class="text-slate-500 ml-auto block cursor-pointer" (click)="toggleRemoveMode()"><i class="pi pi-cog font-medium mr-1 mb-6"></i>Edit Years</button>
+        }
 
         @if (removeMode()) {
             <h1 class="text-center font-bold text-4xl text-slate-900">Deleting Years</h1>

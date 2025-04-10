@@ -30,6 +30,7 @@
 
 body {
     background-color: #fbfbfb;
+    touch-action: manipulation
 }
 
 html,
