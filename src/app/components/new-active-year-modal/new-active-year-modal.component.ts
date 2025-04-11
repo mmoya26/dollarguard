@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ModalComponent } from '@components/shared/modal/modal.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { UserPreferencesService } from '../../services/user-preferences.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Observable, tap } from 'rxjs';
 
 
 @Component({
@@ -13,14 +14,23 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './new-active-year-modal.component.html',
     styleUrl: './new-active-year-modal.component.css'
 })
-export class NewActiveYearModalComponent {
-  @Input({ required: true }) activeYears: number[] = [];
+export class NewActiveYearModalComponent implements OnInit{
+  @Input({ required: true }) obActiveYears!: Observable<number[]>;
   @Input({ required: true }) isOpen: boolean = false;
 
   @Output() onModalClose: EventEmitter<void> = new EventEmitter<void>();
 
   yearAlreadyExistsError = false;
   newYearFormValue: number | null = null;
+
+  activeYears!: number[];
+
+  ngOnInit(): void {
+    this.obActiveYears.subscribe(years => {
+      this.activeYears = years;
+      console.log('test', this.activeYears);
+    });
+  }
 
   isYearTracked() {
     return this.activeYears.includes(this.newYearFormValue!);

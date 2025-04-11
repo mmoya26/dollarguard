@@ -67,5 +67,9 @@ export class UserPreferencesService {
     return this.http.patch<UserPreferences>(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years`, { year });
   }
 
+  removeActiveYear(year: number) {
+    return this.http.delete(`${this.USER_PREFERENCES_BASE_END_POINT}/active-years/`, {body: { year }});
+  }
+
   constructor(private http: HttpClient) { }
 }

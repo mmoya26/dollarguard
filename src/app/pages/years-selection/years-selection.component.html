@@ -50,4 +50,5 @@
     <app-footer></app-footer>
 </div>
 
-<app-new-active-year-modal [activeYears]="activeYears" [isOpen]="isNewActiveYearModalOpen" (onModalClose)="this.isNewActiveYearModalOpen = false"></app-new-active-year-modal>
+<app-new-active-year-modal [obActiveYears]="activeYears$" [isOpen]="isNewActiveYearModalOpen" (onModalClose)="this.isNewActiveYearModalOpen = false"></app-new-active-year-modal>
+<p-confirm-dialog />
